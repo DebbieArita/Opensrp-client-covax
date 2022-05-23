@@ -1,9 +1,144 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-plugins {
-    id 'com.android.application' version '7.1.3' apply false
-    id 'com.android.library' version '7.1.3' apply false
+
+buildscript {
+
+    ext.kotlinVersion = '1.5.21'
+
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven { url "https://jitpack.io" }
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.0.2"
+        classpath 'org.smartregister:gradle-jarjar-plugin:1.0.0-SNAPSHOT'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+allprojects {
+    repositories {
+        google()
+//        androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
+//        androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+
+//        def robolectricVersion = '4.4'
+//        testImplementation "org.robolectric:robolectric:$robolectricVersion"
+//        testImplementation "org.robolectric:shadows-multidex:$robolectricVersion"
+//        testImplementation "org.robolectric:shadows-supportv4:$robolectricVersion"
+//        testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'
+//        testImplementation group: 'org.skyscreamer', name: 'jsonassert', version: '1.5.0'
+//        testImplementation 'com.ibm.fhir:fhir-model:4.7.1'
+//        testImplementation 'junit:junit:4.13.1'
+//        testImplementation 'androidx.test:core:1.4.0'
+//        testImplementation 'androidx.work:work-testing:2.5.0'
+//        testImplementation 'org.mockito:mockito-core:3.1.0'
+//        testImplementation "io.mockk:mockk:1.12.0"
+    }
+
+    task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+
+        reports {
+            xml.enabled(true)
+            html.enabled(true)
+        }
+
+        getReports().getXml().destination(file("${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"))
+        getReports().getHtml().destination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
+
+        def excludes = [
+                '**/R.class',
+                '**/R$*.class',
+                '**/BuildConfig.*',
+                '**/*$ViewInjector*.*',
+                '**/Manifest*.*',
+                '**/*Test*.*',
+                'android/**/*.*',
+                '**/ZeirApplication*.*',
+                '**/AppSyncConfiguration*.*',
+                '**Constant*.*',
+                '**/*$ViewBinder*.*']
+
+        def javaDebugTree = fileTree(dir: "$project.buildDir/intermediates/javac/debug/classes/", excludes: excludes)
+        def kotlinDebugTree = fileTree(dir: "${project.buildDir}/tmp/kotlin-classes/debug", excludes: excludes)
+        def mainSrc = "$project.projectDir/src/main/java"
+        def kotlinSrc = "$project.projectDir/src/main/kotlin"
+
+        sourceDirectories.setFrom(files([mainSrc, kotlinSrc]))
+        classDirectories.setFrom(files([javaDebugTree, kotlinDebugTree]))
+
+        executionData.setFrom(
+                fileTree(dir: project.buildDir, includes: [
+                        'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
+                ])
+        )
+    }
+
+//    task javadoc(type: Javadoc) {
+//        failOnError false
+//        def mainSrc = "$project.projectDir/src/main/java"
+//        def kotlinSrc = "$project.projectDir/src/main/kotlin"
+//        source = files([mainSrc, kotlinSrc])
+//        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//        classpath += configurations.compile
+//    }
+
+//    coveralls {
+//        jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
+//    }
+
+//    mavenCentral()
+//    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+//    maven { url 'https://jitpack.io' }
+//    maven { url "http://acra.googlecode.com/svn/repository/releases" }
+//    maven { url "https://repo.maven.apache.org/maven2" }
+//    maven { url "http://cloudant.github.io/cloudant-sync-eap/repository" }
+//    maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
+//    maven {
+//        url 'https://dl.bintray.com/ibm-watson-health/ibm-fhir-server-releases'
+//        content {
+//            // Ignore this group
+//            includeGroup "com.ibm.fhir"
+//        }
+//    }
+//    mavenLocal()
+//    jcenter()
+}
+
+
+project.ext.preDexLibs = !project.hasProperty('disablePreDex')
+
+subprojects {
+
+    group = 'org.smartregister'
+
+    ext.androidToolsBuildGradle = '4.0.1'
+    ext.androidBuildToolsVersion = '29.0.3'
+    ext.androidMinSdkVersion = 19
+    ext.androidCompileSdkVersion = 30
+    ext.androidTargetSdkVersion = 30
+
+    ext.androidAnnotationsVersion = '3.0.1'
+    ext.androidAnnotationsAPIVersion = '3.0.1'
+
+    ext.jacocoVersion = "0.8.7"
+
+    // Improve build server performance by allowing disabling of pre-dexing
+    // (see http://tools.android.com/tech-docs/new-build-system/tips#TOC-Improving-Build-Server-performance.)
+    project.plugins.whenPluginAdded { plugin ->
+        if ("com.android.build.gradle.AppPlugin".equals(plugin.class.name)) {
+            project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
+        } else if ("com.android.build.gradle.LibraryPlugin".equals(plugin.class.name)) {
+            project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
+        }
+    }
+}
+
+apply plugin: 'build-dashboard'
+
+buildDashboard {
+    reports.html.setDestination(file("build/"))
 }
