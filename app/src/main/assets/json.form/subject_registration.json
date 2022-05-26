@@ -1,0 +1,337 @@
+{
+  "count": "1",
+  "encounter_type": "Subject Registration",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "{{subject_registration.step1.title}}",
+    "fields": [
+      {
+        "key": "First_Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "type": "edit_text",
+        "hint": "{{subject_registration.step1.first_name.hint}}",
+        "edit_type": "name",
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "{{subject_registration.step1.first_name.v_regex.err}}"
+        },
+        "constraints": [
+          {
+            "type": "text",
+            "ex": "Total 30 characters in length",
+            "err": "greater than 30 characters"
+          }
+        ]
+      },
+      {
+        "key": "Last_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "last_name",
+        "type": "edit_text",
+        "hint": "{{subject_registration.step1.last_name.hint}}",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "{{subject_registration.step1.last_name.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "{{subject_registration.step1.last_name.v_regex.err}}"
+        },
+        "constraints": [
+          {
+            "type": "text",
+            "ex": "Total 30 characters in length",
+            "err": "greater than 30 characters"
+          }
+        ]
+      },
+      {
+        "key": "ZEIR_ID",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "ZEIR_ID",
+        "type": "integer",
+        "hint": "{{subject_registration.step1.zeir_id.hint}}",
+        "value": "0",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{subject_registration.step1.zeir_id.v_numeric.err}}"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{subject_registration.step1.zeir_id.v_required.err}}"
+        }
+      },
+      {
+        "key": "Sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "spinner",
+        "hint": "{{subject_registration.step1.gender.hint}}",
+        "options": [
+          {
+            "key": "Male",
+            "text": "{{subject_registration.step1.gender.values[0]}}",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "Female",
+            "text": "{{subject_registration.step1.gender.values[1]}}",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{subject_registration.step1.gender.v_required.err}}"
+        }
+      },
+      {
+        "key": "Date_Birth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate",
+        "type": "Date",
+        "expanded": false,
+        "duration": {
+          "label": "{{subject_registration.step1.dob.duration.label}}"
+        },
+        "min_date": "today-12y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "{{subject_registration.step1.dob.v_required.err}}"
+        }
+      },
+      {
+        "key": "Age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "{{subject_registration.step1.age.hint}}",
+        "v_min": {
+          "value": "0",
+          "err": "{{subject_registration.step1.age.v_min.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{subject_registration.step1.age.v_numeric.err}}"
+        }
+      },
+      {
+        "key": "Weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "{{subject_registration.step1.weight.hint}}",
+        "v_min": {
+          "value": "0.1",
+          "err": "{{subject_registration.step1.weight.v_min.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{subject_registration.step1.weight.v_numeric.err}}"
+        }
+      },
+      {
+        "key": "covax_protection",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164826AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "sub_type": "status",
+        "hint": "{{subject_registration.step1.covacs_protection.hint}}",
+        "values": [
+          "{{subject_registration.step1.covacs_protection.values[0]}}",
+          "{{subject_registration.step1.covacs_protection.values[1]}}",
+          "{{subject_registration.step1.covacs_protection.values[2]}}"
+        ],
+        "keys": [
+          "Yes",
+          "No",
+          "Don't Know"
+        ],
+        "v_required": {
+          "value": true,
+          "err": "{{subject_registration.step1.covacs_protection.v_required.err}}"
+        }
+      },
+      {
+        "key": "home_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address4",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "sub_type": "health_facility",
+        "hint": "{{subject_registration.step1.home_facility.hint}}",
+        "values": [
+          "{{subject_registration.step1.home_facility.values[0]}}",
+          "{{subject_registration.step1.home_facility.values[1]}}",
+          "{{subject_registration.step1.home_facility.values[2]}}",
+          "{{subject_registration.step1.home_facility.values[3]}}",
+          "{{subject_registration.step1.home_facility.values[4]}}",
+          "{{subject_registration.step1.home_facility.values[5]}}",
+          "{{subject_registration.step1.home_facility.values[6]}}",
+          "{{subject_registration.step1.home_facility.values[7]}}"
+        ],
+        "keys": [
+          "Jalaram Nursing Home",
+          "Jaramogi Oginga Odinga Teaching & Referral Hospital (JOOTRH)",
+          "Nairobi Women Hospital",
+          "Montana Hospital",
+          "Provincial General Hospital",
+          "Outspan Hospital",
+          "Jalaram Nursing Home",
+          "Other"
+        ],
+        "v_required": {
+          "value": true,
+          "err": "{{subject_registration.step1.home_facility.v_required.err}}"
+        }
+      },
+      {
+        "key": "Phone_Number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "text",
+        "label": "{{subject_registration.step1.phone_number.label}}",
+        "expanded": false,
+        "min_date": "today-5y",
+        "max_date": "today",
+        "v_min": {
+          "value": "0",
+          "err": "{{subject_registration.step1.phone_number.v_min.err}}"
+        }
+      },
+      {
+        "key": "Residential_Area",
+        "openmrs_entity_parent": "usual_residence",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address3",
+        "type": "spinner",
+        "label": "{{subject_registration.step1.residential_area.label}}",
+        "edit_type": "name",
+        "sub_type": "location",
+        "values": [
+          "{{subject_registration.step1.residential_area.values[0]}}",
+          "{{subject_registration.step1.residential_area.values[1]}}",
+          "{{subject_registration.step1.residential_area.values[2]}}",
+          "{{subject_registration.step1.residential_area.values[3]}}",
+          "{{subject_registration.step1.residential_area.values[4]}}",
+          "{{subject_registration.step1.residential_area.values[5]}}",
+          "{{subject_registration.step1.residential_area.values[6]}}",
+          "{{subject_registration.step1.residential_area.values[7]}}"
+        ],
+        "keys": [
+          "Kisumu",
+          "Kisumu",
+          "Nairobi",
+          "Mombasa",
+          "Nyeri",
+          "Nyeri",
+          "Kisumu",
+          "Other"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{subject_registration.step1.residential_area.v_required.err}}"
+        }
+      },
+      {
+        "key": "Residential_Area_Other",
+        "openmrs_entity_parent": "usual_residence",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address5",
+        "type": "edit_text",
+        "label": "{{subject_registration.step1.residential_area_other.label}}",
+        "edit_type": "text",
+        "relevance": {
+          "step1:remove_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Other\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{subject_registration.step1.residential_area_other.v_required.err}}"
+        }
+      },
+      {
+        "key": "Residential_Address",
+        "openmrs_entity_parent": "usual_residence",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address2",
+        "type": "edit_text",
+        "label": "{{subject_registration.step1.residential_address.label}}",
+        "edit_type": "text",
+        "v_required": {
+          "value": "true",
+          "err": "{{subject_registration.step1.residential_address.v_required.err}}"
+        }
+      }
+    ]
+  },
+  "properties_file_name": "subject_registration"
+}
