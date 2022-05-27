@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.opensrp_client_covacs.R;
 import com.example.opensrp_client_covacs.util.AppConstants;
+import com.example.opensrp_client_covacs.view.NavDrawerActivity;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.material.internal.NavigationMenu;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
