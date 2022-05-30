@@ -72,7 +72,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
         RecurringServiceJob.scheduleJob(RecurringServiceJob.TAG,
                 TimeUnit.MINUTES.toMinutes(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES),
-                getFlexValue(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES))
+                getFlexValue(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES));
     }
 
     @Override
