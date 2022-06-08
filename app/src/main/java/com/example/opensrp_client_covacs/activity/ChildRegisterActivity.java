@@ -7,15 +7,19 @@ import androidx.fragment.app.Fragment;
 
 import com.example.opensrp_client_covacs.R;
 import com.example.opensrp_client_covacs.fragment.ChildRegisterFragment;
+import com.example.opensrp_client_covacs.model.AppChildRegisterModel;
+import com.example.opensrp_client_covacs.presenter.AppChildRegisterPresenter;
 import com.example.opensrp_client_covacs.util.AppConstants;
 import com.example.opensrp_client_covacs.util.AppUtils;
 import com.example.opensrp_client_covacs.view.NavDrawerActivity;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.material.internal.NavigationMenu;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.child.activity.BaseChildRegisterActivity;
 import org.smartregister.child.domain.UpdateRegisterParams;
 import org.smartregister.child.util.ChildJsonFormUtils;
@@ -31,10 +35,6 @@ import timber.log.Timber;
 
 public class ChildRegisterActivity extends BaseChildRegisterActivity implements NavDrawerActivity {
 
-
-
-
-
     private NavigationMenu navigationMenu;
     private Fragment[] fragments;
 
@@ -46,11 +46,16 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
         return fragments;
     }
 
-//    @Override
-//    protected void onActivityResult() {
-//        super.onActivityResult();
-//    }
 
+//    what does this do
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == AllConstants.BARCODE.BARCODE_REQUEST_CODE && resultCode == RESULT_OK) {
+            Barcode barcode = data.getParcelableExtra(AllConstants.BARCODE.BARCODE_KEY);
+//            ((AppChildRegisterPresenter) presenter).updateChildCardStatus(barcode.displayValue);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
 
     @Override
@@ -60,6 +65,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
 
     @Override
     protected void initializePresenter() {
+        presenter = new AppChildRegisterPresenter(this, new AppChildRegisterModel());
     }
 
     @Override
@@ -68,19 +74,19 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
         return weakReference.get();
     }
 
-//    @Override
-//    protected void onResumption() {
-//        super.onResumption();
-//        WeakReference<ChildRegisterActivity> weakReference = new WeakReference<>(this);
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        WeakReference<ChildRegisterActivity> weakReference = new WeakReference<>(this);
 //        navigationMenu = NavigationMenu.getInstance(weakReference.get());
-//    }
-//
-//    @Override
-//    public void openDrawer() {
-//        if (navigationMenu != null) {
+    }
+
+    @Override
+    public void openDrawer() {
+        if (navigationMenu != null) {
 //            navigationMenu.openDrawer();
-//        }
-//    }
+        }
+    }
 
     @Override
     public void onPause() {
@@ -123,13 +129,9 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
         finish();
     }
 
-    @Override
-    public void openDrawer() {
-
-    }
 
     @Override
-    protected void registerBottomNavigation() {
+    protected void registerBottomNavigation () {
         super.registerBottomNavigation();
 
         MenuItem clients = bottomNavigationView.getMenu().findItem(R.id.action_clients);
@@ -144,4 +146,5 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
 //        String jsonForm = AppUtils.validateChildZone(jsonString);
 //        super.saveForm(jsonForm, updateRegisterParam);
 //    }
+
 }

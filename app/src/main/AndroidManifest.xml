@@ -42,7 +42,7 @@
 <!--            android:theme="@style/ChildTheme.NoActionBar"-->
 <!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
 <!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.dropuout.DropoutReportsActivity"-->
+<!--            android:name="org.smartregister.path.reporting.dropout.DropoutReportsActivity"-->
 <!--            android:screenOrientation="portrait"-->
 <!--            android:theme="@style/ChildTheme.NoActionBar"-->
 <!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
