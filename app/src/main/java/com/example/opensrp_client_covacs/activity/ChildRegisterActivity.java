@@ -6,7 +6,11 @@ import android.view.MenuItem;
 import androidx.fragment.app.Fragment;
 
 import com.example.opensrp_client_covacs.R;
+import com.example.opensrp_client_covacs.fragment.ChildRegisterFragment;
+import com.example.opensrp_client_covacs.model.AppChildRegisterModel;
+import com.example.opensrp_client_covacs.presenter.AppChildRegisterPresenter;
 import com.example.opensrp_client_covacs.util.AppConstants;
+import com.example.opensrp_client_covacs.util.AppUtils;
 import com.example.opensrp_client_covacs.view.NavDrawerActivity;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.material.internal.NavigationMenu;
@@ -38,15 +42,20 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
     protected Fragment[] getOtherFragments() {
         ADVANCED_SEARCH_POSITION = 1;
         fragments = new Fragment[1];
-        fragments[ADVANCED_SEARCH_POSITION - 1] = new WeakReference<>(new AdvancedSearchFragment()).get();
+//        fragments[ADVANCED_SEARCH_POSITION - 1] = new WeakReference<>(new AdvancedSearchFragment()).get();
         return fragments;
     }
 
-    @Override
-    protected void onActivityResult() {
-        super.onActivityResult();
-    }
 
+//    what does this do
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == AllConstants.BARCODE.BARCODE_REQUEST_CODE && resultCode == RESULT_OK) {
+            Barcode barcode = data.getParcelableExtra(AllConstants.BARCODE.BARCODE_KEY);
+//            ((AppChildRegisterPresenter) presenter).updateChildCardStatus(barcode.displayValue);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
 
     @Override
@@ -56,6 +65,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
 
     @Override
     protected void initializePresenter() {
+        presenter = new AppChildRegisterPresenter(this, new AppChildRegisterModel());
     }
 
     @Override
@@ -68,13 +78,13 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
     protected void onResumption() {
         super.onResumption();
         WeakReference<ChildRegisterActivity> weakReference = new WeakReference<>(this);
-        navigationMenu = NavigationMenu.getInstance(weakReference.get());
+//        navigationMenu = NavigationMenu.getInstance(weakReference.get());
     }
 
     @Override
     public void openDrawer() {
         if (navigationMenu != null) {
-            navigationMenu.openDrawer();
+//            navigationMenu.openDrawer();
         }
     }
 
@@ -93,34 +103,35 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
 
         Intent intent = new Intent(this, Utils.metadata().childFormActivity);
         String updatedForm = jsonForm.toString();
-        try {
-            updatedForm = FormUtils.obtainUpdatedForm(jsonForm, this);
-        } catch (JSONException e) {
-            Timber.e(e);
-        }
+//        try {
+//            updatedForm = FormUtils.obtainUpdatedForm(jsonForm, this);
+//        } catch (JSONException e) {
+//            Timber.e(e);
+//        }
         intent.putExtra(Constants.INTENT_KEY.JSON, updatedForm);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
         startActivityForResult(intent, ChildJsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
-    @Override
-    protected void updateSearchItems(String barcodeSearchTerm) {
-        advancedSearchFormData.put(AppConstants.KeyConstants.ZEIR_ID, barcodeSearchTerm);
-        Fragment fragment = fragments[ADVANCED_SEARCH_POSITION - 1];
-        if (fragment instanceof AdvancedSearchFragment) {
-            AdvancedSearchFragment advancedSearchFragment = (AdvancedSearchFragment) fragment;
-            advancedSearchFragment.searchByOpenSRPId(barcodeSearchTerm);
-        }
-    }
+//    @Override
+//    protected void updateSearchItems(String barcodeSearchTerm) {
+//        advancedSearchFormData.put(AppConstants.KeyConstants.ZEIR_ID, barcodeSearchTerm);
+//        Fragment fragment = fragments[ADVANCED_SEARCH_POSITION - 1];
+//        if (fragment instanceof AdvancedSearchFragment) {
+//            AdvancedSearchFragment advancedSearchFragment = (AdvancedSearchFragment) fragment;
+//            advancedSearchFragment.searchByOpenSRPId(barcodeSearchTerm);
+//        }
+//    }
 
     @Override
     public void finishActivity() {
         finish();
     }
 
+
     @Override
-    protected void registerBottomNavigation() {
+    protected void registerBottomNavigation () {
         super.registerBottomNavigation();
 
         MenuItem clients = bottomNavigationView.getMenu().findItem(R.id.action_clients);
@@ -130,9 +141,10 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
         bottomNavigationView.getMenu().removeItem(R.id.action_library);
     }
 
-    @Override
-    public void saveForm(String jsonString, UpdateRegisterParams updateRegisterParam) {
-        String jsonForm = AppUtils.validateChildZone(jsonString);
-        super.saveForm(jsonForm, updateRegisterParam);
-    }
+//    @Override
+//    public void saveForm(String jsonString, UpdateRegisterParams updateRegisterParam) {
+//        String jsonForm = AppUtils.validateChildZone(jsonString);
+//        super.saveForm(jsonForm, updateRegisterParam);
+//    }
+
 }

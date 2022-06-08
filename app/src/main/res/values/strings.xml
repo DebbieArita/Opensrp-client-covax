@@ -60,54 +60,29 @@
     <string name="child_report_grouping_title">Child</string>
 
     <!-- Immunization Names-->
-    <string name="hepb">HepB</string>
-    <string name="opv_0">OPV 0</string>
-    <string name="opv_1">OPV 1</string>
-    <string name="pcv_1">PCV 1</string>
-    <string name="penta_1">Penta 1</string>
-    <string name="rota_1">Rota 1</string>
-    <string name="opv_2">OPV 2</string>
-    <string name="pcv_2">PCV 2</string>
-    <string name="penta_2">Penta 2</string>
-    <string name="rota_2">Rota 2</string>
-    <string name="opv_3">OPV 3</string>
-    <string name="pcv_3">PCV 3</string>
-    <string name="penta_3">Penta 3</string>
-    <string name="meningococcal">Meningococcal</string>
-    <string name="yellow_fever">Yellow Fever</string>
-    <string name="mr_1">MR 1</string>
-    <string name="mr_2">MR 2</string>
+    <string name="pfi_1">Pfizer 1</string>
+    <string name="mod_1">Moderna 1</string>
+    <string name="j_and_j">Johnson and Jansen</string>
+
+    <string name="pfi_2">Pfizer 2</string>
+    <string name="mod_2">Moderna 2</string>
+
+    <string name="pfi_booster">Pfizer Booster</string>
+    <string name="mod_booster">Moderna Booster</string>
+
+    <string name="pfi_booster_2">Pfizer Booster 2</string>
+    <string name="mod_booster_2">Moderna Booster 2</string>
 
     <string name="search_hint">Search Register</string>
 
     <string name="supported_by">Supported by</string>
 
-    <string name="child_birth_registration_number">Child\'s birth registration number</string>
-    <string name="child_unique_id">Child\'s birth certificate number</string>
-    <string name="child_first_name">Child\'s first name</string>
-    <string name="child_last_name">Child\'s last name</string>
-    <string name="dob_range">Child\'s date of birth (range)</string>
-    <string name="mother_caregiver_first_name">"Mother/caregiver first name"</string>
-    <string name="mother_first_name">"Mother first name"</string>
-    <string name="mother_last_name">"Mother last name"</string>
-    <string name="mother_caregiver_last_name">"Mother/caregiver last name"</string>
-    <string name="mother_caregiver_phone">Mother/caregiver\'s phone number</string>
-    <string name="father_phone">Father phone number</string>
-    <string name="mother_dob">Mother date of birth</string>
-    <string name="mother_nationality">Mother/Caregiver nationality</string>
-    <string name="mother_nationality_other">"Indicate Mother/caregiver nationality "</string>
-    <string name="mother_caregiver_alt_phone">"Mother/Caregiver other phone "</string>
-    <string name="mother_tdv_doses">"Mother Td vaccine doses "</string>
-    <string name="mother_rubella">"Mother received Rubella vaccine  "</string>
+    <string name="ZEIR_ID">Vaccination ID</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
     <string name="child_DOB">Date of birth</string>
-    <string name="mother_name">M/CG: %1$s</string>
+
     <string name="adverse_effects">Adverse Effects</string>
-    <string name="first_birth">Mother\'s first birth</string>
-    <string name="rubella_serology">Mother received Rubella Serology test</string>
-    <string name="serology_results">Serology test result</string>
-    <string name="maximum_extra_vaccines_reached">You can only record a maximum of 10 vaccines</string>
-    <string name="sms_recipient">Vaccines  SMS reminder recipient</string>
-    <string name="monthly_immunization_growth_monitoring_reports">Immunization and Growth Monitoring Monthly Reports</string>
 
     <!-- Report indicators -->
 
@@ -418,99 +393,7 @@
     <string name="report_group_header_vita_deworming_itns">Vitamin A, Deworming, and ITNs</string>
     <string name="report_group_header_immunisation">Immunisation</string>
 
-    <string name="CHN1_005">Attendance child health 0-23 months</string>
-    <string name="CHN1_010">Attendance child health 24 -59 months</string>>
-    <string name="CHN1_025">Attendance child health total</string>
-    <string name="CHN1_030">Attendance from outside catchment\'s area</string>
 
-    <string name="CHN2_005">Child weighed 0–23 months</string>
-    <string name="CHN2_010">Child weighed 24–59 months</string>
-    <string name="CHN2_015">Total child weighed</string>
-    <string name="CHN2_020">Children 0-23 months height/length taken</string>
-    <string name="CHN2_025">Children 24 -59 months height/length taken</string>
-    <string name="CHN2_030">Total child height/length taken</string>
-    <string name="CHN2_035">Children 0-23 months with both height/length and weight measured</string>
-    <string name="CHN2_040">Children 24-59 months with both height/length and weight measured</string>
-    <string name="CHN2_045">Total children with both height/length and weight measured</string>
-    <string name="CHN2_050">Moderately underweight at 0-23months</string>
-    <string name="CHN2_055">Moderately underweight at 24-59months</string>
-    <string name="CHN2_060">Total moderately underweight &lt; 5years</string>
-    <string name="CHN2_065">Severely underweight at 0-23months</string>
-    <string name="CHN2_070">Severely underweight at 24-59months</string>
-    <string name="CHN2_075">Total severely underweight &lt; 5years</string>
-    <string name="CHN2_080">Moderate stunting at 0-23months</string>
-    <string name="CHN2_085">Moderate stunting at 24-59months</string>
-    <string name="CHN2_090">Total moderate stunting &lt; 5years</string>
-    <string name="CHN2_095">Severe stunting at 0-23months</string>
-    <string name="CHN2_100">Severe stunting at 24-59months</string>
-    <string name="CHN2_105">Total severe stunting &lt; 5years</string>
-
-    <string name="CHN2_250">Vitamin A supplement to infant and children 6-11 months</string>
-    <string name="CHN2_255">Vitamin A supplement to infant and children 12-59 months</string>
-    <string name="CHN2_260">Deworming dose 12-59 months</string>
-    <string name="CHN1_035">Children who received insecticide treated nets</string>
-
-    <string name="CHN3_005">BCG dose (&lt; 1 year) at the facility</string>
-    <string name="CHN3_010">BCG dose (&lt; 1 year) at outreach</string>
-    <string name="CHN3_015">Total number of children >1 year who received BCG dose</string>
-    <string name="CHN3_025">OPV0 (&lt; 1 year) at facility</string>
-    <string name="CHN3_030">OPV0 (&lt; 1 year) at outreach</string>
-    <string name="CHN3_035">Total number of children &gt; 1 year who received OPV0 dose</string>
-    <string name="CHN3_045">OPV1 (&lt; 1 year) at facility</string>
-    <string name="CHN3_050">OPV1 (&lt; 1 year) at outreach</string>
-    <string name="CHN3_055">Total number of children &gt; 1 year who received OPV1 dose</string>
-    <string name="CHN3_065">OPV2 (&lt; 1 year) at facility</string>
-    <string name="CHN3_070">OPV2 (&lt; 1 year) at outreach</string>
-    <string name="CHN3_075">Total number of children &gt; 1 year who received OPV2 dose</string>
-    <string name="CHN3_085">OPV3 (&lt; 1 year) at facility</string>
-    <string name="CHN3_090">OPV3 (&lt; 1 year) at outreach</string>
-    <string name="CHN3_095">Total number of children >1 year who received OPV3 dose</string>
-    <string name="CHN3_285">IPV (&lt; 1 year) at facility</string>
-    <string name="CHN3_290">IPV (&lt; 1 year) at outreach</string>
-    <string name="CHN3_295">Total number of children &gt; 1 year who received IPV dose</string>
-    <string name="CHN3_105">OPV4 (&lt; 1 year) at facility</string>
-    <string name="CHN3_110">OPV4 (&lt; 1 year) at outreach</string>
-    <string name="CHN3_115">Total number of children &gt; 1 year who received OPV4 dose</string>
-    <string name="CHN3_125">Penta 1 (&lt; 1 year) at facility</string>
-    <string name="CHN3_130">Penta 1 (&lt; 1 year) at outreach</string>
-    <string name="CHN3_135">Total number of children &gt; 1 year who received Penta 1 dose</string>
-    <string name="CHN3_145">Penta 2 (&lt; 1 year) at facility</string>
-    <string name="CHN3_150">Penta 2 (&lt;1 year) at outreach</string>
-    <string name="CHN3_155">Total number of children &gt; 1 year who received Penta 2 dose</string>
-    <string name="CHN3_165">Penta 3 (&lt; 1 year) at facility</string>
-    <string name="CHN3_170">Penta 3 (&lt; 1 year) at outreach</string>
-    <string name="CHN3_175">Total number of children &gt; 1 year who received Penta 3 dose</string>
-    <string name="CHN3_185">PCV 1 (&lt; 1 year) at facility</string>
-    <string name="CHN3_190">PCV 1 (&lt; 1 year) at outreach</string>
-    <string name="CHN3_195">Total number of children &gt; 1 year who received PCV1 dose</string>
-    <string name="CHN3_205">PCV 2 (&lt; 1 year) at facility</string>
-    <string name="CHN3_210">PCV 2 (&lt; 1 year) at outreach</string>
-    <string name="CHN3_215">Total number of children &gt; 1 year who received PCV2 dose</string>
-    <string name="CHN3_225">PCV 3 (&lt; 1 year) at facility</string>
-    <string name="CHN3_230">PCV 3 (&lt; 1 year) at outreach</string>
-    <string name="CHN3_235">Total number of children &gt; 1 year who received PCV3 dose</string>
-    <string name="CHN3_245">RV 1 (&lt; 1 year) at facility</string>
-    <string name="CHN3_250">RV 1 (&lt; 1 year) at outreach</string>
-    <string name="CHN3_255">Total number of children &gt; 1 year who received RV1 dose</string>
-    <string name="CHN3_265">RV 2 (&lt; 1 year) at facility</string>
-    <string name="CHN3_270">RV 2 (&lt; 1 year) at outreach</string>
-    <string name="CHN3_275">Total number of children &gt; 1 year who received RV 2 dose</string>
-    <string name="CHN3_325">MR 1 (&lt; 1 year) at facility</string>
-    <string name="CHN3_330">MR 1 (&lt; 1 year) at outreach</string>
-    <string name="CHN3_335">Total number of children &gt; 1 year who received MR 1 dose</string>
-    <string name="CHN3_345">Fully immunised (&lt; 1 year) at facility</string>
-    <string name="CHN3_350">Fully immunised (&lt; 1 year) at outreach</string>
-    <string name="CHN3_355">Fully immunised &gt; 1 year </string>
-    <string name="CHN3_365">MR 2 (at 18 months) at facility</string>
-    <string name="CHN3_370">MR 2 (at 18 months) at outreach</string>
-    <string name="CHN3_375">Total number of children at 18 months who received MR 2 dose</string>
-    <string name="CHN3_380">Fully immunised &lt; 2 years (under 2) at facility</string>
-    <string name="CHN3_385">Fully immunised &lt; 2 years (under 2) at outreach</string>
-    <string name="CHN3_390">Fully immunised &lt; 2 years </string>
-    <string name="CHN3_395">Days in a month Cold-chain fridge was functional</string>
-    <string name="CHN3_305">Total number of children &lt; 1 year who received other immunizations at the facility</string>
-    <string name="CHN3_310">Total number of children &lt; 1 year who received other immunizations at outreach</string>
-    <string name="CHN3_315">Total number of children &gt; 1 year who received other immunizations at the facility</string>
 
     <string name="daily_tallies_with_day">Daily Tallies &gt; %1s</string>
 

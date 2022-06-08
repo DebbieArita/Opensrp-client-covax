@@ -17,8 +17,6 @@ import org.smartregister.view.contract.BaseLoginContract;
 
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
 
-    private static final String WFH_CSV_PARSED = "WEIGHT_FOR_HEIGHT_CSV_PARSED";
-
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
@@ -47,7 +45,6 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     public void goToHome(boolean remote) {
         if (remote) {
             LocationHelper.getInstance().locationIdsFromHierarchy();
-            processWeightForHeightZScoreCSV();
         }
 
         if (mLoginPresenter.isServerSettingsSet()) {
@@ -59,11 +56,4 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         finish();
     }
 
-    private void processWeightForHeightZScoreCSV() {
-        AllSharedPreferences allSharedPreferences = CovacsApplication.getInstance().getContext().allSharedPreferences();
-        if (!allSharedPreferences.getPreference(WFH_CSV_PARSED).equals("true")) {
-            WeightForHeightIntentService.startParseWFHZScores(this);
-            allSharedPreferences.savePreference(WFH_CSV_PARSED, "true");
-        }
-    }
 }

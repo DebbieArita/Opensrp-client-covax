@@ -8,9 +8,15 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.evernote.android.job.JobManager;
 import com.example.opensrp_client_covacs.BuildConfig;
+import com.example.opensrp_client_covacs.activity.ChildFormActivity;
+import com.example.opensrp_client_covacs.activity.ChildImmunizationActivity;
+import com.example.opensrp_client_covacs.activity.ChildProfileActivity;
 import com.example.opensrp_client_covacs.activity.ChildRegisterActivity;
 import com.example.opensrp_client_covacs.activity.LoginActivity;
+import com.example.opensrp_client_covacs.repository.AppChildRegisterQueryProvider;
+import com.example.opensrp_client_covacs.repository.CovacsRepository;
 import com.example.opensrp_client_covacs.util.AppConstants;
+import com.example.opensrp_client_covacs.util.AppUtils;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import org.greenrobot.eventbus.EventBus;
@@ -86,48 +92,47 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
                 commonFtsObject.updateSortFields(ftsTable, getFtsSortFields(ftsTable, context));
             }
         }
-        commonFtsObject.updateAlertScheduleMap(getAlertScheduleMap(context));
+//        commonFtsObject.updateAlertScheduleMap(getAlertScheduleMap(context));
 
         return commonFtsObject;
     }
 
     private static String[] getFtsTables() {
-        return new String[]{DBConstants.RegisterTable.CLIENT, DBConstants.RegisterTable.MOTHER_DETAILS, DBConstants.RegisterTable.CHILD_DETAILS};
+        return new String[]{DBConstants.RegisterTable.CLIENT};
     }
 
     private static String[] getFtsSearchFields(String tableName) {
-        switch (tableName) {
-            case DBConstants.RegisterTable.CLIENT:
-                return new String[]{
-                        DBConstants.KEY.ZEIR_ID,
-                        DBConstants.KEY.FIRST_NAME,
-                        DBConstants.KEY.LAST_NAME
-                };
-            case DBConstants.RegisterTable.CHILD_DETAILS:
-                return new String[]{DBConstants.KEY.LOST_TO_FOLLOW_UP, DBConstants.KEY.INACTIVE};
-            case DBConstants.RegisterTable.MOTHER_DETAILS:
-                return new String[]{AppConstants.KeyConstants.MOTHER_GUARDIAN_NUMBER,};
-            default:
-                return null;
+        if (DBConstants.RegisterTable.CLIENT.equals(tableName)) {
+            return new String[]{
+                    DBConstants.KEY.ZEIR_ID,
+                    DBConstants.KEY.FIRST_NAME,
+                    DBConstants.KEY.LAST_NAME
+            };
+//            case DBConstants.RegisterTable.CHILD_DETAILS:
+//                return new String[]{DBConstants.KEY.LOST_TO_FOLLOW_UP, DBConstants.KEY.INACTIVE};
         }
+        return null;
     }
 
     private static String[] getFtsSortFields(String tableName, android.content.Context context) {
         switch (tableName) {
             case AppConstants.TableNameConstants.ALL_CLIENTS:
                 return Arrays.asList(AppConstants.KeyConstants.FIRST_NAME, AppConstants.KeyConstants.LAST_NAME,
-                        AppConstants.KeyConstants.DOB, AppConstants.KeyConstants.ZEIR_ID, AppConstants.KeyConstants.LAST_INTERACTED_WITH,
-                        AppConstants.KeyConstants.DOD, AppConstants.KeyConstants.DATE_REMOVED).toArray(new String[0]);
+                        AppConstants.KeyConstants.DOB, AppConstants.KeyConstants.ZEIR_ID, AppConstants.KeyConstants.GENDER,
+                        AppConstants.KeyConstants.COUNTY, AppConstants.KeyConstants.HEALTH_FACILITY, AppConstants.KeyConstants.REGISTRATION_DATE).toArray(new String[0]);
+//                        AppConstants.KeyConstants.DOD, AppConstants.KeyConstants.DATE_REMOVED).toArray(new String[0]);
             case DBConstants.RegisterTable.CHILD_DETAILS:
                 List<VaccineGroup> vaccineList = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
                 List<String> names = new ArrayList<>();
-                names.add(DBConstants.KEY.INACTIVE);
-                names.add(AppConstants.KeyConstants.RELATIONAL_ID);
-                names.add(DBConstants.KEY.LOST_TO_FOLLOW_UP);
+                names.add(DBConstants.KEY.ZEIR_ID);
+                names.add(AppConstants.KeyConstants.REGISTRATION_DATE);
+                names.add(AppConstants.KeyConstants.USERNAME);
+                names.add(AppConstants.KeyConstants.REACTION_VACCINE);
 
-                for (VaccineGroup vaccineGroup : vaccineList) {
-                    populateAlertColumnNames(vaccineGroup.vaccines, names);
-                }
+
+//                for (VaccineGroup vaccineGroup : vaccineList) {
+//                    populateAlertColumnNames(vaccineGroup.vaccines, names);
+//                }
 
                 return names.toArray(new String[0]);
 
@@ -136,24 +141,24 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         }
     }
 
-    private static void populateAlertColumnNames(List<Vaccine> vaccines, List<String> names) {
-
-        for (Vaccine vaccine : vaccines)
-            if (vaccine.getVaccineSeparator() != null && vaccine.getName().contains(vaccine.getVaccineSeparator().trim())) {
-                String[] individualVaccines = vaccine.getName().split(vaccine.getVaccineSeparator().trim());
-
-                List<Vaccine> vaccineList = new ArrayList<>();
-                for (String individualVaccine : individualVaccines) {
-                    Vaccine vaccineClone = new Vaccine();
-                    vaccineClone.setName(individualVaccine.trim());
-                    vaccineList.add(vaccineClone);
-
-                }
-                populateAlertColumnNames(vaccineList, names);
-            } else {
-                names.add("alerts." + VaccinateActionUtils.addHyphen(vaccine.getName()));
-            }
-    }
+//    private static void populateAlertColumnNames(List<Vaccine> vaccines, List<String> names) {
+//
+//        for (Vaccine vaccine : vaccines)
+//            if (vaccine.getVaccineSeparator() != null && vaccine.getName().contains(vaccine.getVaccineSeparator().trim())) {
+//                String[] individualVaccines = vaccine.getName().split(vaccine.getVaccineSeparator().trim());
+//
+//                List<Vaccine> vaccineList = new ArrayList<>();
+//                for (String individualVaccine : individualVaccines) {
+//                    Vaccine vaccineClone = new Vaccine();
+//                    vaccineClone.setName(individualVaccine.trim());
+//                    vaccineList.add(vaccineClone);
+//
+//                }
+//                populateAlertColumnNames(vaccineList, names);
+//            } else {
+//                names.add("alerts." + VaccinateActionUtils.addHyphen(vaccine.getName()));
+//            }
+//    }
 
 
     private static void populateAlertScheduleMap(List<Vaccine> vaccines, Map<String, Pair<String, Boolean>> map) {
@@ -176,27 +181,27 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
             }
     }
 
-    private static Map<String, Pair<String, Boolean>> getAlertScheduleMap(android.content.Context context) {
-        List<VaccineGroup> vaccines = getVaccineGroups(context);
-
-        Map<String, Pair<String, Boolean>> map = new HashMap<>();
-
-        for (VaccineGroup vaccineGroup : vaccines) {
-            populateAlertScheduleMap(vaccineGroup.vaccines, map);
-        }
-        return map;
-    }
+//    private static Map<String, Pair<String, Boolean>> getAlertScheduleMap(android.content.Context context) {
+//        List<VaccineGroup> vaccines = getVaccineGroups(context);
+//
+//        Map<String, Pair<String, Boolean>> map = new HashMap<>();
+//
+//        for (VaccineGroup vaccineGroup : vaccines) {
+//            populateAlertScheduleMap(vaccineGroup.vaccines, map);
+//        }
+//        return map;
+//    }
 
     public static synchronized CovacsApplication getInstance() {
         return (CovacsApplication) mInstance;
     }
 
-    public static List<VaccineGroup> getVaccineGroups(android.content.Context context) {
-        if (vaccineGroups == null) {
-            vaccineGroups = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
-        }
-        return vaccineGroups;
-    }
+//    public static List<VaccineGroup> getVaccineGroups(android.content.Context context) {
+//        if (vaccineGroups == null) {
+//            vaccineGroups = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
+//        }
+//        return vaccineGroups;
+//    }
 
     @Override
     public void onCreate() {
@@ -210,18 +215,14 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         //Initialize Modules
         CoreLibrary.init(context, new AppSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
 
-        GrowthMonitoringConfig growthMonitoringConfig = new GrowthMonitoringConfig();
-        growthMonitoringConfig.setWeightForHeightZScoreFile("weight_for_height.csv");
-        GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION, growthMonitoringConfig);
-        GrowthMonitoringLibrary.getInstance().setGrowthMonitoringSyncTime(3, TimeUnit.MINUTES);
 
         ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(context.applicationContext()),
                 BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         ImmunizationLibrary.getInstance().setVaccineSyncTime(3, TimeUnit.MINUTES);
-        fixHardcodedVaccineConfiguration();
+//        fixHardcodedVaccineConfiguration();
 
         ConfigurableViewsLibrary.init(context);
-        CoverageDropoutBroadcastReceiver.init(this);
+//        CoverageDropoutBroadcastReceiver.init(this);
 
         ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         ChildLibrary childLibrary = ChildLibrary.getInstance();
@@ -230,8 +231,6 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         childLibrary.getProperties().setProperty(ChildAppProperties.KEY.FEATURE_SCAN_QR_ENABLED, "true");
         childLibrary.setEventBus(EventBus.getDefault());
 
-        ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        ReportingLibrary.getInstance().addMultiResultProcessor(new ReportIndicatorsProcessor());
 
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
 
@@ -244,10 +243,10 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         jsonSpecHelper = new JsonSpecHelper(this);
 
         //init Job Manager
-        JobManager.create(this).addJobCreator(new AppJobCreator());
+//        JobManager.create(this).addJobCreator(new AppJobCreator());
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
-        StockLibrary.init(context, getRepository(), new CovacsStockHelperRepository(getRepository()));
+//        StockLibrary.init(context, getRepository(), new CovacsStockHelperRepository(getRepository()));
     }
 
     private ChildMetadata getMetadata() {
@@ -255,8 +254,8 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
                 ChildImmunizationActivity.class, ChildRegisterActivity.class, true, new AppChildRegisterQueryProvider());
         metadata.updateChildRegister(AppConstants.JsonForm.CHILD_ENROLLMENT, AppConstants.TableNameConstants.ALL_CLIENTS,
                 AppConstants.TableNameConstants.ALL_CLIENTS, AppConstants.EventTypeConstants.CHILD_REGISTRATION,
-                AppConstants.EventTypeConstants.UPDATE_CHILD_REGISTRATION, AppConstants.EventTypeConstants.OUT_OF_CATCHMENT, AppConstants.ConfigurationConstants.CHILD_REGISTER,
-                AppConstants.RelationshipConstants.MOTHER, AppConstants.JsonForm.OUT_OF_CATCHMENT_SERVICE);
+                AppConstants.EventTypeConstants.UPDATE_CHILD_REGISTRATION, AppConstants.ConfigurationConstants.CHILD_REGISTER, AppConstants.KeyConstants.COVAX_PROTECTION, AppConstants.KeyConstants.REACTION_VACCINE,
+                AppConstants.KeyConstants.LOCATION);
         metadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("home_facility", "birth_facility_name")));
         metadata.setLocationLevels(AppUtils.getLocationLevels());
         metadata.setHealthFacilityLevels(AppUtils.getHealthFacilityLevels());
@@ -264,42 +263,25 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
     }
 
     private void initRepositories() {
-        weightRepository();
-        heightRepository();
         vaccineRepository();
-        weightZScoreRepository();
-        heightZScoreRepository();
+
     }
 
     private void initOfflineSchedules() {
         try {
-            List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
-            List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
-            VaccineSchedule.init(childVaccines, specialVaccines, AppConstants.KeyConstants.CHILD);
+            List<VaccineGroup> vaccines = VaccinatorUtils.getSupportedVaccines(this);
+//            List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
+//            VaccineSchedule.init(vaccines, specialVaccines, AppConstants.KeyConstants.CHILD);
         } catch (Exception e) {
             Timber.e(e, "CovacsApplication --> initOfflineSchedules");
         }
     }
 
-    public WeightRepository weightRepository() {
-        return GrowthMonitoringLibrary.getInstance().weightRepository();
-    }
-
-    public HeightRepository heightRepository() {
-        return GrowthMonitoringLibrary.getInstance().heightRepository();
-    }
 
     public VaccineRepository vaccineRepository() {
         return ImmunizationLibrary.getInstance().vaccineRepository();
     }
 
-    public WeightZScoreRepository weightZScoreRepository() {
-        return GrowthMonitoringLibrary.getInstance().weightZScoreRepository();
-    }
-
-    public HeightZScoreRepository heightZScoreRepository() {
-        return GrowthMonitoringLibrary.getInstance().heightZScoreRepository();
-    }
 
 
     @Override
@@ -320,7 +302,7 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
                 repository = new CovacsRepository(getApplicationContext(), context);
             }
         } catch (UnsatisfiedLinkError e) {
-            Timber.e(e, "ZeirApplication --> getRepository");
+            Timber.e(e, "CovacsApplication --> getRepository");
         }
         return repository;
     }
@@ -333,7 +315,7 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
     @Override
     public ClientProcessorForJava getClientProcessor() {
         if (clientProcessorForJava == null) {
-            clientProcessorForJava = new AppClientProcessorForJava(getApplicationContext());
+//            clientProcessorForJava = new AppClientProcessorForJava(getApplicationContext());
         }
         return clientProcessorForJava;
     }
@@ -352,7 +334,7 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
             DrishtiSyncScheduler.stop(getApplicationContext());
             context.allSharedPreferences().saveIsSyncInProgress(false);
         } catch (Exception e) {
-            Timber.e(e, "ZeirApplication --> cleanUpSyncState");
+            Timber.e(e, "CovacsApplication --> cleanUpSyncState");
         }
     }
 
@@ -395,26 +377,26 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         return ecSyncHelper;
     }
 
-    @VisibleForTesting
-    protected void fixHardcodedVaccineConfiguration() {
-        VaccineRepo.Vaccine[] vaccines = ImmunizationLibrary.getInstance().getVaccines(AppConstants.KeyConstants.CHILD);
+//    @VisibleForTesting
+//    protected void fixHardcodedVaccineConfiguration() {
+//        VaccineRepo.Vaccine[] vaccines = ImmunizationLibrary.getInstance().getVaccines(AppConstants.KeyConstants.CHILD);
+//
+//        HashMap<String, VaccineDuplicate> replacementVaccines = new HashMap<>();
+//        replacementVaccines.put("BCG 2", new VaccineDuplicate("BCG 2", VaccineRepo.Vaccine.bcg, 1825, 0, 15, AppConstants.KeyConstants.CHILD));
+//
+//        for (VaccineRepo.Vaccine vaccine : vaccines) {
+//            if (replacementVaccines.containsKey(vaccine.display())) {
+//                VaccineDuplicate vaccineDuplicate = replacementVaccines.get(vaccine.display());
+//                vaccine.setCategory(vaccineDuplicate.category());
+//                vaccine.setExpiryDays(vaccineDuplicate.expiryDays());
+//                vaccine.setMilestoneGapDays(vaccineDuplicate.milestoneGapDays());
+//                vaccine.setPrerequisite(vaccineDuplicate.prerequisite());
+//                vaccine.setPrerequisiteGapDays(vaccineDuplicate.prerequisiteGapDays());
+//            }
+//        }
 
-        HashMap<String, VaccineDuplicate> replacementVaccines = new HashMap<>();
-        replacementVaccines.put("BCG 2", new VaccineDuplicate("BCG 2", VaccineRepo.Vaccine.bcg, 1825, 0, 15, AppConstants.KeyConstants.CHILD));
-
-        for (VaccineRepo.Vaccine vaccine : vaccines) {
-            if (replacementVaccines.containsKey(vaccine.display())) {
-                VaccineDuplicate vaccineDuplicate = replacementVaccines.get(vaccine.display());
-                vaccine.setCategory(vaccineDuplicate.category());
-                vaccine.setExpiryDays(vaccineDuplicate.expiryDays());
-                vaccine.setMilestoneGapDays(vaccineDuplicate.milestoneGapDays());
-                vaccine.setPrerequisite(vaccineDuplicate.prerequisite());
-                vaccine.setPrerequisiteGapDays(vaccineDuplicate.prerequisiteGapDays());
-            }
-        }
-
-        ImmunizationLibrary.getInstance().setVaccines(vaccines, AppConstants.KeyConstants.CHILD);
-    }
+//        ImmunizationLibrary.getInstance().setVaccines(vaccines, AppConstants.KeyConstants.CHILD);
+//    }
 
 
     @VisibleForTesting
@@ -422,19 +404,19 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         vaccineGroups = vaccines;
     }
 
-    public ClientRegisterTypeRepository registerTypeRepository() {
-        if (registerTypeRepository == null) {
-            this.registerTypeRepository = new ClientRegisterTypeRepository();
-        }
-        return this.registerTypeRepository;
-    }
-
-    public ChildAlertUpdatedRepository alertUpdatedRepository() {
-        if (childAlertUpdatedRepository == null) {
-            this.childAlertUpdatedRepository = new ChildAlertUpdatedRepository();
-        }
-        return this.childAlertUpdatedRepository;
-    }
+//    public ClientRegisterTypeRepository registerTypeRepository() {
+//        if (registerTypeRepository == null) {
+//            this.registerTypeRepository = new ClientRegisterTypeRepository();
+//        }
+//        return this.registerTypeRepository;
+//    }
+//
+//    public ChildAlertUpdatedRepository alertUpdatedRepository() {
+//        if (childAlertUpdatedRepository == null) {
+//            this.childAlertUpdatedRepository = new ChildAlertUpdatedRepository();
+//        }
+//        return this.childAlertUpdatedRepository;
+//    }
 
     public RecurringServiceTypeRepository getRecurringServiceTypeRepository() {
         return ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
@@ -444,47 +426,47 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         return ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
     }
 
-    public CohortRepository cohortRepository() {
-        if (cohortRepository == null) {
-            cohortRepository = new CohortRepository();
-        }
-        return cohortRepository;
-    }
-
-    public CohortPatientRepository cohortPatientRepository() {
-        if (cohortPatientRepository == null) {
-            cohortPatientRepository = new CohortPatientRepository();
-        }
-        return cohortPatientRepository;
-    }
-
-    public CohortIndicatorRepository cohortIndicatorRepository() {
-        if (cohortIndicatorRepository == null) {
-            cohortIndicatorRepository = new CohortIndicatorRepository();
-        }
-        return cohortIndicatorRepository;
-    }
-
-    public CumulativeRepository cumulativeRepository() {
-        if (cumulativeRepository == null) {
-            cumulativeRepository = new CumulativeRepository();
-        }
-        return cumulativeRepository;
-    }
-
-    public CumulativePatientRepository cumulativePatientRepository() {
-        if (cumulativePatientRepository == null) {
-            cumulativePatientRepository = new CumulativePatientRepository();
-        }
-        return cumulativePatientRepository;
-    }
-
-    public CumulativeIndicatorRepository cumulativeIndicatorRepository() {
-        if (cumulativeIndicatorRepository == null) {
-            cumulativeIndicatorRepository = new CumulativeIndicatorRepository();
-        }
-        return cumulativeIndicatorRepository;
-    }
+//    public CohortRepository cohortRepository() {
+//        if (cohortRepository == null) {
+//            cohortRepository = new CohortRepository();
+//        }
+//        return cohortRepository;
+//    }
+//
+//    public CohortPatientRepository cohortPatientRepository() {
+//        if (cohortPatientRepository == null) {
+//            cohortPatientRepository = new CohortPatientRepository();
+//        }
+//        return cohortPatientRepository;
+//    }
+//
+//    public CohortIndicatorRepository cohortIndicatorRepository() {
+//        if (cohortIndicatorRepository == null) {
+//            cohortIndicatorRepository = new CohortIndicatorRepository();
+//        }
+//        return cohortIndicatorRepository;
+//    }
+//
+//    public CumulativeRepository cumulativeRepository() {
+//        if (cumulativeRepository == null) {
+//            cumulativeRepository = new CumulativeRepository();
+//        }
+//        return cumulativeRepository;
+//    }
+//
+//    public CumulativePatientRepository cumulativePatientRepository() {
+//        if (cumulativePatientRepository == null) {
+//            cumulativePatientRepository = new CumulativePatientRepository();
+//        }
+//        return cumulativePatientRepository;
+//    }
+//
+//    public CumulativeIndicatorRepository cumulativeIndicatorRepository() {
+//        if (cumulativeIndicatorRepository == null) {
+//            cumulativeIndicatorRepository = new CumulativeIndicatorRepository();
+//        }
+//        return cumulativeIndicatorRepository;
+//    }
 
     public String getSyncLocations() {
         if (LocationHelper.getInstance() != null && LocationHelper.getInstance().locationIdsFromHierarchy() != null)
