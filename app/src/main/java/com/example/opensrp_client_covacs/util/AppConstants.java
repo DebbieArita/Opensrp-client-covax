@@ -109,8 +109,13 @@ public class AppConstants {
     }
 
     public interface JsonForm {
-        String CHILD_ENROLLMENT = "child_enrollment";
+        String CHILD_ENROLLMENT = "subject_registration";
 //        String OUT_OF_CATCHMENT_SERVICE = "out_of_catchment_service";
+    }
+
+    public interface RegisterTable {
+        String CLIENT = "ec_client_fields";
+        String VACCINE_DETAILS = "ec_client_vaccine";
     }
 
     public static class TableNameConstants {

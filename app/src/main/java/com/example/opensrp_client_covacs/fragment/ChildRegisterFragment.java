@@ -1,21 +1,27 @@
 package com.example.opensrp_client_covacs.fragment;
 
-import android.annotation.SuppressLint;
 import android.view.View;
 
-import androidx.core.content.ContextCompat;
+import org.smartregister.view.fragment.BaseRegisterFragment;
 
-import com.example.opensrp_client_covacs.R;
-import com.example.opensrp_client_covacs.activity.ChildRegisterActivity;
-import com.example.opensrp_client_covacs.presenter.ChildRegisterFragmentPresenter;
+import java.util.HashMap;
 
-import org.smartregister.child.domain.RegisterClickables;
-import org.smartregister.child.fragment.BaseChildRegisterFragment;
-import org.smartregister.child.util.Constants;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.view.activity.BaseRegisterActivity;
+public class ChildRegisterFragment extends BaseRegisterFragment {
+    @Override
+    protected void initializePresenter() {
 
-public class ChildRegisterFragment extends BaseChildRegisterFragment {
+    }
+
+    @Override
+    public void setUniqueID(String qrCode) {
+
+    }
+
+    @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> advancedSearchFormData) {
+
+    }
+
     @Override
     protected String getMainCondition() {
         return null;
@@ -27,14 +33,40 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment {
     }
 
     @Override
-    protected String filterSelectionCondition(boolean b) {
-        return null;
+    protected void startRegistration() {
+
     }
 
     @Override
-    public void onClick(View view) {
+    protected void onViewClicked(View view) {
 
     }
+
+    @Override
+    public void showNotFoundPopup(String opensrpId) {
+
+    }
+
+
+//    @Override
+//    protected String getMainCondition() {
+//        return null;
+//    }
+//
+//    @Override
+//    protected String getDefaultSortQuery() {
+//        return null;
+//    }
+//
+//    @Override
+//    protected String filterSelectionCondition(boolean b) {
+//        return null;
+//    }
+//
+//    @Override
+//    public void onClick(View view) {
+//
+//    }
 
 //    @Override
 //    protected void initializePresenter() {

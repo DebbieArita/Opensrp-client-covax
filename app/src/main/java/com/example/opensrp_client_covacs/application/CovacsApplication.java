@@ -13,45 +13,30 @@ import com.example.opensrp_client_covacs.activity.ChildImmunizationActivity;
 import com.example.opensrp_client_covacs.activity.ChildProfileActivity;
 import com.example.opensrp_client_covacs.activity.ChildRegisterActivity;
 import com.example.opensrp_client_covacs.activity.LoginActivity;
+import com.example.opensrp_client_covacs.job.AppJobCreator;
 import com.example.opensrp_client_covacs.repository.AppChildRegisterQueryProvider;
 import com.example.opensrp_client_covacs.repository.CovacsRepository;
 import com.example.opensrp_client_covacs.util.AppConstants;
 import com.example.opensrp_client_covacs.util.AppUtils;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
-import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.child.ChildLibrary;
-import org.smartregister.child.domain.ChildMetadata;
-import org.smartregister.child.util.ChildAppProperties;
-import org.smartregister.child.util.DBConstants;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
-import org.smartregister.growthmonitoring.GrowthMonitoringConfig;
-import org.smartregister.growthmonitoring.GrowthMonitoringLibrary;
-import org.smartregister.growthmonitoring.repository.HeightRepository;
-import org.smartregister.growthmonitoring.repository.HeightZScoreRepository;
-import org.smartregister.growthmonitoring.repository.WeightRepository;
-import org.smartregister.growthmonitoring.repository.WeightZScoreRepository;
 import org.smartregister.immunization.ImmunizationLibrary;
-import org.smartregister.immunization.db.VaccineRepo;
-import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.jsonmapping.Vaccine;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
-import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
-import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
-import org.smartregister.stock.StockLibrary;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.sync.helper.ECSyncHelper;
@@ -61,7 +46,6 @@ import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -84,6 +68,51 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         return jsonSpecHelper;
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mInstance = this;
+        context = Context.getInstance();
+
+        context.updateApplicationContext(getApplicationContext());
+        context.updateCommonFtsObject(createCommonFtsObject(context.applicationContext()));
+
+        //Initialize Modules
+        CoreLibrary.init(context, new AppSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
+
+//        ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(context.applicationContext()),
+//                BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+//        ImmunizationLibrary.getInstance().setVaccineSyncTime(3, TimeUnit.MINUTES);
+
+        ConfigurableViewsLibrary.init(context);
+
+//        setDefaultLanguage();
+
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
+
+        initRepositories();
+//        initOfflineSchedules();
+//        setOpenSRPUrl();
+
+        SyncStatusBroadcastReceiver.init(this);
+        LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LEVELS)), BuildConfig.DEFAULT_LOCATION);
+
+        jsonSpecHelper = new JsonSpecHelper(this);
+
+        //init Job Manager
+        JobManager.create(this).addJobCreator(new AppJobCreator());
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
+
+//    private void setDefaultLanguage() {
+//        try {
+//            Utils.saveLanguage("en");
+//        } catch (Exception e) {
+//            Timber.e(e, " --> saveLanguage");
+//        }
+//    }
+
+
     public static CommonFtsObject createCommonFtsObject(android.content.Context context) {
         if (commonFtsObject == null) {
             commonFtsObject = new CommonFtsObject(getFtsTables());
@@ -97,16 +126,17 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         return commonFtsObject;
     }
 
+
     private static String[] getFtsTables() {
-        return new String[]{DBConstants.RegisterTable.CLIENT};
+        return new String[]{AppConstants.RegisterTable.CLIENT};
     }
 
     private static String[] getFtsSearchFields(String tableName) {
-        if (DBConstants.RegisterTable.CLIENT.equals(tableName)) {
+        if (AppConstants.RegisterTable.CLIENT.equals(tableName)) {
             return new String[]{
-                    DBConstants.KEY.ZEIR_ID,
-                    DBConstants.KEY.FIRST_NAME,
-                    DBConstants.KEY.LAST_NAME
+                    AppConstants.KeyConstants.ZEIR_ID,
+                    AppConstants.KeyConstants.FIRST_NAME,
+                    AppConstants.KeyConstants.LAST_NAME
             };
 //            case DBConstants.RegisterTable.CHILD_DETAILS:
 //                return new String[]{DBConstants.KEY.LOST_TO_FOLLOW_UP, DBConstants.KEY.INACTIVE};
@@ -121,10 +151,10 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
                         AppConstants.KeyConstants.DOB, AppConstants.KeyConstants.ZEIR_ID, AppConstants.KeyConstants.GENDER,
                         AppConstants.KeyConstants.COUNTY, AppConstants.KeyConstants.HEALTH_FACILITY, AppConstants.KeyConstants.REGISTRATION_DATE).toArray(new String[0]);
 //                        AppConstants.KeyConstants.DOD, AppConstants.KeyConstants.DATE_REMOVED).toArray(new String[0]);
-            case DBConstants.RegisterTable.CHILD_DETAILS:
+            case AppConstants.RegisterTable.CLIENT:
                 List<VaccineGroup> vaccineList = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
                 List<String> names = new ArrayList<>();
-                names.add(DBConstants.KEY.ZEIR_ID);
+                names.add(AppConstants.KeyConstants.ZEIR_ID);
                 names.add(AppConstants.KeyConstants.REGISTRATION_DATE);
                 names.add(AppConstants.KeyConstants.USERNAME);
                 names.add(AppConstants.KeyConstants.REACTION_VACCINE);
@@ -177,7 +207,7 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
 
             } else {
                 // TODO: This needs to be fixed because it is a configuration & not a hardcoded string
-                map.put(vaccine.name, Pair.create(DBConstants.RegisterTable.CHILD_DETAILS, false));
+                map.put(vaccine.name, Pair.create(AppConstants.RegisterTable.CLIENT, false));
             }
     }
 
@@ -203,84 +233,26 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
 //        return vaccineGroups;
 //    }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mInstance = this;
-        context = Context.getInstance();
-
-        context.updateApplicationContext(getApplicationContext());
-        context.updateCommonFtsObject(createCommonFtsObject(context.applicationContext()));
-
-        //Initialize Modules
-        CoreLibrary.init(context, new AppSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
-
-
-        ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(context.applicationContext()),
-                BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        ImmunizationLibrary.getInstance().setVaccineSyncTime(3, TimeUnit.MINUTES);
-//        fixHardcodedVaccineConfiguration();
-
-        ConfigurableViewsLibrary.init(context);
-//        CoverageDropoutBroadcastReceiver.init(this);
-
-        ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        ChildLibrary childLibrary = ChildLibrary.getInstance();
-        childLibrary.setApplicationVersionName(BuildConfig.VERSION_NAME);
-        childLibrary.setClientProcessorForJava(getClientProcessor());
-        childLibrary.getProperties().setProperty(ChildAppProperties.KEY.FEATURE_SCAN_QR_ENABLED, "true");
-        childLibrary.setEventBus(EventBus.getDefault());
-
-
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
-
-        initRepositories();
-        initOfflineSchedules();
-
-        SyncStatusBroadcastReceiver.init(this);
-        LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LEVELS)), BuildConfig.DEFAULT_LOCATION);
-
-        jsonSpecHelper = new JsonSpecHelper(this);
-
-        //init Job Manager
-//        JobManager.create(this).addJobCreator(new AppJobCreator());
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-
-//        StockLibrary.init(context, getRepository(), new CovacsStockHelperRepository(getRepository()));
-    }
-
-    private ChildMetadata getMetadata() {
-        ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class,
-                ChildImmunizationActivity.class, ChildRegisterActivity.class, true, new AppChildRegisterQueryProvider());
-        metadata.updateChildRegister(AppConstants.JsonForm.CHILD_ENROLLMENT, AppConstants.TableNameConstants.ALL_CLIENTS,
-                AppConstants.TableNameConstants.ALL_CLIENTS, AppConstants.EventTypeConstants.CHILD_REGISTRATION,
-                AppConstants.EventTypeConstants.UPDATE_CHILD_REGISTRATION, AppConstants.ConfigurationConstants.CHILD_REGISTER, AppConstants.KeyConstants.COVAX_PROTECTION, AppConstants.KeyConstants.REACTION_VACCINE,
-                AppConstants.KeyConstants.LOCATION);
-        metadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("home_facility", "birth_facility_name")));
-        metadata.setLocationLevels(AppUtils.getLocationLevels());
-        metadata.setHealthFacilityLevels(AppUtils.getHealthFacilityLevels());
-        return metadata;
-    }
 
     private void initRepositories() {
-        vaccineRepository();
+//        vaccineRepository();
 
     }
+//
+//    private void initOfflineSchedules() {
+//        try {
+////            List<VaccineGroup> vaccines = VaccinatorUtils.getSupportedVaccines(this);
+////            List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
+////            VaccineSchedule.init(vaccines, specialVaccines, AppConstants.KeyConstants.CHILD);
+//        } catch (Exception e) {
+//            Timber.e(e, "CovacsApplication --> initOfflineSchedules");
+//        }
+//    }
 
-    private void initOfflineSchedules() {
-        try {
-            List<VaccineGroup> vaccines = VaccinatorUtils.getSupportedVaccines(this);
-//            List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
-//            VaccineSchedule.init(vaccines, specialVaccines, AppConstants.KeyConstants.CHILD);
-        } catch (Exception e) {
-            Timber.e(e, "CovacsApplication --> initOfflineSchedules");
-        }
-    }
 
-
-    public VaccineRepository vaccineRepository() {
-        return ImmunizationLibrary.getInstance().vaccineRepository();
-    }
+//    public VaccineRepository vaccineRepository() {
+//        return ImmunizationLibrary.getInstance().vaccineRepository();
+//    }
 
 
 

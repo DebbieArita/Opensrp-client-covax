@@ -4,14 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.opensrp_client_covacs.R;
-import com.example.opensrp_client_covacs.application.CovacsApplication;
 import com.example.opensrp_client_covacs.presenter.LoginPresenter;
 import com.example.opensrp_client_covacs.util.AppConstants;
 
-
-import org.smartregister.growthmonitoring.service.intent.WeightForHeightIntentService;
 import org.smartregister.location.helper.LocationHelper;
-import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
 
@@ -49,6 +45,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
         if (mLoginPresenter.isServerSettingsSet()) {
             Intent intent = new Intent(this, ChildRegisterActivity.class);
+
             intent.putExtra(AppConstants.IntentKeyUtil.IS_REMOTE_LOGIN, remote);
             startActivity(intent);
         }

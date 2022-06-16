@@ -6,21 +6,15 @@ import androidx.annotation.NonNull;
 
 import com.example.opensrp_client_covacs.BuildConfig;
 import com.example.opensrp_client_covacs.application.CovacsApplication;
-import com.example.opensrp_client_covacs.util.AppConstants;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.AllConstants;
-import org.smartregister.child.util.ChildDbMigrations;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
-import org.smartregister.reporting.ReportingLibrary;
-import org.smartregister.reporting.repository.IndicatorQueryRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.LocationRepository;
 import org.smartregister.repository.LocationTagRepository;
-import org.smartregister.repository.PlanDefinitionRepository;
-import org.smartregister.repository.PlanDefinitionSearchRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
 
@@ -126,15 +120,15 @@ public class CovacsRepository extends Repository {
 
 
 
-    private boolean checkIfAppUpdated() {
-        String appVersionCodePref = AppConstants.Pref.APP_VERSION_CODE;
-        String savedAppVersion = ReportingLibrary.getInstance().getContext().allSharedPreferences().getPreference(appVersionCodePref);
-        if (savedAppVersion.isEmpty()) {
-            return true;
-        } else {
-            int savedVersion = Integer.parseInt(savedAppVersion);
-            return (BuildConfig.VERSION_CODE > savedVersion);
-        }
-    }
+//    private boolean checkIfAppUpdated() {
+//        String appVersionCodePref = AppConstants.Pref.APP_VERSION_CODE;
+////        String savedAppVersion = ReportingLibrary.getInstance().getContext().allSharedPreferences().getPreference(appVersionCodePref);
+//        if (savedAppVersion.isEmpty()) {
+//            return true;
+//        } else {
+//            int savedVersion = Integer.parseInt(savedAppVersion);
+//            return (BuildConfig.VERSION_CODE > savedVersion);
+//        }
+//    }
 
 }

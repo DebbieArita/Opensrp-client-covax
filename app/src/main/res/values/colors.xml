@@ -3,6 +3,7 @@
     <color name="colorPrimary">#358CB7</color>
     <color name="primary">#358CB7</color>
     <color name="colorPrimaryDark">#00574B</color>
+    <color name="primaryDark">#0d384e</color>
     <color name="colorAccent">#D81B60</color>
     <color name="holo_blue">#81D4FA</color>
     <color name="grey">#979797</color>
@@ -19,4 +20,7 @@
     <color name="report_view_background_color">#EEEEEE</color>
     <color name="report_appbar_background_color">#E6E6E6</color>
     <color name="black_text_color">#2E2E2E</color>
+
+    <color name="filter_bar_light_grey">#EEEEEE</color>
+
 </resources>
