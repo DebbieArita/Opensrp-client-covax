@@ -29,11 +29,51 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
 
-public class ChildRegisterActivity extends AppCompatActivity {
+public class ChildRegisterActivity extends BaseRegisterActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_child_register);
+//        setContentView(R.layout.activity_child_register);
+    }
+
+    @Override
+    protected void initializePresenter() {
+
+    }
+
+    @Override
+    protected BaseRegisterFragment getRegisterFragment() {
+        return null;
+    }
+
+    @Override
+    protected Fragment[] getOtherFragments() {
+        return new Fragment[0];
+    }
+
+    @Override
+    public void startFormActivity(String s, String s1, Map<String, String> map) {
+
+    }
+
+    @Override
+    public void startFormActivity(JSONObject jsonObject) {
+
+    }
+
+    @Override
+    protected void onActivityResultExtended(int i, int i1, Intent intent) {
+
+    }
+
+    @Override
+    public List<String> getViewIdentifiers() {
+        return null;
+    }
+
+    @Override
+    public void startRegistration() {
+
     }
 }
 
