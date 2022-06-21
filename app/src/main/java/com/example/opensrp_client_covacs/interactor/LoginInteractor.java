@@ -6,7 +6,6 @@ import com.example.opensrp_client_covacs.BuildConfig;
 
 import org.smartregister.immunization.job.RecurringServiceJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
-import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncAllLocationsServiceJob;
 import org.smartregister.job.SyncServiceJob;
@@ -23,6 +22,11 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         //change case to lowercase before login attempt
         super.login(view, userName.toLowerCase(), password);
     }
+
+//    @Override
+//    protected void scheduleJobsPeriodically() {
+//        //to review
+//    }
 
     public LoginInteractor(BaseLoginContract.Presenter loginPresenter) {
         super(loginPresenter);
@@ -42,12 +46,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         PullUniqueIdsServiceJob.scheduleJob(PullUniqueIdsServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.PULL_UNIQUE_IDS_MINUTES),
                 getFlexValue(BuildConfig.PULL_UNIQUE_IDS_MINUTES));
 
-        ImageUploadServiceJob.scheduleJob(ImageUploadServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.IMAGE_UPLOAD_MINUTES),
-                getFlexValue(BuildConfig.IMAGE_UPLOAD_MINUTES));
-
-
-//        AppVaccineUpdateJob.scheduleEverydayAt(AppVaccineUpdateJob.TAG, 1, 20);
-
 
         RecurringServiceJob.scheduleJob(RecurringServiceJob.TAG,
                 TimeUnit.MINUTES.toMinutes(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES),
@@ -59,9 +57,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         SyncAllLocationsServiceJob.scheduleJobImmediately(SyncAllLocationsServiceJob.TAG);
         PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
-        ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
         RecurringServiceJob.scheduleJobImmediately(RecurringServiceJob.TAG);
-//        DropoutIntentServiceJob.scheduleJobImmediately(DropoutIntentServiceJob.TAG);
-//        StockSyncIntentServiceJob.scheduleJobImmediately(StockSyncIntentServiceJob.TAG);
+
     }
 }

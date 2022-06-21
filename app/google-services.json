@@ -503,7 +503,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:660700053041:android:90cb7e892b4fd2c7335f10",
         "android_client_info": {
-          "package_name": "org.smartregister.path"
+          "package_name": "com.example.opensrp_client_covacs"
         }
       },
       "oauth_client": [

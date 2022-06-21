@@ -20,26 +20,6 @@ import java.util.Locale;
 
 public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener{
 
-    private static NavigationMenu instance;
-    private static WeakReference<Activity> activityWeakReference;
-//    private static final Locale ARABIC_LOCALE = new Locale(AppConstants.Locale.ARABIC_LOCALE);
-    private LinearLayout syncMenuItem;
-    private LinearLayout outOfAreaMenu;
-    private LinearLayout registerView;
-    private LinearLayout reportView;
-    private LinearLayout droputReportsView;
-    private LinearLayout coverageReportsView;
-    private LinearLayout stockControlView;
-    private TextView loggedInUserTextView;
-    private TextView userInitialsTextView;
-    private TextView syncTextView;
-    private TextView logoutButton;
-    private NavigationContract.Presenter mPresenter;
-    private DrawerLayout drawer;
-    private ImageButton cancelButton;
-    private Spinner languageSpinner;
-    private static String[] langArray;
-
     @Override
     public void onSyncStart() {
 

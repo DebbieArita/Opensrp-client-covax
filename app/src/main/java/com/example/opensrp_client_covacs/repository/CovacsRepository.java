@@ -118,17 +118,4 @@ public class CovacsRepository extends Repository {
         super.close();
     }
 
-
-
-//    private boolean checkIfAppUpdated() {
-//        String appVersionCodePref = AppConstants.Pref.APP_VERSION_CODE;
-////        String savedAppVersion = ReportingLibrary.getInstance().getContext().allSharedPreferences().getPreference(appVersionCodePref);
-//        if (savedAppVersion.isEmpty()) {
-//            return true;
-//        } else {
-//            int savedVersion = Integer.parseInt(savedAppVersion);
-//            return (BuildConfig.VERSION_CODE > savedVersion);
-//        }
-//    }
-
 }

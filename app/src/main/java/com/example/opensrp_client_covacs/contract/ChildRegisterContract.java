@@ -1,16 +1,17 @@
 package com.example.opensrp_client_covacs.contract;
 
-import androidx.annotation.NonNull;
-
 import org.apache.commons.lang3.tuple.Triple;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.smartregister.domain.tag.FormTag;
+import org.smartregister.view.contract.BaseRegisterContract;
 
-import java.util.List;
 import java.util.Map;
 
 public interface ChildRegisterContract {
+
+    interface View extends BaseRegisterContract.View {
+        ChildRegisterContract.Presenter presenter();
+
+        void setActiveMenuItem(int menuItemId);
+    }
 
     public interface ProgressDialogCallback {
         void dissmissProgressDialog();
@@ -42,22 +43,6 @@ public interface ChildRegisterContract {
 //        boolean isClientMother(@NonNull Map<String, String> var1);
 //    }
 
-    public interface Model {
-        void registerViewConfigurations(List<String> var1);
-
-        void unregisterViewConfiguration(List<String> var1);
-
-        void saveLanguage(String var1);
-
-        String getLocationId(String var1);
-
-//        List<ChildEventClient> processRegistration(String var1, FormTag var2);
-
-        JSONObject getFormAsJson(String var1, String var2, String var3, Map<String, String> var4) throws Exception;
-
-        String getInitials();
-    }
-
     public interface Presenter extends org.smartregister.view.contract.BaseRegisterContract.Presenter {
         void saveLanguage(String var1);
 
@@ -72,7 +57,4 @@ public interface ChildRegisterContract {
         void closeChildRecord(String var1);
     }
 
-    public interface View extends org.smartregister.view.contract.BaseRegisterContract.View {
-        ChildRegisterContract.Presenter presenter();
-    }
 }
