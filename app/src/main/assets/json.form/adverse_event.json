@@ -1,0 +1,153 @@
+{
+  "count": "1",
+  "encounter_type": "AEFI",
+  "validate_on_submit": true,
+  "show_errors_on_submit": true,
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "{{adverse_event.step1.title}}",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "Reaction_Vaccine",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label": "{{adverse_event.step1.reaction_vaccine.label}}",
+        "hint": "{{adverse_event.step1.Reaction_Vaccine.hint}}",
+        "values": [
+          "Pfizer",
+          "Johnson & Jansen",
+          "Moderna"
+        ],
+        "openmrs_choice_ids": {
+          "Pfizer": "149310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Johnson & Jansen": "129578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Moderna": "162265AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": true,
+          "err": "{{adverse_event.step1.Reaction_Vaccine.v_required.err}}"
+        }
+      },
+      {
+        "key": "Date_Reaction",
+        "type": "date_picker",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "{{adverse_event.step1.date_reaction.label}}",
+        "hint": "{{adverse_event.step1.date_reaction.hint}}",
+        "expanded": false,
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "{{adverse_event.step1.date_reaction.v_required.err}}"
+        }
+      },
+      {
+        "key": "Reaction_Description",
+        "openmrs_entity_parent": "111172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "text",
+        "label": "{{adverse_event.step1.reaction_description.label}}",
+        "hint": "{{adverse_event.step1.reaction_description.hint}}",
+        "v_required": {
+          "value": true,
+          "err": "{{adverse_event.step1.reaction_description.v_required.err}}"
+        }
+      },
+      {
+        "key": "Reaction_Referred",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label": "{{adverse_event.step1.reaction_referred.label}}",
+        "hint": "{{adverse_event.step1.reaction_referred.hint}}",
+        "values": [
+          "Yes",
+          "No",
+          "Unknown"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Unknown": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": true,
+          "err": "{{adverse_event.step1.reaction_referred.v_required.err}}"
+        }
+      },
+      {
+        "key": "AEFI_Form_Completed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label": "{{adverse_event.step1.reaction_vaccine.label}}",
+        "hint": "{{adverse_event.step1.Reaction_Vaccine.hint}}",
+        "values": [
+          "Yes",
+          "No",
+          "Unknown"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      }
+    ]
+  }
+}
