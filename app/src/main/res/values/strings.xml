@@ -29,18 +29,12 @@
 
     <string name="all_registers">All Registers</string>
 
-    <string name="vit_a_1">Vit A 1</string>
-    <string name="vit_a_2">Vit A 2</string>
-
-    <!-- Override BCG 2 dialog text to read BCG Repeated Dose -->
-    <string name="create_reminder_label">Create BCG Repeated Dose reminder?</string>
-    <string name="bcg_scar_not_present_label">Child does not have a BCG scar so BCG Repeated Dose is necessary.</string>
-    <string name="bcg_scar_present_label">BCG scar is present so no BCG Repeated Dose is necessary.</string>
-
-    <string name="ipv">IPV</string>
-    <string name="bcg">BCG</string>
 
     <string name="due_only">Due Only</string>
+
+    <!-- Menu items -->
+    <string name="home">Home</string>
+    <string name="add_child">Add Child</string>
 
     <!-- Override labels in profile and immunization section -->
     <string name="label_zeir">ZEIR ID</string>

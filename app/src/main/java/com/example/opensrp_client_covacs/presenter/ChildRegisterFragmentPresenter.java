@@ -7,6 +7,14 @@ import com.example.opensrp_client_covacs.model.ChildRegisterFragmentModel;
 import org.smartregister.view.contract.BaseRegisterFragmentContract;
 
 public class ChildRegisterFragmentPresenter implements BaseRegisterFragmentContract.Presenter {
+    public ChildRegisterFragmentPresenter() {
+    }
+
+    //    public ChildRegisterFragmentPresenter(ChildRegisterFragmentContract.View view, ChildRegisterFragmentContract.Model model,
+//                                          String viewConfigurationIdentifier) {
+//        super(view, model, viewConfigurationIdentifier);
+//    }
+
 
     @Override
     public void processViewConfigurations() {

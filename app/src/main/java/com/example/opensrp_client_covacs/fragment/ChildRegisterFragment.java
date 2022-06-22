@@ -2,6 +2,12 @@ package com.example.opensrp_client_covacs.fragment;
 
 import android.view.View;
 
+import com.example.opensrp_client_covacs.activity.ChildRegisterActivity;
+import com.example.opensrp_client_covacs.contract.ChildRegisterFragmentContract;
+import com.example.opensrp_client_covacs.model.ChildRegisterFragmentModel;
+import com.example.opensrp_client_covacs.presenter.ChildRegisterFragmentPresenter;
+
+import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
@@ -9,6 +15,12 @@ import java.util.HashMap;
 public class ChildRegisterFragment extends BaseRegisterFragment {
     @Override
     protected void initializePresenter() {
+        if (getActivity() == null) {
+            return;
+        }
+
+        String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+        presenter = new ChildRegisterFragmentPresenter(); //to edit
 
     }
 
@@ -34,6 +46,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment {
 
     @Override
     protected void startRegistration() {
+        ((ChildRegisterActivity) getActivity()).startRegistration();
 
     }
 
