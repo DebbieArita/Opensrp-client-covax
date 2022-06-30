@@ -10,20 +10,24 @@
         <entry key="app/src/main/res/drawable/login_button_bg.xml" value="0.226" />
         <entry key="app/src/main/res/drawable/report_btn_text.xml" value="0.135" />
         <entry key="app/src/main/res/layout/activity_annual_report.xml" value="0.12447916666666667" />
-        <entry key="app/src/main/res/layout/activity_child_register.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_child_register.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.3046875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_monthly_reports.xml" value="0.3723958333333333" />
         <entry key="app/src/main/res/layout/activity_report_register.xml" value="0.2111111111111111" />
         <entry key="app/src/main/res/layout/activity_reports.xml" value="0.2916666666666667" />
+        <entry key="app/src/main/res/layout/adapter_child_register_list_row.xml" value="0.25" />
         <entry key="app/src/main/res/layout/app_cohort_coverage_reports.xml" value="0.3046875" />
         <entry key="app/src/main/res/layout/app_spinner_item.xml" value="0.3046875" />
+        <entry key="app/src/main/res/layout/child_reg_frag_activity.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/child_register_header.xml" value="0.33" />
         <entry key="app/src/main/res/layout/coverage_report_item.xml" value="0.3046875" />
         <entry key="app/src/main/res/layout/dropout_report_cohort_penta_header.xml" value="0.12447916666666667" />
         <entry key="app/src/main/res/layout/dropout_reports_item.xml" value="0.12447916666666667" />
         <entry key="app/src/main/res/layout/item_spinner_drop_down.xml" value="0.12447916666666667" />
+        <entry key="app/src/main/res/layout/navigation_drawer.xml" value="0.15833333333333333" />
         <entry key="app/src/main/res/layout/navigation_drawer_view.xml" value="0.12447916666666667" />
-        <entry key="app/src/main/res/menu/bottom_nav_child_menu.xml" value="0.3723958333333333" />
+        <entry key="app/src/main/res/menu/bottom_nav_child_menu.xml" value="0.18" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.236" />
       </map>
     </option>

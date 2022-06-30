@@ -1,13 +1,17 @@
 package com.example.opensrp_client_covacs.application;
 
 import android.content.Intent;
+import android.util.Pair;
 
 import com.evernote.android.job.JobManager;
 import com.example.opensrp_client_covacs.BuildConfig;
+import com.example.opensrp_client_covacs.activity.ChildProfileActivity;
 import com.example.opensrp_client_covacs.activity.LoginActivity;
+import com.example.opensrp_client_covacs.domain.ChildMetadata;
 import com.example.opensrp_client_covacs.job.AppJobCreator;
 import com.example.opensrp_client_covacs.repository.CovacsRepository;
 import com.example.opensrp_client_covacs.util.AppConstants;
+import com.example.opensrp_client_covacs.util.FormUtils;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
@@ -26,11 +30,13 @@ import org.smartregister.repository.Repository;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.AppExecutors;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import timber.log.Timber;
@@ -43,6 +49,8 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
     private EventClientRepository eventClientRepository;
     private ECSyncHelper ecSyncHelper;
     private AppExecutors appExecutors;
+
+
 
     public static JsonSpecHelper getJsonSpecHelper() {
         return jsonSpecHelper;
@@ -153,6 +161,25 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
     public static synchronized CovacsApplication getInstance() {
         return (CovacsApplication) mInstance;
     }
+
+    public ChildMetadata getMetadata() {
+        ChildMetadata metadata = FormUtils.getMetadata(new ChildProfileActivity(), getDefaultLocationLevel(), getFacilityHierarchy());
+        HashMap<String, String> setting = new HashMap<>();
+        return metadata;
+    }
+
+
+
+    private ArrayList<String> getFacilityHierarchy() {
+        return null;
+    }
+
+    private String getDefaultLocationLevel() {
+        return null;
+    }
+
+
+
 
 //    public static List<VaccineGroup> getVaccineGroups(android.content.Context context) {
 //        if (vaccineGroups == null) {
