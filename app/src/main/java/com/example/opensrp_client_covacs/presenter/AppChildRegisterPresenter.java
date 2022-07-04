@@ -1,7 +1,10 @@
 package com.example.opensrp_client_covacs.presenter;
 
+import com.example.opensrp_client_covacs.activity.ChildRegisterActivity;
 import com.example.opensrp_client_covacs.application.CovacsApplication;
 import com.example.opensrp_client_covacs.contract.ChildRegisterContract;
+import com.example.opensrp_client_covacs.interactor.ChildRegisterInteractor;
+import com.example.opensrp_client_covacs.model.AppChildRegisterModel;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.repository.EventClientRepository;
@@ -14,10 +17,14 @@ public class AppChildRegisterPresenter implements ChildRegisterContract.Presente
 
     protected WeakReference<ChildRegisterContract.View> viewReference;
     protected ChildRegisterContract.Model model;
+    protected ChildRegisterContract.Interactor interactor;
 
-    public AppChildRegisterPresenter(ChildRegisterContract.View view, ChildRegisterContract.Model model) {
-        viewReference = new WeakReference<>(view);
-        this.model = model;
+
+    public AppChildRegisterPresenter(ChildRegisterActivity childRegisterActivity, AppChildRegisterModel model) {
+        viewReference = new WeakReference<>(childRegisterActivity);
+        interactor = new ChildRegisterInteractor();
+        this.model = new AppChildRegisterModel();
+
     }
 
     private final EventClientRepository eventClientRepository = CovacsApplication.getInstance().eventClientRepository();
@@ -75,6 +82,7 @@ public class AppChildRegisterPresenter implements ChildRegisterContract.Presente
 
     @Override
     public void registerViewConfigurations(List<String> viewIdentifiers) {
+        model.registerViewConfigurations(viewIdentifiers);
 
     }
 

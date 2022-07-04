@@ -1,5 +1,7 @@
 package com.example.opensrp_client_covacs.contract;
 
+import com.example.opensrp_client_covacs.cursor.AdvancedMatrixCursor;
+
 import org.json.JSONArray;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
@@ -42,7 +44,7 @@ public interface ChildRegisterFragmentContract {
     interface View extends BaseRegisterFragmentContract.View {
         void initializeAdapter(Set<org.smartregister.configurableviews.model.View> var1);
 
-//        void recalculatePagination(AdvancedMatrixCursor var1);
+        void recalculatePagination(AdvancedMatrixCursor matrixCursor);
 
         ChildRegisterFragmentContract.Presenter presenter();
     }

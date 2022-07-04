@@ -24,6 +24,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -251,7 +252,21 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static ChildMetadata metadata() {
-//        return CovacsApplication.getInstance().metadata();
-        return null;
+        return CovacsApplication.getInstance().getMetadata();
     }
+
+    // date utils from core
+    public static String getDuration(String date) {
+        DateTime duration;
+        if (StringUtils.isNotBlank(date)) {
+            try {
+                duration = new DateTime(date);
+                return getDuration(String.valueOf(duration)); //check if String.valueOf is necessary
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }
+        return "";
+    }
+
 }

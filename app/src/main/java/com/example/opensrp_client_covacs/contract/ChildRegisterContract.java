@@ -2,6 +2,9 @@ package com.example.opensrp_client_covacs.contract;
 
 import androidx.annotation.NonNull;
 
+import com.example.opensrp_client_covacs.domain.ChildEventClient;
+import com.example.opensrp_client_covacs.domain.UpdateRegisterParams;
+
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.domain.tag.FormTag;
@@ -31,20 +34,17 @@ public interface ChildRegisterContract {
     }
 
     public interface Interactor {
-        void onDestroy(boolean var1);
+        void onDestroy(boolean isChangingConfiguration);
 
-        void getNextUniqueId(Triple<String, Map<String, String>, String> var1, ChildRegisterContract.InteractorCallBack var2);
+        void getNextUniqueId(Triple<String, Map<String, String>, String> triple, ChildRegisterContract.InteractorCallBack callBack);
 
-//        void saveRegistration(List<ChildEventClient> var1, String var2, UpdateRegisterParams var3, ChildRegisterContract.InteractorCallBack var4);
-//
+        void saveRegistration(final List<ChildEventClient> childEventClientList,
+                              final String jsonString,
+                              UpdateRegisterParams updateRegisterParams,
+                              ChildRegisterContract.InteractorCallBack callBack);
+
 //        void removeChildFromRegister(String var1, String var2);
-//
-//        void processWeight(@NonNull Map<String, String> var1, @NonNull String var2, @NonNull UpdateRegisterParams var3, @NonNull JSONObject var4) throws JSONException;
-//
-//        void processHeight(@NonNull Map<String, String> var1, @NonNull String var2, @NonNull UpdateRegisterParams var3, @NonNull JSONObject var4) throws JSONException;
-//
-//        void processTetanus(@NonNull Map<String, String> var1, @NonNull String var2, @NonNull UpdateRegisterParams var3, @NonNull JSONObject var4) throws JSONException;
-//
+
 //        boolean isClientMother(@NonNull Map<String, String> var1);
     }
 

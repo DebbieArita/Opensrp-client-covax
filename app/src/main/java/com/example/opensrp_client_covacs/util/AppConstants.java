@@ -30,6 +30,10 @@ public class AppConstants {
         public static final String DOB = "dob";//Date Of Birth
         public static final String CHILD = "child";
         public static final String AGE = "age";
+        public static final String MALE = "male";
+        public static final String FEMALE = "female";
+        public static final String BASE_ENTITY_ID = "base_entity_id";
+
         public static final String WEIGHT = "weight";
         public static final String COVAX_PROTECTION = "covacs_protection";
         public static final String PHONE_NUMBER = "phone_number";
@@ -54,6 +58,11 @@ public class AppConstants {
         public static final String MODERNA_2 = "moderna_2";
         public static final String MODERNA_BOOSTER = "moderna_booster";
         public static final String MODERNA_BOOSTER_2 = "moderna_booster_2";
+        public static final String LOST_TO_FOLLOW_UP = "lost_to_follow_up";
+        public static final String INACTIVE = "inactive";
+
+
+
 
     }
 
@@ -79,7 +88,8 @@ public class AppConstants {
     }
 
     public interface RegisterTable {
-        String CLIENT = "ec_client_fields";
+        String CHILD_DETAILS = "child";
+        String CLIENT = "ec_client";
         String VACCINE_DETAILS = "ec_client_vaccine";
     }
 

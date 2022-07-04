@@ -1,9 +1,12 @@
 package com.example.opensrp_client_covacs.model;
 
 import com.example.opensrp_client_covacs.contract.ChildRegisterContract;
+import com.example.opensrp_client_covacs.util.Utils;
 
 import org.json.JSONObject;
+import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.domain.tag.FormTag;
+import org.smartregister.location.helper.LocationHelper;
 
 import java.util.List;
 import java.util.Map;
@@ -11,22 +14,23 @@ import java.util.Map;
 public class AppChildRegisterModel implements ChildRegisterContract.Model {
     @Override
     public void registerViewConfigurations(List<String> viewIdentifiers) {
-
+        ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().registerViewConfigurations(viewIdentifiers);
     }
 
     @Override
     public void unregisterViewConfiguration(List<String> viewIdentifiers) {
-
+        ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().unregisterViewConfiguration(viewIdentifiers);
     }
 
     @Override
     public void saveLanguage(String language) {
+        //empty block
 
     }
 
     @Override
     public String getLocationId(String locationName) {
-        return null;
+        return LocationHelper.getInstance().getOpenMrsLocationId(locationName);
     }
 
 //    @Override
@@ -41,6 +45,6 @@ public class AppChildRegisterModel implements ChildRegisterContract.Model {
 
     @Override
     public String getInitials() {
-        return null;
+        return Utils.getUserInitials();
     }
 }

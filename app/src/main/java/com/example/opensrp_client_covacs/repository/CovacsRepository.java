@@ -25,14 +25,14 @@ public class CovacsRepository extends Repository {
     private SQLiteDatabase readableDatabase;
     private SQLiteDatabase writableDatabase;
     private final Context context;
-    private final org.smartregister.Context openSRPContext;
+//    private final org.smartregister.Context openSRPContext;
 
 
     public CovacsRepository(@NonNull Context context, @NonNull org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(),
                 CovacsApplication.createCommonFtsObject(context), openSRPContext.sharedRepositoriesArray());
         this.context = context;
-        this.openSRPContext = openSRPContext;
+//        this.openSRPContext = openSRPContext;
     }
 
     @Override

@@ -38,7 +38,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_child_register);
+//        setContentView(R.layout.activity_child_register); //to test
         NavigationMenu.getInstance(this);
     }
 

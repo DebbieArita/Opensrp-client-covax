@@ -8,7 +8,7 @@
     android:orientation="horizontal">
 
     <RelativeLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
@@ -26,19 +26,19 @@
             android:textSize="16sp" />
 
 
-        <org.smartregister.view.customcontrols.CustomFontTextView
-            android:id="@+id/child_age_header"
-            style="@style/CustomFontTextViewStyle.ClientList.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="45dp"
-            android:layout_marginRight="45dp"
-            android:text="@string/birthdate_age"
-            android:textAllCaps="true"
-            android:textColor="@color/client_list_grey"
-            android:textSize="16sp" />
+<!--        <org.smartregister.view.customcontrols.CustomFontTextView-->
+<!--            android:id="@+id/child_age_header"-->
+<!--            style="@style/CustomFontTextViewStyle.ClientList.Medium"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_marginEnd="45dp"-->
+<!--            android:layout_marginRight="45dp"-->
+<!--            android:text="@string/birthdate_age"-->
+<!--            android:textAllCaps="true"-->
+<!--            android:textColor="@color/client_list_grey"-->
+<!--            android:textSize="16sp" />-->
 
     </RelativeLayout>
 
@@ -64,30 +64,30 @@
 
     </LinearLayout>
 
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/child_weight_header_wrapper"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="1dp"-->
+<!--        android:layout_marginRight="1dp"-->
+<!--        android:layout_weight="1.7">-->
+
+<!--        <org.smartregister.view.customcontrols.CustomFontTextView-->
+<!--            android:id="@+id/child_weight_header"-->
+<!--            style="@style/CustomFontTextViewStyle.ClientList.Medium"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:text="@string/weight"-->
+<!--            android:textAllCaps="true"-->
+<!--            android:textColor="@color/client_list_grey"-->
+<!--            android:textSize="16sp" />-->
+
+<!--    </RelativeLayout>-->
+
+
     <RelativeLayout
-        android:id="@+id/child_weight_header_wrapper"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_weight="1.7">
-
-        <org.smartregister.view.customcontrols.CustomFontTextView
-            android:id="@+id/child_weight_header"
-            style="@style/CustomFontTextViewStyle.ClientList.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="@string/weight"
-            android:textAllCaps="true"
-            android:textColor="@color/client_list_grey"
-            android:textSize="16sp" />
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="2">
 
@@ -96,7 +96,6 @@
             style="@style/CustomFontTextViewStyle.ClientList.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:text="@string/next_vaccine"
             android:textAllCaps="true"
             android:textColor="@color/client_list_grey"
