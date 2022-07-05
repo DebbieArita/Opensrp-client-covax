@@ -4,20 +4,33 @@ import android.content.Intent;
 
 import com.evernote.android.job.JobManager;
 import com.example.opensrp_client_covacs.BuildConfig;
+import com.example.opensrp_client_covacs.activity.ChildFormActivity;
+import com.example.opensrp_client_covacs.activity.ChildImmunizationActivity;
+import com.example.opensrp_client_covacs.activity.ChildProfileActivity;
+import com.example.opensrp_client_covacs.activity.ChildRegisterActivity;
 import com.example.opensrp_client_covacs.activity.LoginActivity;
+import com.example.opensrp_client_covacs.domain.ChildMetadata;
 import com.example.opensrp_client_covacs.job.AppJobCreator;
+import com.example.opensrp_client_covacs.provider.ChildRegisterQueryProvider;
 import com.example.opensrp_client_covacs.repository.CovacsRepository;
 import com.example.opensrp_client_covacs.util.AppConstants;
+import com.example.opensrp_client_covacs.util.FormUtils;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.immunization.ImmunizationLibrary;
+import org.smartregister.immunization.domain.VaccineSchedule;
+import org.smartregister.immunization.domain.jsonmapping.Vaccine;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
+import org.smartregister.immunization.repository.VaccineRepository;
+import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
@@ -31,7 +44,10 @@ import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
 
@@ -44,6 +60,9 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
     private ECSyncHelper ecSyncHelper;
     private AppExecutors appExecutors;
 
+
+
+    //init json helper
     public static JsonSpecHelper getJsonSpecHelper() {
         return jsonSpecHelper;
     }
@@ -60,25 +79,29 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         //Initialize Modules
         CoreLibrary.init(context, new AppSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
 
-//        ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(context.applicationContext()),
-//                BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-//        ImmunizationLibrary.getInstance().setVaccineSyncTime(3, TimeUnit.MINUTES);
+        ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(context.applicationContext()),
+                BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        ImmunizationLibrary.getInstance().setVaccineSyncTime(3, TimeUnit.MINUTES);
 
         ConfigurableViewsLibrary.init(context);
+
+        LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LEVELS)), BuildConfig.DEFAULT_LOCATION);
+
 
 //        setDefaultLanguage();
 
         initRepositories();
-//        initOfflineSchedules();
+        initOfflineSchedules();
 //        setOpenSRPUrl();
 
-        SyncStatusBroadcastReceiver.init(this);
+
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LEVELS)), BuildConfig.DEFAULT_LOCATION);
 
         jsonSpecHelper = new JsonSpecHelper(this);
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new AppJobCreator());
+        SyncStatusBroadcastReceiver.init(this);
 //        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
@@ -89,6 +112,28 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
 //            Timber.e(e, " --> saveLanguage");
 //        }
 //    }
+
+    private static void populateAlertColumnNames(List<Vaccine> vaccines, List<String> names) {
+
+        for (Vaccine vaccine : vaccines)
+            if (vaccine.getVaccineSeparator() != null && vaccine.getName().contains(vaccine.getVaccineSeparator().trim())) {
+                String[] individualVaccines = vaccine.getName().split(vaccine.getVaccineSeparator().trim());
+
+                List<Vaccine> vaccineList = new ArrayList<>();
+                for (String individualVaccine : individualVaccines) {
+                    Vaccine vaccineClone = new Vaccine();
+                    vaccineClone.setName(individualVaccine.trim());
+                    vaccineList.add(vaccineClone);
+
+                }
+                populateAlertColumnNames(vaccineList, names);
+
+
+            } else {
+
+                names.add("alerts." + VaccinateActionUtils.addHyphen(vaccine.getName()));
+            }
+    }
 
 
     public static CommonFtsObject createCommonFtsObject(android.content.Context context) {
@@ -116,43 +161,70 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
                     AppConstants.KeyConstants.FIRST_NAME,
                     AppConstants.KeyConstants.LAST_NAME
             };
-//            case DBConstants.RegisterTable.CHILD_DETAILS:
-//                return new String[]{DBConstants.KEY.LOST_TO_FOLLOW_UP, DBConstants.KEY.INACTIVE};
+//            case AppConstants.RegisterTable.CHILD_DETAILS:
+//                return new String[]{AppConstants.KeyConstants.LOST_TO_FOLLOW_UP, AppConstants.KeyConstants.INACTIVE};
         }
         return null;
     }
 
     private static String[] getFtsSortFields(String tableName, android.content.Context context) {
-        switch (tableName) {
-            case AppConstants.TableNameConstants.ALL_CLIENTS:
-                return Arrays.asList(AppConstants.KeyConstants.FIRST_NAME, AppConstants.KeyConstants.LAST_NAME,
-                        AppConstants.KeyConstants.DOB, AppConstants.KeyConstants.ZEIR_ID, AppConstants.KeyConstants.GENDER,
-                        AppConstants.KeyConstants.COUNTY, AppConstants.KeyConstants.HEALTH_FACILITY, AppConstants.KeyConstants.REGISTRATION_DATE).toArray(new String[0]);
-//                        AppConstants.KeyConstants.DOD, AppConstants.KeyConstants.DATE_REMOVED).toArray(new String[0]);
-            case AppConstants.RegisterTable.CLIENT:
-                List<VaccineGroup> vaccineList = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
-                List<String> names = new ArrayList<>();
-                names.add(AppConstants.KeyConstants.ZEIR_ID);
-                names.add(AppConstants.KeyConstants.REGISTRATION_DATE);
-                names.add(AppConstants.KeyConstants.USERNAME);
-                names.add(AppConstants.KeyConstants.REACTION_VACCINE);
+        //            case AppConstants.TableNameConstants.ALL_CLIENTS:
+        //                return Arrays.asList(AppConstants.KeyConstants.FIRST_NAME, AppConstants.KeyConstants.LAST_NAME,
+        //                        AppConstants.KeyConstants.DOB, AppConstants.KeyConstants.ZEIR_ID, AppConstants.KeyConstants.GENDER,
+        //                        AppConstants.KeyConstants.COUNTY, AppConstants.KeyConstants.HEALTH_FACILITY, AppConstants.KeyConstants.REGISTRATION_DATE).toArray(new String[0]);
+        //                        AppConstants.KeyConstants.DOD, AppConstants.KeyConstants.DATE_REMOVED).toArray(new String[0]);
+        if (AppConstants.RegisterTable.CLIENT.equals(tableName)) {
+            List<VaccineGroup> vaccineList = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
+            List<String> names = new ArrayList<>();
+            names.add(AppConstants.KeyConstants.ZEIR_ID);
+            names.add(AppConstants.KeyConstants.REGISTRATION_DATE);
+            names.add(AppConstants.KeyConstants.USERNAME);
+            names.add(AppConstants.KeyConstants.REACTION_VACCINE);
 
 
-//                for (VaccineGroup vaccineGroup : vaccineList) {
-//                    populateAlertColumnNames(vaccineGroup.vaccines, names);
-//                }
+            for (VaccineGroup vaccineGroup : vaccineList) {
+                populateAlertColumnNames(vaccineGroup.vaccines, names);
+            }
 
-                return names.toArray(new String[0]);
-
-            default:
-                return null;
+            return names.toArray(new String[0]);
         }
+        return null;
     }
 
 
     public static synchronized CovacsApplication getInstance() {
         return (CovacsApplication) mInstance;
     }
+
+//    public ChildMetadata getMetadata() {
+//        ChildMetadata metadata = FormUtils.getMetadata(new ChildProfileActivity(), getDefaultLocationLevel(), getFacilityHierarchy());
+//        HashMap<String, String> setting = new HashMap<>();
+//        return metadata;
+//    }
+
+    public ChildMetadata getMetadata() {
+        ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class,
+                ChildImmunizationActivity.class, ChildRegisterActivity.class, true, new ChildRegisterQueryProvider());
+        metadata.updateChildRegister(AppConstants.JsonForm.CHILD_ENROLLMENT, AppConstants.RegisterTable.CLIENT,
+                AppConstants.EventType.CHILD_REGISTRATION, AppConstants.EventType.UPDATE_CHILD_REGISTRATION, AppConstants.ConfigurationConstants.CHILD_REGISTER);
+        metadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("Home_Facility", "Birth_Facility_Name")));
+        metadata.setLocationLevels(new ArrayList<>(Arrays.asList(BuildConfig.LOCATION_LEVELS)));
+        metadata.setHealthFacilityLevels(new ArrayList<>(Arrays.asList(BuildConfig.HEALTH_FACILITY_LEVELS)));
+        return metadata;
+    }
+
+
+
+    private ArrayList<String> getFacilityHierarchy() {
+        return null;
+    }
+
+    private String getDefaultLocationLevel() {
+        return null;
+    }
+
+
+
 
 //    public static List<VaccineGroup> getVaccineGroups(android.content.Context context) {
 //        if (vaccineGroups == null) {
@@ -163,24 +235,30 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
 
 
     private void initRepositories() {
-//        vaccineRepository();
+        vaccineRepository();
 
     }
-//
-//    private void initOfflineSchedules() {
-//        try {
-////            List<VaccineGroup> vaccines = VaccinatorUtils.getSupportedVaccines(this);
-////            List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
-////            VaccineSchedule.init(vaccines, specialVaccines, AppConstants.KeyConstants.CHILD);
-//        } catch (Exception e) {
-//            Timber.e(e, "CovacsApplication --> initOfflineSchedules");
-//        }
-//    }
+
+    private void initOfflineSchedules() {
+        try {
+            List<VaccineGroup> vaccines = VaccinatorUtils.getSupportedVaccines(this);
+            List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
+            VaccineSchedule.init(vaccines, specialVaccines, AppConstants.KeyConstants.CHILD);
+        } catch (Exception e) {
+            Timber.e(e, "CovacsApplication --> initOfflineSchedules");
+        }
+    }
 
 
-//    public VaccineRepository vaccineRepository() {
-//        return ImmunizationLibrary.getInstance().vaccineRepository();
+    public VaccineRepository vaccineRepository() {
+        return ImmunizationLibrary.getInstance().vaccineRepository();
+    }
+
+
+//    public AllCommonsRepository getAllCommonsRepository(String table) {
+//        return CovacsApplication.getInstance().getContext().allCommonsRepositoryobjects(table);
 //    }
+
 
 
 
@@ -193,6 +271,7 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         getApplicationContext().startActivity(intent);
         context.userService().logoutSession();
+        Timber.i("Logged out user %s", getContext().allSharedPreferences().fetchRegisteredANM());
     }
 
     @Override

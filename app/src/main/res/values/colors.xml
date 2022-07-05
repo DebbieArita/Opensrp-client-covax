@@ -8,6 +8,8 @@
     <color name="holo_blue">#81D4FA</color>
     <color name="grey">#979797</color>
     <color name="white_dark">#fafafa</color>
+    <color name="search_edit_bg_grey">#616161</color>
+    <color name="status_bar_bg_dark_grey">#494949</color>
 
     <color name="list_view_divider_black">@color/black</color>
     <color name="login_hint_color">#bfbfbf</color>
@@ -22,5 +24,7 @@
     <color name="black_text_color">#2E2E2E</color>
 
     <color name="filter_bar_light_grey">#EEEEEE</color>
+
+    <color name="actionbar">#208CC5</color>
 
 </resources>

@@ -31,63 +31,7 @@
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup,android:icon,android:label,android:theme">
 <!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.monthly.indicator.ReportIndicatorsActivity"-->
-<!--            android:label="@string/title_activity_report_tallies"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/AppTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.register.ReportRegisterActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.dropout.DropoutReportsActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.stock.ZeirStockActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.stock.activity.StockControlActivity"-->
-<!--            android:label="@string/title_activity_stock_control"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/AppThemeNoTitle.NoActionBar" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.stock.activity.StockJsonFormActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/AppTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.coverage.CoverageReportsActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.coverage.cohort.CohortCoverageReportActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.coverage.cso.AnnualCoverageReportCsoActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.coverage.zeir.AnnualCoverageReportZeirActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.coverage.cso.FacilityCumulativeCoverageReportActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.activity.ChildImmunizationActivity"-->
+<!--            android:name="com.example.opensrp_client_covacs.activity.ChildImmunizationActivity"-->
 <!--            android:label="@string/title_activity_child_immunization"-->
 <!--            android:screenOrientation="portrait"-->
 <!--            android:theme="@style/AppTheme.NoActionBar"-->
@@ -113,63 +57,18 @@
 <!--            android:launchMode="singleTask"-->
 <!--            android:screenOrientation="portrait"-->
 <!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.child.activity.BaseChildFormActivity"-->
-<!--            android:launchMode="singleTask"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.activity.ChildDetailTabbedActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
 <!--        <activity-->
 <!--            android:name="org.smartregister.path.activity.ChildProfileActivity"-->
 <!--            android:screenOrientation="portrait"-->
 <!--            android:theme="@style/ChildTheme.NoActionBar"-->
 <!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
 <!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.monthly.MonthlyReportsActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.annual.AnnualReportActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
 <!--        <activity-->
 <!--            android:name="com.vijay.jsonwizard.activities.JsonWizardFormActivity"-->
 <!--            android:screenOrientation="portrait"-->
 <!--            android:theme="@style/ChildTheme.NoActionBar"-->
 <!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.dropuout.BcgMeaslesCohortDropoutReportActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.dropuout.PentaCumulativeDropoutReportActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.dropuout.PentaCohortDropoutReportActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.dropuout.MeaslesCumulativeDropoutReportActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.reporting.dropuout.BcgMeaslesCumulativeDropoutReportActivity"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />-->
+
     </application>
 
 </manifest>

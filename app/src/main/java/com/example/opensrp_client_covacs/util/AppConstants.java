@@ -6,6 +6,9 @@ public class AppConstants {
         String Swahili = "sw";
     }
 
+    public static final String SQLITE_DATE_TIME_FORMAT = "yyyy-MM-dd";
+
+
     public static final class KeyConstants {
         public static final String REACTION_VACCINE = "Reaction_Vaccine";
         public static final String PARENT_LOCATION = "parent_location";
@@ -27,6 +30,10 @@ public class AppConstants {
         public static final String DOB = "dob";//Date Of Birth
         public static final String CHILD = "child";
         public static final String AGE = "age";
+        public static final String MALE = "male";
+        public static final String FEMALE = "female";
+        public static final String BASE_ENTITY_ID = "base_entity_id";
+
         public static final String WEIGHT = "weight";
         public static final String COVAX_PROTECTION = "covacs_protection";
         public static final String PHONE_NUMBER = "phone_number";
@@ -51,6 +58,11 @@ public class AppConstants {
         public static final String MODERNA_2 = "moderna_2";
         public static final String MODERNA_BOOSTER = "moderna_booster";
         public static final String MODERNA_BOOSTER_2 = "moderna_booster_2";
+        public static final String LOST_TO_FOLLOW_UP = "lost_to_follow_up";
+        public static final String INACTIVE = "inactive";
+
+
+
 
     }
 
@@ -60,7 +72,13 @@ public class AppConstants {
 
     }
 
-    public static final class EventTypeConstants {
+//    public static final class EventTypeConstants {
+//        public static final String CHILD_REGISTRATION = "Subject Registration";
+//        public static final String UPDATE_CHILD_REGISTRATION = "Update Subject Registration";
+//
+//    }
+
+    public static final class EventType {
         public static final String CHILD_REGISTRATION = "Subject Registration";
         public static final String UPDATE_CHILD_REGISTRATION = "Update Subject Registration";
 
@@ -71,7 +89,8 @@ public class AppConstants {
     }
 
     public interface RegisterTable {
-        String CLIENT = "ec_client_fields";
+        String CHILD_DETAILS = "child";
+        String CLIENT = "ec_client";
         String VACCINE_DETAILS = "ec_client_vaccine";
     }
 
@@ -100,6 +119,16 @@ public class AppConstants {
         String IS_REMOTE_LOGIN = "is_remote_login";
     }
 
+    public static final class INTENT_KEY {
+        public static final String JSON = "json";
+        public static final String BASE_ENTITY_ID = "base_entity_id";
+        public static final String EXTRA_CHILD_DETAILS = "child_details";
+        public static final String EXTRA_REGISTER_CLICKABLES = "register_clickables";
+        public static final String LOCATION_ID = "location_id";
+        public static final String PROVIDER_ID = "provider_id";
+        public static final String NEXT_APPOINTMENT_DATE = "next_appointment_date";
+    }
+
     public interface RegisterType {
         String CHILD = "child";
     }
@@ -113,4 +142,13 @@ public class AppConstants {
         String INDICATOR_CONFIG_FILE = "configs/reporting/indicator-definitions.yml";
     }
 
+    public static class FormActivity {
+        public static final String EnableOnCloseDialog = "EnableOnCloseDialog";
+    }
+
+    public static class configuration {
+        public static final String LOGIN = "login";
+        public static final String CHILD_REGISTER = "family_register";
+        public static final String CHILD_MEMBER_REGISTER = "child_member_register";
+    }
 }

@@ -1,26 +1,56 @@
 package com.example.opensrp_client_covacs.view;
 
 import android.app.Activity;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.content.res.Configuration;
+import android.view.View;
 
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
 
 import com.example.opensrp_client_covacs.contract.NavigationContract;
-import com.example.opensrp_client_covacs.util.AppConstants;
 
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 
 import java.lang.ref.WeakReference;
 import java.util.Date;
-import java.util.Locale;
 
 public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener{
 
-    @Override
+    private static NavigationMenu instance;
+    private static WeakReference<Activity> activityWeakReference;
+    private View parentView;
+    private Toolbar toolbar;
+
+
+
+    public static NavigationMenu getInstance(@NonNull Activity activity, View parentView, Toolbar myToolbar) {
+        SyncStatusBroadcastReceiver.getInstance().removeSyncStatusListener(instance);
+        int orientation = activity.getResources().getConfiguration().orientation;
+        activityWeakReference = new WeakReference<>(activity);
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if (instance == null) {
+                instance = new NavigationMenu();
+//                langArray = activity.getResources().getStringArray(R.array.languages);
+
+            }
+            instance.init(activity);
+            SyncStatusBroadcastReceiver.getInstance().addSyncStatusListener(instance);
+            return instance;
+        } else {
+            return null;
+        }
+
+    }
+
+
+    private void init(Activity activity) {
+
+    }
+
+        @Override
     public void onSyncStart() {
 
     }
