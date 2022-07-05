@@ -2,6 +2,7 @@ package com.example.opensrp_client_covacs.util;
 
 import android.graphics.Color;
 import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TableRow;
@@ -269,4 +270,7 @@ public class Utils extends org.smartregister.util.Utils {
         return "";
     }
 
+    public static float convertDpToPixel(float dp, android.content.Context context) {
+        return dp * ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
 }

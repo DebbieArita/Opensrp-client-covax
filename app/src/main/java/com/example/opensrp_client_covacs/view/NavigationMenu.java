@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
 
 import com.example.opensrp_client_covacs.contract.NavigationContract;
 
@@ -25,7 +26,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
 
 
-    public static NavigationMenu getInstance(@NonNull Activity activity) {
+    public static NavigationMenu getInstance(@NonNull Activity activity, View parentView, Toolbar myToolbar) {
         SyncStatusBroadcastReceiver.getInstance().removeSyncStatusListener(instance);
         int orientation = activity.getResources().getConfiguration().orientation;
         activityWeakReference = new WeakReference<>(activity);
@@ -43,6 +44,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         }
 
     }
+
 
     private void init(Activity activity) {
 

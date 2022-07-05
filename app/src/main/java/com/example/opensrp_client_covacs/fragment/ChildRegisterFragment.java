@@ -2,14 +2,19 @@ package com.example.opensrp_client_covacs.fragment;
 
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
@@ -22,6 +27,7 @@ import com.example.opensrp_client_covacs.model.ChildRegisterFragmentModel;
 import com.example.opensrp_client_covacs.presenter.ChildRegisterFragmentPresenter;
 import com.example.opensrp_client_covacs.provider.ChildRegisterProvider;
 import com.example.opensrp_client_covacs.util.Utils;
+import com.example.opensrp_client_covacs.view.NavigationMenu;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -30,6 +36,8 @@ import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.util.AppExecutors;
 import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.BaseRegisterActivity;
+import org.smartregister.view.customcontrols.CustomFontTextView;
+import org.smartregister.view.customcontrols.FontVariant;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
@@ -74,6 +82,8 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
+        //todo setupViews
+
     }
 
     @Override
@@ -233,5 +243,9 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
     @Override
     public void onLocationChange(String s) {
 
+    }
+
+    protected int getToolBarTitle() {
+        return 0;
     }
 }

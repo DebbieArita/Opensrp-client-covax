@@ -4,10 +4,14 @@ import android.content.Intent;
 
 import com.evernote.android.job.JobManager;
 import com.example.opensrp_client_covacs.BuildConfig;
+import com.example.opensrp_client_covacs.activity.ChildFormActivity;
+import com.example.opensrp_client_covacs.activity.ChildImmunizationActivity;
 import com.example.opensrp_client_covacs.activity.ChildProfileActivity;
+import com.example.opensrp_client_covacs.activity.ChildRegisterActivity;
 import com.example.opensrp_client_covacs.activity.LoginActivity;
 import com.example.opensrp_client_covacs.domain.ChildMetadata;
 import com.example.opensrp_client_covacs.job.AppJobCreator;
+import com.example.opensrp_client_covacs.provider.ChildRegisterQueryProvider;
 import com.example.opensrp_client_covacs.repository.CovacsRepository;
 import com.example.opensrp_client_covacs.util.AppConstants;
 import com.example.opensrp_client_covacs.util.FormUtils;
@@ -41,6 +45,7 @@ import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -191,9 +196,20 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         return (CovacsApplication) mInstance;
     }
 
+//    public ChildMetadata getMetadata() {
+//        ChildMetadata metadata = FormUtils.getMetadata(new ChildProfileActivity(), getDefaultLocationLevel(), getFacilityHierarchy());
+//        HashMap<String, String> setting = new HashMap<>();
+//        return metadata;
+//    }
+
     public ChildMetadata getMetadata() {
-        ChildMetadata metadata = FormUtils.getMetadata(new ChildProfileActivity(), getDefaultLocationLevel(), getFacilityHierarchy());
-        HashMap<String, String> setting = new HashMap<>();
+        ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class,
+                ChildImmunizationActivity.class, ChildRegisterActivity.class, true, new ChildRegisterQueryProvider());
+        metadata.updateChildRegister(AppConstants.JsonForm.CHILD_ENROLLMENT, AppConstants.RegisterTable.CLIENT,
+                AppConstants.EventType.CHILD_REGISTRATION, AppConstants.EventType.UPDATE_CHILD_REGISTRATION, AppConstants.ConfigurationConstants.CHILD_REGISTER);
+        metadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("Home_Facility", "Birth_Facility_Name")));
+        metadata.setLocationLevels(new ArrayList<>(Arrays.asList(BuildConfig.LOCATION_LEVELS)));
+        metadata.setHealthFacilityLevels(new ArrayList<>(Arrays.asList(BuildConfig.HEALTH_FACILITY_LEVELS)));
         return metadata;
     }
 

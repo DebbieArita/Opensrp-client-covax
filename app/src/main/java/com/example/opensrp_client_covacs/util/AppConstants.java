@@ -72,13 +72,14 @@ public class AppConstants {
 
     }
 
-    public static final class EventTypeConstants {
-        public static final String CHILD_REGISTRATION = "Subject Registration";
-        public static final String UPDATE_CHILD_REGISTRATION = "Update Subject Registration";
-
-    }
+//    public static final class EventTypeConstants {
+//        public static final String CHILD_REGISTRATION = "Subject Registration";
+//        public static final String UPDATE_CHILD_REGISTRATION = "Update Subject Registration";
+//
+//    }
 
     public static final class EventType {
+        public static final String CHILD_REGISTRATION = "Subject Registration";
         public static final String UPDATE_CHILD_REGISTRATION = "Update Subject Registration";
 
     }

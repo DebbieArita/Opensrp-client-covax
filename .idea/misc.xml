@@ -3,11 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../layout/custom_preview.xml" value="0.13177083333333334" />
         <entry key="../.gradle/caches/transforms-2/files-2.1/090b04df8835875f9031ffdec5ac7340/jetified-opensrp-client-child-0.7.2-PREVIEW-SNAPSHOT/res/drawable/light_grey_background.xml" value="0.135" />
         <entry key="../.gradle/caches/transforms-2/files-2.1/6ba771d61a153a246044fe7ae4f3d84a/jetified-opensrp-client-immunization-4.0.2-SNAPSHOT/res/drawable-mdpi-v4/vaccination_earlier_bg.xml" value="0.2985" />
         <entry key="../.gradle/caches/transforms-2/files-2.1/8041f874beb8c7ab63342dc1cb8eefe9/jetified-opensrp-client-core-4.3.23-SNAPSHOT/res/drawable/bottom_bar_initials_background.xml" value="0.1155" />
         <entry key="../.gradle/caches/transforms-2/files-2.1/8041f874beb8c7ab63342dc1cb8eefe9/jetified-opensrp-client-core-4.3.23-SNAPSHOT/res/drawable/bottom_navigation_selector.xml" value="0.226" />
         <entry key="../.gradle/caches/transforms-2/files-2.1/8041f874beb8c7ab63342dc1cb8eefe9/jetified-opensrp-client-core-4.3.23-SNAPSHOT/res/layout/activity_main.xml" value="0.31927083333333334" />
+        <entry key="app/src/main/res/drawable-xxxhdpi/name_inits_bg.xml" value="0.2035" />
         <entry key="app/src/main/res/drawable/login_button_bg.xml" value="0.226" />
         <entry key="app/src/main/res/drawable/report_btn_bg.xml" value="0.2985" />
         <entry key="app/src/main/res/drawable/report_btn_text.xml" value="0.135" />
@@ -20,6 +22,7 @@
         <entry key="app/src/main/res/layout/activity_report_register.xml" value="0.2111111111111111" />
         <entry key="app/src/main/res/layout/activity_reports.xml" value="0.2916666666666667" />
         <entry key="app/src/main/res/layout/adapter_child_register_list_row.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/advanced_search_list.xml" value="0.18" />
         <entry key="app/src/main/res/layout/app_cohort_coverage_reports.xml" value="0.3046875" />
         <entry key="app/src/main/res/layout/app_spinner_item.xml" value="0.3046875" />
         <entry key="app/src/main/res/layout/child_reg_frag_activity.xml" value="0.19322916666666667" />
@@ -34,6 +37,8 @@
         <entry key="app/src/main/res/layout/item_spinner_drop_down.xml" value="0.12447916666666667" />
         <entry key="app/src/main/res/layout/navigation_drawer.xml" value="0.15833333333333333" />
         <entry key="app/src/main/res/layout/navigation_drawer_view.xml" value="0.12447916666666667" />
+        <entry key="app/src/main/res/layout/tool_bar.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/toolbar_base_register.xml" value="0.18" />
         <entry key="app/src/main/res/menu/bottom_nav_child_menu.xml" value="0.18" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.236" />
       </map>

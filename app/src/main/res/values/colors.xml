@@ -25,4 +25,6 @@
 
     <color name="filter_bar_light_grey">#EEEEEE</color>
 
+    <color name="actionbar">#208CC5</color>
+
 </resources>

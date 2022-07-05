@@ -78,16 +78,16 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
     @Override
     public void initializeQueries(String mainCondition) {
 
-        String tableName = Utils.metadata().getRegisterQueryProvider().getDemographicTable();
-
-        String countSelect = model.countSelect(mainCondition);
-        String mainSelect = model.mainSelect(mainCondition);
-
-        getView().initializeQueryParams(tableName, countSelect, mainSelect);
-        getView().initializeAdapter(visibleColumns);
-
-        getView().countExecute();
-        getView().filterandSortInInitializeQueries();
+//        String tableName = Utils.metadata().getRegisterQueryProvider().getDemographicTable();
+//
+//        String countSelect = model.countSelect(mainCondition);
+//        String mainSelect = model.mainSelect(mainCondition);
+//
+//        getView().initializeQueryParams(tableName, countSelect, mainSelect);
+//        getView().initializeAdapter(visibleColumns);
+//
+//        getView().countExecute();
+//        getView().filterandSortInInitializeQueries();
 
     }
 

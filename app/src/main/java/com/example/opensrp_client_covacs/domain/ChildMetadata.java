@@ -17,6 +17,7 @@ public class ChildMetadata {
     public final Class profileActivity;
     public final boolean formWizardValidateRequiredFieldsBefore;
     private ArrayList<String> locationLevels;
+    private ArrayList<String> healthFacilityLevels;
     private Set<String> fieldsWithLocationHierarchy;
     public ChildRegister childRegister;
     private ChildRegisterQueryProvider registerQueryProvider;
@@ -82,13 +83,21 @@ public class ChildMetadata {
         }
     }
 
-//    public ArrayList<String> getLocationLevels() {
-//        return locationLevels;
-//    }
-//
-//    public void setLocationLevels(ArrayList<String> locationLevels) {
-//        this.locationLevels = locationLevels;
-//    }
+    public ArrayList<String> getLocationLevels() {
+        return locationLevels;
+    }
+
+    public void setLocationLevels(ArrayList<String> locationLevels) {
+        this.locationLevels = locationLevels;
+    }
+
+    public ArrayList<String> getHealthFacilityLevels() {
+        return healthFacilityLevels;
+    }
+
+    public void setHealthFacilityLevels(ArrayList<String> healthFacilityLevels) {
+        this.healthFacilityLevels = healthFacilityLevels;
+    }
 
     public Set<String> getFieldsWithLocationHierarchy() {
         return fieldsWithLocationHierarchy;
