@@ -27,19 +27,23 @@
         <entry key="app/src/main/res/layout/app_spinner_item.xml" value="0.3046875" />
         <entry key="app/src/main/res/layout/child_reg_frag_activity.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/child_reg_nav_bar.xml" value="0.27760416666666665" />
+        <entry key="app/src/main/res/layout/child_register_footer_pagination.xml" value="0.3723958333333333" />
         <entry key="app/src/main/res/layout/child_register_header.xml" value="0.25" />
         <entry key="app/src/main/res/layout/child_register_search.xml" value="0.27760416666666665" />
+        <entry key="app/src/main/res/layout/child_registration_data_fragment.xml" value="0.30625" />
         <entry key="app/src/main/res/layout/coverage_report_item.xml" value="0.3046875" />
         <entry key="app/src/main/res/layout/dropout_report_cohort_penta_header.xml" value="0.12447916666666667" />
         <entry key="app/src/main/res/layout/dropout_reports_item.xml" value="0.12447916666666667" />
         <entry key="app/src/main/res/layout/grey_left_border.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/header_banner.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/item_spinner_drop_down.xml" value="0.12447916666666667" />
+        <entry key="app/src/main/res/layout/menu_child_detail_settings.xml" value="0.3723958333333333" />
         <entry key="app/src/main/res/layout/navigation_drawer.xml" value="0.15833333333333333" />
         <entry key="app/src/main/res/layout/navigation_drawer_view.xml" value="0.12447916666666667" />
         <entry key="app/src/main/res/layout/tool_bar.xml" value="0.5" />
         <entry key="app/src/main/res/layout/toolbar_base_register.xml" value="0.18" />
         <entry key="app/src/main/res/menu/bottom_nav_child_menu.xml" value="0.18" />
+        <entry key="app/src/main/res/menu/menu_child_detail_settings.xml" value="0.25" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.236" />
       </map>
     </option>

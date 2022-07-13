@@ -13,7 +13,7 @@
 <!--        android:enabled="true"-->
 <!--        android:icon="@drawable/ic_icon_search"-->
 <!--        android:title="@string/search_menu"/>-->
-<!--        app:showAsAction="ifRoom" />-->
+<!--&lt;!&ndash;        app:showAsAction="ifRoom" />&ndash;&gt;-->
 
     <item
         android:id="@+id/action_register"

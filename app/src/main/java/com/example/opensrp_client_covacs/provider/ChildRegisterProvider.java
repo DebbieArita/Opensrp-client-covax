@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentActivity;
@@ -31,9 +32,9 @@ import org.smartregister.view.contract.SmartRegisterClients;
 import org.smartregister.view.dialog.FilterOption;
 import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
-import org.smartregister.view.fragment.BaseRegisterFragment;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
+import java.util.Locale;
 import java.util.Set;
 
 public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegisterViewHolder> {
@@ -70,7 +71,15 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
     }
 
     @Override
-    public void getFooterView(RecyclerView.ViewHolder viewHolder, int i, int i1, boolean b, boolean b1) {
+    public void getFooterView(RecyclerView.ViewHolder viewHolder, int currentPageCount, int totalPageCount, boolean hasNext, boolean hasPrevious) {
+        FooterViewHolder footerViewHolder = (FooterViewHolder) viewHolder;
+        footerViewHolder.pageInfoView.setText(String.format(Locale.ENGLISH, context.getString(R.string.str_page_info), currentPageCount, totalPageCount));
+
+        footerViewHolder.nextPageView.setVisibility(hasNext ? android.view.View.VISIBLE : android.view.View.INVISIBLE);
+        footerViewHolder.previousPageView.setVisibility(hasPrevious ? android.view.View.VISIBLE : android.view.View.INVISIBLE);
+
+        footerViewHolder.nextPageView.setOnClickListener(paginationClickListener);
+        footerViewHolder.previousPageView.setOnClickListener(paginationClickListener);
 
     }
 
@@ -101,13 +110,14 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
     }
 
     @Override
-    public RecyclerView.ViewHolder createFooterHolder(ViewGroup viewGroup) {
-        return null;
+    public RecyclerView.ViewHolder createFooterHolder(ViewGroup parent) {
+        android.view.View view = inflater.inflate(R.layout.child_register_footer_pagination, parent, false);
+        return new FooterViewHolder(view);
     }
 
     @Override
     public boolean isFooterViewHolder(RecyclerView.ViewHolder viewHolder) {
-        return false;
+        return viewHolder instanceof FooterViewHolder;
     }
 
     protected void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, ChildRegisterViewHolder viewHolder) {
@@ -145,6 +155,19 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
     protected static void fillValue(TextView v, String value) {
         if (v != null) {
             v.setText(value);
+        }
+    }
+
+    public class FooterViewHolder extends RecyclerView.ViewHolder {
+        private TextView pageInfoView;
+        private Button nextPageView;
+        private Button previousPageView;
+
+        FooterViewHolder(android.view.View view) {
+            super(view);
+            nextPageView = view.findViewById(R.id.btn_next_page);
+            previousPageView = view.findViewById(R.id.btn_previous_page);
+            pageInfoView = view.findViewById(R.id.txt_page_info);
         }
     }
 

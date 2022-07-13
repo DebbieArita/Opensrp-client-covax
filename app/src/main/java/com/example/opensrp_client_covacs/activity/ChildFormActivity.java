@@ -1,12 +1,9 @@
 package com.example.opensrp_client_covacs.activity;
 
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
 
 import com.example.opensrp_client_covacs.fragment.ChildFormFragment;
 import com.example.opensrp_client_covacs.util.AppConstants;

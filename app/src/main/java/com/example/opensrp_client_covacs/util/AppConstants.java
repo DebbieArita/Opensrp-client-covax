@@ -88,6 +88,25 @@ public class AppConstants {
         String CHILD_ENROLLMENT = "subject_registration";
     }
 
+    public static class JSON_FORM_KEY {
+        public static final String OPTIONS = "options";
+        public static final String DEATH_DATE_APPROX = "deathdateApprox";
+        public static final String UNIQUE_ID = "unique_id";
+        public static final String LAST_INTERACTED_WITH = "last_interacted_with";
+        public static final String DATE_BIRTH = "Date_Birth";
+        public static final String DATE_DEATH = "Date_of_Death";
+        public static final String DATE_BIRTH_UNKNOWN = "Date_Birth_Unknown";
+        public static final String AGE = "age";
+        public static final String HIERARCHY = "hierarchy";
+        public static final String SELECTABLE = "selectable";
+        public static final String SUB_TYPE = "sub_type";
+        public static final String LOCATION_SUB_TYPE = "location";
+        public static final String VALUE_FIELD = "value_field";
+        public static final String RELATIONSHIPS = "relationships";
+        public static final String SERVICES = "services";
+        public static final String EXCLUSION_KEYS = "exclusion_keys";
+    }
+
     public interface RegisterTable {
         String CHILD_DETAILS = "child";
         String CLIENT = "ec_client";
