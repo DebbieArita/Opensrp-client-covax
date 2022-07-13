@@ -52,11 +52,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/ChildTheme.NoActionBar" />
-<!--        <activity-->
-<!--            android:name="org.smartregister.path.activity.ChildFormActivity"-->
-<!--            android:launchMode="singleTask"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ChildTheme.NoActionBar"-->
+        <activity
+            android:name="com.example.opensrp_client_covacs.activity.ChildFormActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChildTheme.NoActionBar"/>
 <!--        <activity-->
 <!--            android:name="org.smartregister.path.activity.ChildProfileActivity"-->
 <!--            android:screenOrientation="portrait"-->

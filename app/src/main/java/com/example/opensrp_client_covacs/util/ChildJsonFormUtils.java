@@ -1,9 +1,38 @@
 package com.example.opensrp_client_covacs.util;
 
+import static com.vijay.jsonwizard.utils.NativeFormLangUtils.getTranslatedString;
+
+import android.content.Context;
+
+import androidx.annotation.NonNull;
+
+import com.example.opensrp_client_covacs.application.CovacsApplication;
+import com.example.opensrp_client_covacs.domain.ChildMetadata;
+import com.example.opensrp_client_covacs.domain.FormLocationTree;
+import com.example.opensrp_client_covacs.enums.LocationHierarchy;
+import com.google.common.reflect.TypeToken;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
+import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.smartregister.AllConstants;
+import org.smartregister.domain.form.FormLocation;
+import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.util.AssetHandler;
+import org.smartregister.util.FormUtils;
 import org.smartregister.util.JsonFormUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import timber.log.Timber;
 
 public class ChildJsonFormUtils extends JsonFormUtils {
 
@@ -29,4 +58,47 @@ public class ChildJsonFormUtils extends JsonFormUtils {
     private static final String FORM_SUBMISSION_FIELD = "formsubmissionField";
     private static final String LABEL_TEXT_STYLE = "label_text_style";
     private static final String RECURRING_SERVICES_FILE = "services.json";
+
+
+    public static JSONObject getJson(Context context, String formName, String baseEntityID) throws Exception {
+        String locationId = CovacsApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+        JSONObject jsonObject = new JSONObject(getTranslatedString(FormUtils.getInstance(context).getFormJson(formName).toString(), context));
+        ChildJsonFormUtils.getRegistrationForm(jsonObject, baseEntityID, locationId);
+        return jsonObject;
+    }
+
+    public static void getRegistrationForm(JSONObject jsonObject, String entityId, String currentLocationId) throws org.json.JSONException {
+        //empty block
+    }
+
+    public static void populateJsonForm(@NotNull JSONObject jsonObject, @NotNull Map<String, String> valueMap) throws JSONException {
+        Map<String, String> _valueMap = new HashMap<>(valueMap);
+        int step = 1;
+        while (jsonObject.has("step" + step)) {
+            JSONObject jsonStepObject = jsonObject.getJSONObject("step" + step);
+            JSONArray array = jsonStepObject.getJSONArray(JsonFormConstants.FIELDS);
+            int position = 0;
+            while (position < array.length() && _valueMap.size() > 0) {
+
+                JSONObject object = array.getJSONObject(position);
+                String key = object.getString(JsonFormConstants.KEY);
+
+                if (_valueMap.containsKey(key)) {
+                    object.put(JsonFormConstants.VALUE, _valueMap.get(key));
+                    _valueMap.remove(key);
+                }
+
+                position++;
+            }
+
+            step++;
+        }
+    }
+
+//    public static org.smartregister.clientandeventmodel.Event processJsonForm(org.smartregister.repository.AllSharedPreferences allSharedPreferences,
+//                                                                              java.lang.String jsonString, java.lang.String table) {
+//    }
+
+
+
 }

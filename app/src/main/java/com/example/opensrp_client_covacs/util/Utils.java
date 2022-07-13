@@ -23,6 +23,7 @@ import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.service.intent.VaccineIntentService;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
+import org.smartregister.repository.UniqueIdRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -272,5 +273,10 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static float convertDpToPixel(float dp, android.content.Context context) {
         return dp * ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
+
+    public static String getNextOpenMrsId() {
+        UniqueIdRepository uniqueIdRepo = CovacsApplication.getInstance().getUniqueIdRepository();
+        return uniqueIdRepo.getNextUniqueId() != null ? uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
     }
 }

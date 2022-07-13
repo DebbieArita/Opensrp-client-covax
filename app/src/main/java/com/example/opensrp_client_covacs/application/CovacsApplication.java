@@ -36,6 +36,7 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
+import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.AppExecutors;
@@ -59,6 +60,7 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
     private EventClientRepository eventClientRepository;
     private ECSyncHelper ecSyncHelper;
     private AppExecutors appExecutors;
+    private UniqueIdRepository uniqueIdRepository;
 
 
 
@@ -142,6 +144,7 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
             for (String ftsTable : commonFtsObject.getTables()) {
                 commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields(ftsTable));
                 commonFtsObject.updateSortFields(ftsTable, getFtsSortFields(ftsTable, context));
+//                commonFtsObject.updateMainConditions(ftsTable, getFtsMainConditions(ftsTable));
             }
         }
 //        commonFtsObject.updateAlertScheduleMap(getAlertScheduleMap(context));
@@ -155,7 +158,7 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
     }
 
     private static String[] getFtsSearchFields(String tableName) {
-        if (AppConstants.RegisterTable.CLIENT.equals(tableName)) {
+        if (AppConstants.RegisterTable.CHILD_DETAILS.equals(tableName)) {
             return new String[]{
                     AppConstants.KeyConstants.ZEIR_ID,
                     AppConstants.KeyConstants.FIRST_NAME,
@@ -168,12 +171,7 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
     }
 
     private static String[] getFtsSortFields(String tableName, android.content.Context context) {
-        //            case AppConstants.TableNameConstants.ALL_CLIENTS:
-        //                return Arrays.asList(AppConstants.KeyConstants.FIRST_NAME, AppConstants.KeyConstants.LAST_NAME,
-        //                        AppConstants.KeyConstants.DOB, AppConstants.KeyConstants.ZEIR_ID, AppConstants.KeyConstants.GENDER,
-        //                        AppConstants.KeyConstants.COUNTY, AppConstants.KeyConstants.HEALTH_FACILITY, AppConstants.KeyConstants.REGISTRATION_DATE).toArray(new String[0]);
-        //                        AppConstants.KeyConstants.DOD, AppConstants.KeyConstants.DATE_REMOVED).toArray(new String[0]);
-        if (AppConstants.RegisterTable.CLIENT.equals(tableName)) {
+        if (AppConstants.RegisterTable.CHILD_DETAILS.equals(tableName)) {
             List<VaccineGroup> vaccineList = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
             List<String> names = new ArrayList<>();
             names.add(AppConstants.KeyConstants.ZEIR_ID);
@@ -190,6 +188,14 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         }
         return null;
     }
+
+//    private static String[] getFtsMainConditions(String tableName){
+//        if(AppConstants.RegisterTable.CHILD_DETAILS.equals(tableName)) {
+//            String[] mainConditions = {"Field1"};
+//            return mainConditions;
+//        }
+//        return null;
+//    }
 
 
     public static synchronized CovacsApplication getInstance() {
@@ -211,6 +217,13 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         metadata.setLocationLevels(new ArrayList<>(Arrays.asList(BuildConfig.LOCATION_LEVELS)));
         metadata.setHealthFacilityLevels(new ArrayList<>(Arrays.asList(BuildConfig.HEALTH_FACILITY_LEVELS)));
         return metadata;
+    }
+
+    public UniqueIdRepository getUniqueIdRepository() {
+        if (uniqueIdRepository == null) {
+            uniqueIdRepository = new UniqueIdRepository();
+        }
+        return uniqueIdRepository;
     }
 
 
