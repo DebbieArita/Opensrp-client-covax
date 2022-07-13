@@ -43,6 +43,8 @@ import timber.log.Timber;
 
 public class ChildRegisterActivity extends BaseRegisterActivity implements ChildRegisterContract.View, NavDrawerActivity {
 
+    private int disabledMenuId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,34 +79,34 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
         return new ChildBottomNavigationListener(this);
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        if (currentPage == 0) {
-//            super.onBackPressed();
-//        } else {
-//            switchToBaseFragment();
-//            setSelectedBottomBarMenuItem(R.id.action_home);
-//        }
-//    }
+    @Override
+    public void onBackPressed() {
+        if (currentPage == 0) {
+            super.onBackPressed();
+        } else {
+            switchToBaseFragment();
+            setSelectedBottomBarMenuItem(R.id.action_home);
+        }
+    }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        onChildRegisterResumption();
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        onChildRegisterResumption();
+    }
 
-//    protected void onChildRegisterResumption() {
-//
-//        reEnableMenuItem();
-//
-//
-//        setSelectedBottomBarMenuItem(R.id.action_home);
-//    }
+    protected void onChildRegisterResumption() {
 
-//    private void reEnableMenuItem() {
-//        if (disabledMenuId != 0)
-//            bottomNavigationView.getMenu().findItem(disabledMenuId).setEnabled(true);
-//    }
+        reEnableMenuItem();
+
+
+        setSelectedBottomBarMenuItem(R.id.action_home);
+    }
+
+    private void reEnableMenuItem() {
+        if (disabledMenuId != 0)
+            bottomNavigationView.getMenu().findItem(disabledMenuId).setEnabled(true);
+    }
 
 
     @Override
@@ -124,35 +126,10 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
         return new Fragment[0];
     }
 
-//    @Override
-//    public void startFormActivity(String s, String s1, Map<String, String> map) {
-//        //empty
-//    }
-
-//    @Override
-//    public void startFormActivity(String formName, String entityId, String metaData) {
-////        try {
-////            if (mBaseFragment instanceof ChildRegisterFragment) {
-////                String locationId = Utils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-////                presenter().startForm(formName, entityId, metaData, locationId);
-////            }
-////        } catch (Exception e) {
-////            Timber.e(Log.getStackTraceString(e));
-////            displayToast(getString(R.string.error_unable_to_start_form));
-////        }
-//    }
 
     @Override
     public void startFormActivity(String formName, String entityId, Map<String, String> metaData) {
-//        try {
-//            if (mBaseFragment instanceof ChildRegisterFragment) {
-//                String locationId = Utils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-//                presenter().startForm(formName, entityId, metaData, locationId);
-//            }
-//        } catch (Exception e) {
-//            Timber.e(Log.getStackTraceString(e));
-//            displayToast(getString(R.string.error_unable_to_start_form));
-//        }
+
     }
 
     String getFormTitle() {
@@ -217,11 +194,6 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
     @Override
     public void startRegistration() {
-        //TODO implement start registration...
-//        startFormActivity(Utils.metadata().childRegister.formName, null,"");
-
-//        startFormActivity(getRegistrationForm(), null, "");
-
         startFormActivity(getFormJson(getRegistrationForm()));
     }
 

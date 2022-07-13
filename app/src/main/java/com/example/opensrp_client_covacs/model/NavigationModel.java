@@ -4,6 +4,8 @@ import com.example.opensrp_client_covacs.contract.NavigationContract;
 
 import org.smartregister.util.Utils;
 
+import java.util.List;
+
 import timber.log.Timber;
 
 public class NavigationModel implements NavigationContract.Model {
@@ -27,5 +29,10 @@ public class NavigationModel implements NavigationContract.Model {
         }
 
         return currentUser;
+    }
+
+    @Override
+    public List<NavigationOption> getNavigationItems() {
+        return null;
     }
 }

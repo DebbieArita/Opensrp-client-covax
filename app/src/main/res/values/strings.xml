@@ -11,6 +11,7 @@
 
 
     <!-- Navigation Strings -->
+    <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
     <string name="side_nav_add">Add new child</string>
     <string name="scan_card">Card Scanner</string>
@@ -20,6 +21,7 @@
     <string name="app_version">App version: Covacs</string>
     <string name="login_text">Log In</string>
     <string name="log_out_text">Log Out</string>
+    <string name="last_sync">last %1$s</string>
 
     <string name="str_page_info">Page %1$d of %2$d</string>
 

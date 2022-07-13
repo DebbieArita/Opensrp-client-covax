@@ -139,6 +139,7 @@ public class AppConstants {
     }
 
     public static final class INTENT_KEY {
+        public static final String TO_RESCHEDULE = "to_reschedule";
         public static final String JSON = "json";
         public static final String BASE_ENTITY_ID = "base_entity_id";
         public static final String EXTRA_CHILD_DETAILS = "child_details";

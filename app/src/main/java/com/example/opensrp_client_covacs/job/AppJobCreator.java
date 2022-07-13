@@ -43,6 +43,5 @@ public class AppJobCreator implements JobCreator {
                 Timber.w("%s is not declared in Job Creator", tag);
                 return null;
         }
-//        return null;
     }
 }

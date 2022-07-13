@@ -375,4 +375,8 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         }
         return appExecutors;
     }
+
+    public boolean allowLazyProcessing() {
+        return true;
+    }
 }
