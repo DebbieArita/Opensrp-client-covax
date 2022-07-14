@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
-public class FormUtils {
+public class FormUtils{
     public static ChildMetadata getMetadata(ChildProfileActivity childProfileActivity, String defaultLocation, ArrayList<String> locationHierarchy) {
         ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class,
                 childProfileActivity.getClass(), ChildImmunizationActivity.class,

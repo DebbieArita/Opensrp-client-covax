@@ -30,9 +30,9 @@ public interface ChildRegisterContract {
 
 
     interface InteractorCallBack {
-        void onUniqueIdFetched(Triple<String, Map<String, String>, String> var1, String var2);
-
-        void onNoUniqueId();
+//        void onUniqueIdFetched(Triple<String, Map<String, String>, String> var1, String var2);
+//
+//        void onNoUniqueId();
 
         void onRegistrationSaved();
     }

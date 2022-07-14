@@ -3,36 +3,28 @@ package com.example.opensrp_client_covacs.util;
 import static com.vijay.jsonwizard.utils.NativeFormLangUtils.getTranslatedString;
 
 import android.content.Context;
-
-import androidx.annotation.NonNull;
-
 import com.example.opensrp_client_covacs.application.CovacsApplication;
-import com.example.opensrp_client_covacs.domain.ChildMetadata;
-import com.example.opensrp_client_covacs.domain.FormLocationTree;
-import com.example.opensrp_client_covacs.enums.LocationHierarchy;
-import com.google.common.reflect.TypeToken;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
-import org.apache.commons.lang3.StringUtils;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
-import org.smartregister.domain.form.FormLocation;
-import org.smartregister.location.helper.LocationHelper;
-import org.smartregister.util.AssetHandler;
+
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.JsonFormUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.List;
+
 import java.util.Locale;
 import java.util.Map;
 
-import timber.log.Timber;
+
 
 public class ChildJsonFormUtils extends JsonFormUtils {
 

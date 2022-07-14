@@ -213,7 +213,7 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
                 ChildImmunizationActivity.class, ChildRegisterActivity.class, true, new ChildRegisterQueryProvider());
         metadata.updateChildRegister(AppConstants.JsonForm.CHILD_ENROLLMENT, AppConstants.RegisterTable.CLIENT,
                 AppConstants.EventType.CHILD_REGISTRATION, AppConstants.EventType.UPDATE_CHILD_REGISTRATION, AppConstants.ConfigurationConstants.CHILD_REGISTER);
-        metadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("Home_Facility", "Birth_Facility_Name")));
+        metadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("county", "health_facility")));
         metadata.setLocationLevels(new ArrayList<>(Arrays.asList(BuildConfig.LOCATION_LEVELS)));
         metadata.setHealthFacilityLevels(new ArrayList<>(Arrays.asList(BuildConfig.HEALTH_FACILITY_LEVELS)));
         return metadata;
