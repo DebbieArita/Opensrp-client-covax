@@ -42,15 +42,15 @@ public class AppChildRegisterPresenter implements ChildRegisterContract.Presente
 
     private final EventClientRepository eventClientRepository = CovacsApplication.getInstance().eventClientRepository();
 
-    @Override
-    public void onUniqueIdFetched(Triple<String, Map<String, String>, String> var1, String var2) {
-
-    }
-
-    @Override
-    public void onNoUniqueId() {
-
-    }
+//    @Override
+//    public void onUniqueIdFetched(Triple<String, Map<String, String>, String> var1, String var2) {
+//
+//    }
+//
+//    @Override
+//    public void onNoUniqueId() {
+//
+//    }
 
     @Override
     public void onRegistrationSaved() {

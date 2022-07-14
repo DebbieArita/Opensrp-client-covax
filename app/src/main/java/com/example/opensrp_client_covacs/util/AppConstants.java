@@ -61,6 +61,8 @@ public class AppConstants {
         public static final String LOST_TO_FOLLOW_UP = "lost_to_follow_up";
         public static final String INACTIVE = "inactive";
 
+        public static final String LOOK_UP = "look_up";
+
 
 
 
@@ -105,6 +107,10 @@ public class AppConstants {
         public static final String RELATIONSHIPS = "relationships";
         public static final String SERVICES = "services";
         public static final String EXCLUSION_KEYS = "exclusion_keys";
+    }
+
+    public static class JSON_FORM_EXTRA {
+        public static final String NEXT = "next";
     }
 
     public interface RegisterTable {
