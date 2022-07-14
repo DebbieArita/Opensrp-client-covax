@@ -164,6 +164,8 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
     @Override
     protected void onResumption() {
+        reEnableMenuItem();
+        setSelectedBottomBarMenuItem(R.id.action_home);
 
     }
 
@@ -180,6 +182,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
     @Override
     public void setActiveMenuItem(int menuItemId) {
+        disabledMenuId = menuItemId;
 
     }
 
