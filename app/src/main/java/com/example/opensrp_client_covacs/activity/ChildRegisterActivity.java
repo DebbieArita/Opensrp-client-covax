@@ -43,6 +43,8 @@ import timber.log.Timber;
 
 public class ChildRegisterActivity extends BaseRegisterActivity implements ChildRegisterContract.View, NavDrawerActivity {
 
+    private int disabledMenuId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,21 +79,21 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
         return new ChildBottomNavigationListener(this);
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        if (currentPage == 0) {
-//            super.onBackPressed();
-//        } else {
-//            switchToBaseFragment();
-//            setSelectedBottomBarMenuItem(R.id.action_home);
-//        }
-//    }
+    @Override
+    public void onBackPressed() {
+        if (currentPage == 0) {
+            super.onBackPressed();
+        } else {
+            switchToBaseFragment();
+            setSelectedBottomBarMenuItem(R.id.action_home);
+        }
+    }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        onChildRegisterResumption();
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        onResumption();
+    }
 
 //    protected void onChildRegisterResumption() {
 //
@@ -101,10 +103,10 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 //        setSelectedBottomBarMenuItem(R.id.action_home);
 //    }
 
-//    private void reEnableMenuItem() {
-//        if (disabledMenuId != 0)
-//            bottomNavigationView.getMenu().findItem(disabledMenuId).setEnabled(true);
-//    }
+    private void reEnableMenuItem() {
+        if (disabledMenuId != 0)
+            bottomNavigationView.getMenu().findItem(disabledMenuId).setEnabled(true);
+    }
 
 
     @Override
@@ -187,6 +189,8 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
     @Override
     protected void onResumption() {
+        reEnableMenuItem();
+        setSelectedBottomBarMenuItem(R.id.action_home);
 
     }
 
@@ -203,6 +207,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
     @Override
     public void setActiveMenuItem(int menuItemId) {
+        disabledMenuId = menuItemId;
 
     }
 
