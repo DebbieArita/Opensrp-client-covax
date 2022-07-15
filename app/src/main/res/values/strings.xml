@@ -15,6 +15,7 @@
     <string name="navigation_drawer_close">Close</string>
     <string name="side_nav_add">Add new child</string>
     <string name="scan_card">Card Scanner</string>
+    <string name="language">Language</string>
     <string name="side_nav_out_of_catchment">Record out of catchment vaccination</string>
     <string name="nav_register">Register</string>
     <string name="show_password_text">Show password</string>
