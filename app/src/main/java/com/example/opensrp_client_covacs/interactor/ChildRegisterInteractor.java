@@ -32,21 +32,21 @@ public class ChildRegisterInteractor implements ChildRegisterContract.Interactor
 
     }
 
-//    @Override
-//    public void saveRegistration(List<ChildEventClient> childEventClientList, String jsonString, UpdateRegisterParams updateRegisterParams, ChildRegisterContract.InteractorCallBack callBack) {
-//
-//    }
+    @Override
+    public void saveRegistration(List<ChildEventClient> childEventClientList, String jsonString, UpdateRegisterParams updateRegisterParams, ChildRegisterContract.InteractorCallBack callBack) {
+
+    }
 
 //    @Override
 //    public void getNextUniqueId(Triple<String, Map<String, String>, String> var1, ChildRegisterContract.InteractorCallBack var2) {
 //
 //    }
 
-    @Override
-    public void saveRegistration(String jsonString, String table, ChildRegisterContract.InteractorCallBack callBack) {
-
-
-    }
+//    @Override
+//    public void saveRegistration(String jsonString, String table, ChildRegisterContract.InteractorCallBack callBack) {
+//
+//
+//    }
 
 
 }

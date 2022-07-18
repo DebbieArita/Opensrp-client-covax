@@ -173,7 +173,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
                     updateRegisterParam.setFormTag(ChildJsonFormUtils.formTag(Utils.context().allSharedPreferences()));
 
                     showProgressDialog(R.string.saving_dialog_title);
-                    presenter().saveForm(jsonString, getRegisterFragment().tablename);
+                    presenter().saveForm(jsonString, updateRegisterParam);
                 }
 //                else if (form.getString(ChildJsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().childRegister.outOfCatchmentServiceEventType)) {
 //

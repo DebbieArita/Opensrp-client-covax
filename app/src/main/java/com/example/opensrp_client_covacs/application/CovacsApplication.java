@@ -1,6 +1,7 @@
 package com.example.opensrp_client_covacs.application;
 
 import android.content.Intent;
+import android.os.Handler;
 
 import com.evernote.android.job.JobManager;
 import com.example.opensrp_client_covacs.BuildConfig;
@@ -14,13 +15,10 @@ import com.example.opensrp_client_covacs.job.AppJobCreator;
 import com.example.opensrp_client_covacs.provider.ChildRegisterQueryProvider;
 import com.example.opensrp_client_covacs.repository.CovacsRepository;
 import com.example.opensrp_client_covacs.util.AppConstants;
-import com.example.opensrp_client_covacs.util.FormUtils;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
-import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.immunization.ImmunizationLibrary;
@@ -40,12 +38,13 @@ import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.AppExecutors;
+import org.smartregister.util.AppProperties;
+import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -61,6 +60,7 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
     private ECSyncHelper ecSyncHelper;
     private AppExecutors appExecutors;
     private UniqueIdRepository uniqueIdRepository;
+    private LocationPickerView locationPickerView;
 
 
 
@@ -200,6 +200,19 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
 
     public static synchronized CovacsApplication getInstance() {
         return (CovacsApplication) mInstance;
+    }
+
+    public AppProperties getProperties() {
+        return CoreLibrary.getInstance().context().getAppProperties();
+    }
+
+    public LocationPickerView getLocationPickerView(android.content.Context context) {
+        if (locationPickerView == null) {
+            locationPickerView = new LocationPickerView(context);
+            new Handler(context.getMainLooper()).post(() -> locationPickerView.init());
+
+        }
+        return locationPickerView;
     }
 
 //    public ChildMetadata getMetadata() {

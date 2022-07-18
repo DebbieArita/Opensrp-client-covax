@@ -33,6 +33,8 @@ public class AppConstants {
         public static final String MALE = "male";
         public static final String FEMALE = "female";
         public static final String BASE_ENTITY_ID = "base_entity_id";
+        public static final String VALUE = "value";
+//        public static final String RELATIONAL_ID = "relational_id";
 
         public static final String WEIGHT = "weight";
         public static final String COVAX_PROTECTION = "covacs_protection";
@@ -63,10 +65,14 @@ public class AppConstants {
 
         public static final String LOOK_UP = "look_up";
 
+        public static final String ADVANCED_DATA_CAPTURE_STRATEGY_PREFIX = "ADCS_";
+
 
 
 
     }
+
+
 
     public static class ConfigurationConstants {
         public static final String LOGIN = "login";
