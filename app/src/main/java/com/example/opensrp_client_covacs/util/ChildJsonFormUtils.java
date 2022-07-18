@@ -14,6 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 
+import org.smartregister.domain.tag.FormTag;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.JsonFormUtils;
 
@@ -85,6 +87,17 @@ public class ChildJsonFormUtils extends JsonFormUtils {
 
             step++;
         }
+    }
+
+    public static FormTag formTag(AllSharedPreferences allSharedPreferences) {
+        FormTag formTag = new FormTag();
+        formTag.providerId = allSharedPreferences.fetchRegisteredANM();
+        formTag.team = allSharedPreferences.fetchDefaultTeam(allSharedPreferences.fetchRegisteredANM());
+        formTag.teamId = allSharedPreferences.fetchDefaultTeamId(allSharedPreferences.fetchRegisteredANM());
+//        formTag.appVersion = CovacsApplication.getInstance().getApplicationVersion();
+//        formTag.appVersionName = ChildLibrary.getInstance().getApplicationVersionName();
+//        formTag.databaseVersion = ChildLibrary.getInstance().getDatabaseVersion();
+        return formTag;
     }
 
 //    public static org.smartregister.clientandeventmodel.Event processJsonForm(org.smartregister.repository.AllSharedPreferences allSharedPreferences,

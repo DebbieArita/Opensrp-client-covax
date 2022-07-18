@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import com.example.opensrp_client_covacs.R;
 import com.example.opensrp_client_covacs.application.CovacsApplication;
 import com.example.opensrp_client_covacs.contract.ChildRegisterContract;
+import com.example.opensrp_client_covacs.domain.UpdateRegisterParams;
 import com.example.opensrp_client_covacs.fragment.ChildRegisterFragment;
 import com.example.opensrp_client_covacs.listener.ChildBottomNavigationListener;
 import com.example.opensrp_client_covacs.model.AppChildRegisterModel;
@@ -48,7 +49,6 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_child_register); //to test
         NavigationMenu.getInstance(this);
     }
 
@@ -157,8 +157,34 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
     }
 
+
+
     @Override
-    protected void onActivityResultExtended(int i, int i1, Intent intent) {
+    protected void onActivityResultExtended(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ChildJsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+            try {
+                String jsonString = data.getStringExtra(AppConstants.INTENT_KEY.JSON);
+                Timber.d(jsonString);
+
+                JSONObject form = new JSONObject(jsonString);
+                if (form.getString(ChildJsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().childRegister.registerEventType)) {
+                    UpdateRegisterParams updateRegisterParam = new UpdateRegisterParams();
+                    updateRegisterParam.setEditMode(false);
+                    updateRegisterParam.setFormTag(ChildJsonFormUtils.formTag(Utils.context().allSharedPreferences()));
+
+                    showProgressDialog(R.string.saving_dialog_title);
+                    presenter().saveForm(jsonString, getRegisterFragment().tablename);
+                }
+//                else if (form.getString(ChildJsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().childRegister.outOfCatchmentServiceEventType)) {
+//
+//                    showProgressDialog(R.string.saving_dialog_title);
+//                    presenter().saveOutOfCatchmentService(jsonString, this);
+//
+//                }
+            } catch (Exception e) {
+                Timber.e(Log.getStackTraceString(e));
+            }
+        }
 
     }
 
