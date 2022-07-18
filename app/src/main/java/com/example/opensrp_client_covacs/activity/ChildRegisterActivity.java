@@ -98,8 +98,6 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
     protected void onChildRegisterResumption() {
 
         reEnableMenuItem();
-
-
         setSelectedBottomBarMenuItem(R.id.action_home);
     }
 
