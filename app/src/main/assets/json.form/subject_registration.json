@@ -326,6 +326,7 @@
         "openmrs_entity_id": "address2",
         "type": "edit_text",
         "label": "Home address",
+        "hint": "Residential Address",
         "edit_type": "text",
         "v_required": {
           "value": "true",
