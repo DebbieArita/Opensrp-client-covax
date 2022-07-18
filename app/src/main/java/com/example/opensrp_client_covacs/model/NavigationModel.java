@@ -33,6 +33,6 @@ public class NavigationModel implements NavigationContract.Model {
 
     @Override
     public List<NavigationOption> getNavigationItems() {
-        return null;
+        return instance.getNavigationItems();
     }
 }
