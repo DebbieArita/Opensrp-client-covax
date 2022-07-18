@@ -12,8 +12,10 @@ import com.example.opensrp_client_covacs.application.CovacsApplication;
 import com.example.opensrp_client_covacs.domain.ChildMetadata;
 import com.example.opensrp_client_covacs.domain.EditWrapper;
 import com.google.common.collect.Lists;
+import com.vijay.jsonwizard.event.BaseEvent;
 
 import org.apache.commons.lang3.StringUtils;
+import org.greenrobot.eventbus.EventBus;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.smartregister.Context;
@@ -278,5 +280,13 @@ public class Utils extends org.smartregister.util.Utils {
     public static String getNextOpenMrsId() {
         UniqueIdRepository uniqueIdRepo = CovacsApplication.getInstance().getUniqueIdRepository();
         return uniqueIdRepo.getNextUniqueId() != null ? uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
+    }
+
+    public static void postEvent(BaseEvent baseEvent) {
+
+        EventBus eventBus = CovacsApplication.getInstance().getEventBus();
+
+        if (eventBus != null && baseEvent != null)
+            eventBus.post(baseEvent);
     }
 }

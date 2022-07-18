@@ -142,9 +142,9 @@ public class ChildJsonFormUtils extends JsonFormUtils {
 
 //            dobUnknownUpdateFromAge(fields, Constants.CHILD_TYPE);
 
-            JSONObject dobUnknownObject = getFieldJSONObject(fields, AppConstants.JSON_FORM_KEY.DATE_BIRTH);
+//            JSONObject dobUnknownObject = getFieldJSONObject(fields, AppConstants.JSON_FORM_KEY.DATE_BIRTH);
 
-            String date = dobUnknownObject.getString(AppConstants.KeyConstants.VALUE);
+//            String date = dobUnknownObject.getString(AppConstants.KeyConstants.VALUE);
 //            dobUnknownObject.put(AppConstants.KeyConstants.VALUE, Utils.reverseHyphenatedString(date) + " 12:00:00");
 
             Client baseClient = ChildJsonFormUtils.createBaseClient(fields, formTag, entityId);
@@ -359,6 +359,14 @@ public class ChildJsonFormUtils extends JsonFormUtils {
         //Tag client with event's location and team
         baseClient.setLocationId(baseEvent.getLocationId());
         baseClient.setTeamId(baseEvent.getTeamId());
+    }
+
+    public static void mergeAndSaveClient(Client baseClient) throws Exception {
+        JSONObject updatedClientJson = new JSONObject(ChildJsonFormUtils.gson.toJson(baseClient));
+        JSONObject originalClientJsonObject = CovacsApplication.getInstance().getEcSyncHelper().getClient(baseClient.getBaseEntityId());
+        JSONObject mergedJson = ChildJsonFormUtils.merge(originalClientJsonObject, updatedClientJson);
+        //TODO Save edit log ?
+        CovacsApplication.getInstance().getEcSyncHelper().addClient(baseClient.getBaseEntityId(), mergedJson);
     }
 
 

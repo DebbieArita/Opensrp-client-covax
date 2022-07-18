@@ -19,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.repository.EventClientRepository;
 
 import java.lang.ref.WeakReference;
@@ -55,11 +56,9 @@ public class AppChildRegisterPresenter implements ChildRegisterContract.Presente
 //    }
 
     @Override
-    public void onRegistrationSaved() {
-        if (getView() != null) {
-            getView().hideProgressDialog();
-            getView().onRegistrationSaved();
-        }
+    public void onRegistrationSaved(boolean isEdit) {
+        getView().refreshList(FetchStatus.fetched);
+        getView().hideProgressDialog();
     }
 
     public ChildRegisterContract.View getView() {

@@ -35,7 +35,7 @@ public interface ChildRegisterContract {
 //
 //        void onNoUniqueId();
 
-        void onRegistrationSaved();
+        void onRegistrationSaved(boolean isEdit);
     }
 
 

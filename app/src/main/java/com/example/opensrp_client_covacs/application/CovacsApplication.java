@@ -16,6 +16,7 @@ import com.example.opensrp_client_covacs.provider.ChildRegisterQueryProvider;
 import com.example.opensrp_client_covacs.repository.CovacsRepository;
 import com.example.opensrp_client_covacs.util.AppConstants;
 
+import org.greenrobot.eventbus.EventBus;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -35,6 +36,7 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
+import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.AppExecutors;
@@ -61,6 +63,8 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
     private AppExecutors appExecutors;
     private UniqueIdRepository uniqueIdRepository;
     private LocationPickerView locationPickerView;
+    private EventBus eventBus;
+    private ClientProcessorForJava clientProcessorForJava;
 
 
 
@@ -239,6 +243,15 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         return uniqueIdRepository;
     }
 
+    public EventBus getEventBus() {
+
+        if (eventBus == null) {
+            Timber.e(" Event Bus instance does not exist!!! Pass the Implementing Application's Eventbus by invoking the " +
+                    CovacsApplication.class.getCanonicalName() + ".setEventBus method from the onCreate method of " + "your Application class ");
+        }
+        return eventBus;
+    }
+
 
 
     private ArrayList<String> getFacilityHierarchy() {
@@ -314,6 +327,13 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
 
     public Context getContext() {
         return context;
+    }
+
+    public ClientProcessorForJava getClientProcessorForJava() {
+        if (clientProcessorForJava == null) {
+            clientProcessorForJava = DrishtiApplication.getInstance().getClientProcessor();
+        }
+        return clientProcessorForJava;
     }
 
 
