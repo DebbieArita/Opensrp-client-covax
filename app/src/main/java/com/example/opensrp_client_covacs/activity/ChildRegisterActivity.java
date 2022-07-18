@@ -141,6 +141,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
         Intent intent = new Intent(this, Utils.metadata().childFormActivity);
         intent.putExtra(AppConstants.INTENT_KEY.JSON, jsonForm.toString());
 
+
         Form form = new Form();
         form.setWizard(false);
         form.setHideSaveLabel(true);
@@ -152,9 +153,8 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
 
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
         startActivityForResult(intent, ChildJsonFormUtils.REQUEST_CODE_GET_JSON);
-
-
     }
 
     @Override
