@@ -24,7 +24,7 @@ public class SchedulesIntentService extends IntentService {
     }
 
     public CovacsApplication getCovacsApplication() {
-        return (CovacsApplication) CovacsApplication.getInstance();
+        return CovacsApplication.getInstance();
     }
 
     @Override

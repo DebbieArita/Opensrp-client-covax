@@ -77,22 +77,18 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-        context = Context.getInstance();
 
+        context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject(context.applicationContext()));
 
         //Initialize Modules
         CoreLibrary.init(context, new AppSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
-
         ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(context.applicationContext()),
                 BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         ImmunizationLibrary.getInstance().setVaccineSyncTime(3, TimeUnit.MINUTES);
-
         ConfigurableViewsLibrary.init(context);
-
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LEVELS)), BuildConfig.DEFAULT_LOCATION);
-
 
 //        setDefaultLanguage();
 
