@@ -14,18 +14,17 @@
           },
           {
             "field": "eventType",
-            "field_value": "Update Child Registration",
+            "field_value": "Update Subject Registration",
             "creates_case": [
-              "ec_client",
-              "ec_mother_details"
+              "ec_client"
+
             ]
           },
           {
             "field": "eventType",
             "field_value": "archive_child_record",
             "closes_case": [
-              "ec_client",
-              "ec_child_details"
+              "ec_client"
             ]
           }
         ]
