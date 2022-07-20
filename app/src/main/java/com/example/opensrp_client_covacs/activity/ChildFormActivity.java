@@ -12,6 +12,7 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.example.opensrp_client_covacs.R;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.DateUtil;
@@ -19,6 +20,7 @@ import org.smartregister.util.LangUtils;
 
 import java.text.ParseException;
 
+import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -109,11 +111,23 @@ public class ChildFormActivity extends JsonFormActivity {
         }
     }
 
-    protected static String getMainConditionString(Map<String, String> entityMap) {
-        String mainConditionString = "";
-
-        return mainConditionString;
-    }
+//    protected static String getMainConditionString(Map<String, String> entityMap) {
+//        String mainConditionString = "";
+//
+//        for (Map.Entry<String, String> entry : entityMap.entrySet()) {
+//            String key = entry.getKey();
+//            String value = entry.getValue();
+//
+//
+//            if (StringUtils.isBlank(mainConditionString)) {
+//                mainConditionString += " cast(" + key + " as date) " + " =  cast('" + value + "'as date) ";
+//            } else {
+//                mainConditionString += " AND cast(" + key + " as date) " + " =  cast('" + value + "'as date) ";
+//            }
+//        }
+//
+//        return mainConditionString;
+//    }
 
     public static boolean isDate(String dobString) {
         try {

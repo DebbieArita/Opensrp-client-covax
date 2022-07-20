@@ -7,6 +7,7 @@ import com.example.opensrp_client_covacs.domain.UpdateRegisterParams;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
+import org.smartregister.domain.tag.FormTag;
 import org.smartregister.view.contract.BaseRegisterContract;
 
 import java.util.List;
@@ -30,11 +31,11 @@ public interface ChildRegisterContract {
 
 
     interface InteractorCallBack {
-        void onUniqueIdFetched(Triple<String, Map<String, String>, String> var1, String var2);
+//        void onUniqueIdFetched(Triple<String, Map<String, String>, String> var1, String var2);
+//
+//        void onNoUniqueId();
 
-        void onNoUniqueId();
-
-        void onRegistrationSaved();
+        void onRegistrationSaved(boolean isEdit);
     }
 
 
@@ -43,13 +44,13 @@ public interface ChildRegisterContract {
 
 //        void getNextUniqueId(Triple<String, Map<String, String>, String> triple, ChildRegisterContract.InteractorCallBack callBack);
 
-        void saveRegistration(final String jsonString, String table, InteractorCallBack callBack);
+//        void saveRegistration(final String jsonString, String table, InteractorCallBack callBack);
 
 
-//        void saveRegistration(final List<ChildEventClient> childEventClientList,
-//                              final String jsonString,
-//                              UpdateRegisterParams updateRegisterParams,
-//                              ChildRegisterContract.InteractorCallBack callBack);
+        void saveRegistration(final List<ChildEventClient> childEventClientList,
+                              final String jsonString,
+                              UpdateRegisterParams updateRegisterParams,
+                              ChildRegisterContract.InteractorCallBack callBack);
 
 //        void removeChildFromRegister(String var1, String var2);
     }
@@ -62,7 +63,9 @@ public interface ChildRegisterContract {
 
         void startEditForm(String formName, String updateEventType, String entityId, Map<String, String> valueMap) throws Exception;
 
-        void saveForm(String jsonString, String table);
+//        void saveForm(String jsonString, String table);
+
+        void saveForm(String jsonString, UpdateRegisterParams updateRegisterParam);
 
 //        void saveLanguage(String var1);
 
@@ -80,7 +83,7 @@ public interface ChildRegisterContract {
 
         String getLocationId(String locationName);
 
-//        List<ChildEventClient> processRegistration(String jsonString, FormTag formTag);
+        List<ChildEventClient> processRegistration(String jsonString, FormTag formTag);
 
         JSONObject getFormAsJson(Context context, String formName, String entityId) throws Exception;
 

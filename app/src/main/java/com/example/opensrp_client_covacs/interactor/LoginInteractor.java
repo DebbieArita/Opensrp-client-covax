@@ -3,8 +3,8 @@ package com.example.opensrp_client_covacs.interactor;
 //import org.smartregister.BuildConfig;
 
 import com.example.opensrp_client_covacs.BuildConfig;
+import com.example.opensrp_client_covacs.job.VaccineRecurringServiceJob;
 
-import org.smartregister.immunization.job.RecurringServiceJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncAllLocationsServiceJob;
@@ -23,10 +23,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         super.login(view, userName.toLowerCase(), password);
     }
 
-//    @Override
-//    protected void scheduleJobsPeriodically() {
-//        //to review
-//    }
 
     public LoginInteractor(BaseLoginContract.Presenter loginPresenter) {
         super(loginPresenter);
@@ -47,17 +43,18 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
                 getFlexValue(BuildConfig.PULL_UNIQUE_IDS_MINUTES));
 
 
-        RecurringServiceJob.scheduleJob(RecurringServiceJob.TAG,
+        VaccineRecurringServiceJob.scheduleJob(VaccineRecurringServiceJob.TAG,
                 TimeUnit.MINUTES.toMinutes(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES),
                 getFlexValue(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES));
     }
 
     @Override
     protected void scheduleJobsImmediately() {
-//        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
-//        SyncAllLocationsServiceJob.scheduleJobImmediately(SyncAllLocationsServiceJob.TAG);
-//        PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
-//        RecurringServiceJob.scheduleJobImmediately(RecurringServiceJob.TAG);
+        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
+        SyncAllLocationsServiceJob.scheduleJobImmediately(SyncAllLocationsServiceJob.TAG);
+        PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
+        VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
+        VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
 
     }
 }

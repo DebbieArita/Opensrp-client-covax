@@ -1,6 +1,7 @@
 package com.example.opensrp_client_covacs.application;
 
 import android.content.Intent;
+import android.os.Handler;
 
 import com.evernote.android.job.JobManager;
 import com.example.opensrp_client_covacs.BuildConfig;
@@ -14,13 +15,11 @@ import com.example.opensrp_client_covacs.job.AppJobCreator;
 import com.example.opensrp_client_covacs.provider.ChildRegisterQueryProvider;
 import com.example.opensrp_client_covacs.repository.CovacsRepository;
 import com.example.opensrp_client_covacs.util.AppConstants;
-import com.example.opensrp_client_covacs.util.FormUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
-import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.immunization.ImmunizationLibrary;
@@ -37,15 +36,17 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
+import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.AppExecutors;
+import org.smartregister.util.AppProperties;
+import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -61,6 +62,9 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
     private ECSyncHelper ecSyncHelper;
     private AppExecutors appExecutors;
     private UniqueIdRepository uniqueIdRepository;
+    private LocationPickerView locationPickerView;
+    private EventBus eventBus;
+    private ClientProcessorForJava clientProcessorForJava;
 
 
 
@@ -73,22 +77,22 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-        context = Context.getInstance();
 
+        context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject(context.applicationContext()));
 
         //Initialize Modules
         CoreLibrary.init(context, new AppSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
-
         ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(context.applicationContext()),
                 BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         ImmunizationLibrary.getInstance().setVaccineSyncTime(3, TimeUnit.MINUTES);
-
         ConfigurableViewsLibrary.init(context);
-
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LEVELS)), BuildConfig.DEFAULT_LOCATION);
 
+        CovacsApplication.getInstance().setEventBus(EventBus.getDefault());
+
+//        EventBus.getDefault().register(this);
 
 //        setDefaultLanguage();
 
@@ -202,6 +206,19 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         return (CovacsApplication) mInstance;
     }
 
+    public AppProperties getProperties() {
+        return CoreLibrary.getInstance().context().getAppProperties();
+    }
+
+    public LocationPickerView getLocationPickerView(android.content.Context context) {
+        if (locationPickerView == null) {
+            locationPickerView = new LocationPickerView(context);
+            new Handler(context.getMainLooper()).post(() -> locationPickerView.init());
+
+        }
+        return locationPickerView;
+    }
+
 //    public ChildMetadata getMetadata() {
 //        ChildMetadata metadata = FormUtils.getMetadata(new ChildProfileActivity(), getDefaultLocationLevel(), getFacilityHierarchy());
 //        HashMap<String, String> setting = new HashMap<>();
@@ -211,9 +228,9 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
     public ChildMetadata getMetadata() {
         ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class,
                 ChildImmunizationActivity.class, ChildRegisterActivity.class, true, new ChildRegisterQueryProvider());
-        metadata.updateChildRegister(AppConstants.JsonForm.CHILD_ENROLLMENT, AppConstants.RegisterTable.CLIENT,
+        metadata.updateChildRegister(AppConstants.JsonForm.CHILD_ENROLLMENT, AppConstants.RegisterTable.CHILD_DETAILS,
                 AppConstants.EventType.CHILD_REGISTRATION, AppConstants.EventType.UPDATE_CHILD_REGISTRATION, AppConstants.ConfigurationConstants.CHILD_REGISTER);
-        metadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("Home_Facility", "Birth_Facility_Name")));
+        metadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("county", "health_facility")));
         metadata.setLocationLevels(new ArrayList<>(Arrays.asList(BuildConfig.LOCATION_LEVELS)));
         metadata.setHealthFacilityLevels(new ArrayList<>(Arrays.asList(BuildConfig.HEALTH_FACILITY_LEVELS)));
         return metadata;
@@ -226,15 +243,28 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         return uniqueIdRepository;
     }
 
+    public EventBus getEventBus() {
 
-
-    private ArrayList<String> getFacilityHierarchy() {
-        return null;
+        if (eventBus == null) {
+            Timber.e(" Event Bus instance does not exist!!! Pass the Implementing Application's Eventbus by invoking the " +
+                    CovacsApplication.class.getCanonicalName() + ".setEventBus method from the onCreate method of " + "your Application class ");
+        }
+        return eventBus;
     }
 
-    private String getDefaultLocationLevel() {
-        return null;
+    public void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
     }
+
+
+
+//    private ArrayList<String> getFacilityHierarchy() {
+//        return null;
+//    }
+//
+//    private String getDefaultLocationLevel() {
+//        return null;
+//    }
 
 
 
@@ -301,6 +331,13 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
 
     public Context getContext() {
         return context;
+    }
+
+    public ClientProcessorForJava getClientProcessorForJava() {
+        if (clientProcessorForJava == null) {
+            clientProcessorForJava = DrishtiApplication.getInstance().getClientProcessor();
+        }
+        return clientProcessorForJava;
     }
 
 

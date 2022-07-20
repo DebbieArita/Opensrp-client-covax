@@ -2,11 +2,13 @@ package com.example.opensrp_client_covacs.presenter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.opensrp_client_covacs.R;
 import com.example.opensrp_client_covacs.activity.ChildRegisterActivity;
 import com.example.opensrp_client_covacs.application.CovacsApplication;
 import com.example.opensrp_client_covacs.contract.ChildRegisterContract;
+import com.example.opensrp_client_covacs.domain.ChildEventClient;
 import com.example.opensrp_client_covacs.domain.UpdateRegisterParams;
 import com.example.opensrp_client_covacs.interactor.ChildRegisterInteractor;
 import com.example.opensrp_client_covacs.model.AppChildRegisterModel;
@@ -17,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.repository.EventClientRepository;
 
 import java.lang.ref.WeakReference;
@@ -42,22 +45,20 @@ public class AppChildRegisterPresenter implements ChildRegisterContract.Presente
 
     private final EventClientRepository eventClientRepository = CovacsApplication.getInstance().eventClientRepository();
 
+//    @Override
+//    public void onUniqueIdFetched(Triple<String, Map<String, String>, String> var1, String var2) {
+//
+//    }
+//
+//    @Override
+//    public void onNoUniqueId() {
+//
+//    }
+
     @Override
-    public void onUniqueIdFetched(Triple<String, Map<String, String>, String> var1, String var2) {
-
-    }
-
-    @Override
-    public void onNoUniqueId() {
-
-    }
-
-    @Override
-    public void onRegistrationSaved() {
-        if (getView() != null) {
-            getView().hideProgressDialog();
-            getView().onRegistrationSaved();
-        }
+    public void onRegistrationSaved(boolean isEdit) {
+        getView().refreshList(FetchStatus.fetched);
+        getView().hideProgressDialog();
     }
 
     public ChildRegisterContract.View getView() {
@@ -85,16 +86,31 @@ public class AppChildRegisterPresenter implements ChildRegisterContract.Presente
         getView().startFormActivity(formJsonObject);
     }
 
-    @Override
-    public void saveForm(String jsonString, String table) {
-        try {
-            if (getView() != null)
-                getView().showProgressDialog(R.string.saving_dialog_title);
 
-            interactor.saveRegistration(jsonString, table, this);
-        } catch (Exception ex) {
-            Timber.e(ex);
+    @Override
+    public void saveForm(String jsonString, UpdateRegisterParams updateRegisterParams) {
+
+        try {
+
+            List<ChildEventClient> childEventClientList = model.processRegistration(jsonString, updateRegisterParams.getFormTag());
+            if (childEventClientList == null || childEventClientList.isEmpty()) {
+                return;
+            }
+
+            interactor.saveRegistration(childEventClientList, jsonString, updateRegisterParams, this);
+
+        } catch (Exception e) {
+            Timber.e(Log.getStackTraceString(e));
         }
+
+//        try {
+//            if (getView() != null)
+//                getView().showProgressDialog(R.string.saving_dialog_title);
+//
+//            interactor.saveRegistration();
+//        } catch (Exception ex) {
+//            Timber.e(ex);
+//        }
 
     }
 

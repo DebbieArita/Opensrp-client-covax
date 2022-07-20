@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 import com.example.opensrp_client_covacs.service.AppSyncIntentService;
+//import com.example.opensrp_client_covacs.service.AppSyncIntentService;
 
 import org.smartregister.immunization.job.RecurringServiceJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
