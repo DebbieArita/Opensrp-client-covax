@@ -9,14 +9,16 @@
             "field": "eventType",
             "field_value": "New Child Registration",
             "creates_case": [
-              "ec_client"
+              "ec_client",
+              "ec_child_details"
             ]
           },
           {
             "field": "eventType",
             "field_value": "Update Subject Registration",
             "creates_case": [
-              "ec_client"
+              "ec_client",
+              "ec_child_details"
 
             ]
           },
@@ -24,7 +26,7 @@
             "field": "eventType",
             "field_value": "archive_child_record",
             "closes_case": [
-              "ec_client"
+              "ec_child_details"
             ]
           }
         ]

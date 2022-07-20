@@ -90,6 +90,10 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         ConfigurableViewsLibrary.init(context);
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LEVELS)), BuildConfig.DEFAULT_LOCATION);
 
+        CovacsApplication.getInstance().setEventBus(EventBus.getDefault());
+
+//        EventBus.getDefault().register(this);
+
 //        setDefaultLanguage();
 
         initRepositories();
@@ -224,7 +228,7 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
     public ChildMetadata getMetadata() {
         ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class,
                 ChildImmunizationActivity.class, ChildRegisterActivity.class, true, new ChildRegisterQueryProvider());
-        metadata.updateChildRegister(AppConstants.JsonForm.CHILD_ENROLLMENT, AppConstants.RegisterTable.CLIENT,
+        metadata.updateChildRegister(AppConstants.JsonForm.CHILD_ENROLLMENT, AppConstants.RegisterTable.CHILD_DETAILS,
                 AppConstants.EventType.CHILD_REGISTRATION, AppConstants.EventType.UPDATE_CHILD_REGISTRATION, AppConstants.ConfigurationConstants.CHILD_REGISTER);
         metadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("county", "health_facility")));
         metadata.setLocationLevels(new ArrayList<>(Arrays.asList(BuildConfig.LOCATION_LEVELS)));
@@ -248,15 +252,19 @@ public class CovacsApplication extends DrishtiApplication implements TimeChanged
         return eventBus;
     }
 
-
-
-    private ArrayList<String> getFacilityHierarchy() {
-        return null;
+    public void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
     }
 
-    private String getDefaultLocationLevel() {
-        return null;
-    }
+
+
+//    private ArrayList<String> getFacilityHierarchy() {
+//        return null;
+//    }
+//
+//    private String getDefaultLocationLevel() {
+//        return null;
+//    }
 
 
 

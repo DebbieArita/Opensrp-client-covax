@@ -11,6 +11,7 @@ import com.example.opensrp_client_covacs.util.AppConstants;
 import com.example.opensrp_client_covacs.util.ChildJsonFormUtils;
 import com.example.opensrp_client_covacs.util.Utils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
@@ -18,6 +19,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.UniqueIdRepository;
+import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.AppExecutors;
 
@@ -68,17 +70,16 @@ public class ChildRegisterInteractor implements ChildRegisterContract.Interactor
                     Event baseEvent = childEventClient.getEvent();
 
                     if (baseClient != null) {
-//                        JSONObject clientJson = new JSONObject(ChildJsonFormUtils.gson.toJson(baseClient));
+                        JSONObject clientJson = new JSONObject(ChildJsonFormUtils.gson.toJson(baseClient));
                         if (params.isEditMode()) {
-                            try {
+                            try{
                                 ChildJsonFormUtils.mergeAndSaveClient(baseClient);
                             } catch (Exception e) {
                                 Timber.e(e, "ChildRegisterInteractor --> mergeAndSaveClient");
                             }
+                        } else {
+                            addClient(jsonString, params, baseClient, clientJson);
                         }
-                    } else {
-                        return;
-//                        addClient(jsonString, params, baseClient);
                     }
 
                     addEvent(params, currentFormSubmissionIds, baseEvent);
@@ -103,10 +104,10 @@ public class ChildRegisterInteractor implements ChildRegisterContract.Interactor
         }
     }
 
-
-    private void addClient(Client baseClient, JSONObject clientJson) {
+    private void addClient(String jsonString, UpdateRegisterParams params, Client baseClient, JSONObject clientJson) throws JSONException {
         getSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
     }
+
 
     public ECSyncHelper getSyncHelper() {
         return CovacsApplication.getInstance().getEcSyncHelper();
@@ -138,13 +139,26 @@ public class ChildRegisterInteractor implements ChildRegisterContract.Interactor
         } else {
             if (baseClient != null) {
                 //mark OPENSRP ID as used
-//                markUniqueIdAsUsed(baseClient.getIdentifier(ChildJsonFormUtils.ZEIR_ID));
+                markUniqueIdAsUsed(baseClient.getIdentifier(ChildJsonFormUtils.ZEIR_ID));
             }
         }
     }
 
+    private void markUniqueIdAsUsed(String openSrpId) {
+        if (StringUtils.isNotBlank(openSrpId))
+            getUniqueIdRepository().close(openSrpId);
+    }
+
     public UniqueIdRepository getUniqueIdRepository() {
         return CovacsApplication.getInstance().getUniqueIdRepository();
+    }
+
+    public AllSharedPreferences getAllSharedPreferences() {
+        return Utils.context().allSharedPreferences();
+    }
+
+    public ClientProcessorForJava getClientProcessorForJava() {
+        return CovacsApplication.getInstance().getClientProcessorForJava();
     }
 
 
