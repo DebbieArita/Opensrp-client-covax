@@ -11,45 +11,38 @@
           }
         },
         {
-          "column_name": "child.zeir_id",
-          "type": "child",
-          "json_mapping": {
-            "field": "identifier.zeir_id"
-          }
-        },
-        {
-          "column_name": "ZEIR_ID",
-          "type": "child",
-          "json_mapping": {
-            "field": "identifier.ZEIR_ID"
-          }
-        },
-        {
           "column_name": "first_name",
           "type": "Client",
           "json_mapping": {
-            "field": "firstName"
+            "field": "first_name"
           }
         },
         {
           "column_name": "last_name",
           "type": "Client",
           "json_mapping": {
-            "field": "lastName"
+            "field": "last_name"
           }
         },
         {
           "column_name": "dob",
           "type": "Client",
           "json_mapping": {
-            "field": "birthdate"
+            "field": "birth_date"
           }
         },
         {
           "column_name": "zeir_id",
           "type": "Client",
           "json_mapping": {
-            "field": "ZEIR_ID"
+            "field": "identifier.zeir_id"
+          }
+        },
+        {
+          "column_name": "zeir_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifier.ZEIR_ID"
           }
         },
         {
@@ -60,24 +53,123 @@
           }
         },
         {
+          "column_name": "age",
+          "type": "Client",
+          "json_mapping": {
+            "field": "age"
+          }
+        },
+        {
+          "column_name": "weight",
+          "type": "Client",
+          "json_mapping": {
+            "field": "weight"
+          }
+        },
+        {
+          "column_name": "covax_protection",
+          "type": "Client",
+          "json_mapping": {
+            "field": "covax_protection"
+          }
+        },
+        {
+          "column_name": "phone_number",
+          "type": "Client",
+          "json_mapping": {
+            "field": "phone_number"
+          }
+        },
+        {
           "column_name": "date",
+          "type": "Client",
+          "json_mapping": {
+            "field": "eventDate"
+          }
+        },
+        {
+          "column_name": "home_facility",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.address4"
+          }
+        },
+        {
+          "column_name": "home_facility",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "Home_Facility"
+          }
+        },
+        {
+          "column_name": "residential_area",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.residential_area"
+          }
+        },
+        {
+          "column_name": "residential_area",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.address3"
+          }
+        },
+        {
+          "column_name": "residential_address",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.residential_address"
+          }
+        },
+        {
+          "column_name": "residential_address",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.address3"
+          }
+        },
+        {
+          "column_name": "residential_area_other",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.address5"
+          }
+        },
+        {
+          "column_name": "inactive",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.inactive"
+          }
+        },
+        {
+          "column_name": "lost_to_follow_up",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.lost_to_follow_up"
+          }
+        },
+        {
+          "column_name": "event_date",
           "type": "Event",
           "json_mapping": {
             "field": "eventDate"
           }
         },
         {
-          "column_name": "last_interacted_with",
-          "type": "Event",
-          "json_mapping": {
-            "field": "version"
-          }
-        },
-        {
-          "column_name": "registration_date",
+          "column_name": "event_date",
           "type": "Event",
           "json_mapping": {
             "field": "eventDate"
+          }
+        },
+        {
+          "column_name": "date_removed",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.dateRemoved"
           }
         }
       ]
