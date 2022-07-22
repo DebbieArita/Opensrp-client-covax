@@ -11,95 +11,6 @@
           }
         },
         {
-          "column_name": "opensrp_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "identifiers.zeir_id"
-          }
-        },
-        {
-          "column_name": "opensrp_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "identifiers.ZEIR_ID"
-          }
-        },
-        {
-          "column_name": "first_name",
-          "type": "Client",
-          "json_mapping": {
-            "field": "firstName"
-          }
-        },
-        {
-          "column_name": "last_name",
-          "type": "Client",
-          "json_mapping": {
-            "field": "lastName"
-          }
-        },
-        {
-          "column_name": "dob",
-          "type": "Client",
-          "json_mapping": {
-            "field": "birthdate"
-          }
-        },
-        {
-          "column_name": "zeir_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "identifiers.zeir_id"
-          }
-        },
-        {
-          "column_name": "zeir_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "identifiers.ZEIR_ID"
-          }
-        },
-        {
-          "column_name": "gender",
-          "type": "Client",
-          "json_mapping": {
-            "field": "gender"
-          }
-        },
-        {
-          "column_name": "date",
-          "type": "Event",
-          "json_mapping": {
-            "field": "eventDate"
-          }
-        },
-        {
-          "column_name": "last_interacted_with",
-          "type": "Event",
-          "json_mapping": {
-            "field": "version"
-          }
-        },
-        {
-          "column_name": "registration_date",
-          "type": "Event",
-          "json_mapping": {
-            "field": "eventDate"
-          }
-        }
-      ]
-    },
-    {
-      "name": "ec_child_details",
-      "columns": [
-        {
-          "column_name": "base_entity_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "baseEntityId"
-          }
-        },
-        {
           "column_name": "first_name",
           "type": "Client",
           "json_mapping": {
@@ -124,14 +35,14 @@
           "column_name": "zeir_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.zeir_id"
+            "field": "identifier.zeir_id"
           }
         },
         {
           "column_name": "zeir_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.ZEIR_ID"
+            "field": "identifier.ZEIR_ID"
           }
         },
         {
@@ -171,7 +82,7 @@
         },
         {
           "column_name": "date",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
             "field": "eventDate"
           }
@@ -257,6 +168,180 @@
         {
           "column_name": "date_removed",
           "type": "Client",
+          "json_mapping": {
+            "field": "attributes.dateRemoved"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_child_details",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Child",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "first_name",
+          "type": "Child",
+          "json_mapping": {
+            "field": "first_name"
+          }
+        },
+        {
+          "column_name": "last_name",
+          "type": "Child",
+          "json_mapping": {
+            "field": "last_name"
+          }
+        },
+        {
+          "column_name": "dob",
+          "type": "Child",
+          "json_mapping": {
+            "field": "birth_date"
+          }
+        },
+        {
+          "column_name": "zeir_id",
+          "type": "Child",
+          "json_mapping": {
+            "field": "identifier.zeir_id"
+          }
+        },
+        {
+          "column_name": "zeir_id",
+          "type": "Child",
+          "json_mapping": {
+            "field": "identifier.ZEIR_ID"
+          }
+        },
+        {
+          "column_name": "gender",
+          "type": "Child",
+          "json_mapping": {
+            "field": "gender"
+          }
+        },
+        {
+          "column_name": "age",
+          "type": "Child",
+          "json_mapping": {
+            "field": "age"
+          }
+        },
+        {
+          "column_name": "weight",
+          "type": "Child",
+          "json_mapping": {
+            "field": "weight"
+          }
+        },
+        {
+          "column_name": "covax_protection",
+          "type": "Child",
+          "json_mapping": {
+            "field": "covax_protection"
+          }
+        },
+        {
+          "column_name": "phone_number",
+          "type": "Child",
+          "json_mapping": {
+            "field": "phone_number"
+          }
+        },
+        {
+          "column_name": "date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
+        },
+        {
+          "column_name": "home_facility",
+          "type": "Child",
+          "json_mapping": {
+            "field": "addresses.address4"
+          }
+        },
+        {
+          "column_name": "home_facility",
+          "type": "Child",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "Home_Facility"
+          }
+        },
+        {
+          "column_name": "residential_area",
+          "type": "Child",
+          "json_mapping": {
+            "field": "attributes.residential_area"
+          }
+        },
+        {
+          "column_name": "residential_area",
+          "type": "Child",
+          "json_mapping": {
+            "field": "addresses.address3"
+          }
+        },
+        {
+          "column_name": "residential_address",
+          "type": "Child",
+          "json_mapping": {
+            "field": "attributes.residential_address"
+          }
+        },
+        {
+          "column_name": "residential_address",
+          "type": "Child",
+          "json_mapping": {
+            "field": "addresses.address3"
+          }
+        },
+        {
+          "column_name": "residential_area_other",
+          "type": "Child",
+          "json_mapping": {
+            "field": "addresses.address5"
+          }
+        },
+        {
+          "column_name": "inactive",
+          "type": "Child",
+          "json_mapping": {
+            "field": "attributes.inactive"
+          }
+        },
+        {
+          "column_name": "lost_to_follow_up",
+          "type": "Child",
+          "json_mapping": {
+            "field": "attributes.lost_to_follow_up"
+          }
+        },
+        {
+          "column_name": "event_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
+        },
+        {
+          "column_name": "event_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
+        },
+        {
+          "column_name": "date_removed",
+          "type": "Child",
           "json_mapping": {
             "field": "attributes.dateRemoved"
           }

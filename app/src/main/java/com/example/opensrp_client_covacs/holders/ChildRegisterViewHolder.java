@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ChildRegisterViewHolder extends RecyclerView.ViewHolder {
 
     public TextView textViewChildName;
-//    public TextView childOpensrpID;
+    public TextView childOpensrpID;
     public TextView textViewChildAge;
     public TextView textViewAddressGender;
     public View childProfileInfoLayout;

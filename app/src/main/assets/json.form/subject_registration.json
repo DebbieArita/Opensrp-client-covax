@@ -7,7 +7,6 @@
     "encounter_type": "New Child Registration"
   },
   "entity_id": "",
-  "relational_id": "",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -103,10 +102,10 @@
         }
       },
       {
-        "key": "ZEIR_ID",
+        "key": "zeir_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "ZEIR_ID",
+        "openmrs_entity_id": "zeir_id",
         "type": "edit_text",
         "hint": "Write this number on the child's card",
         "value": "0",

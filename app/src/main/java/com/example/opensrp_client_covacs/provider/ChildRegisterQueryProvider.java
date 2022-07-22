@@ -18,9 +18,9 @@ public class ChildRegisterQueryProvider {
         }
 
         return "SELECT " + getDemographicTable() + ".object_id " +
-                "FROM " + CommonFtsObject.searchTableName(getDemographicTable()) + " " + getDemographicTable() + " " +
+                "FROM " + "ec_client_fields_search" + " " + getDemographicTable() + " " +
                 "LEFT JOIN " + getChildDetailsTable() + " ON " + getDemographicTable() + ".object_id = " + getChildDetailsTable() + ".id " +
-                "LEFT JOIN " + CommonFtsObject.searchTableName(getChildDetailsTable()) + " ON " + getDemographicTable() + ".object_id = " + CommonFtsObject.searchTableName(getChildDetailsTable()) + ".object_id " +
+                "LEFT JOIN " + "ec_client_fields_search" + " ON " + getDemographicTable() + ".object_id = " + "ec_client_fields_search" + ".object_id " +
                 strMainCondition + strFilters;
     }
 
@@ -48,16 +48,16 @@ public class ChildRegisterQueryProvider {
         }
 
         return "SELECT count(" + getDemographicTable() + ".object_id) " +
-                "FROM " + CommonFtsObject.searchTableName(getDemographicTable()) + " " + getDemographicTable() + " " +
+                "FROM ec_client_fields_search \n" + " " + getDemographicTable() + " " +
                 "LEFT JOIN " + getChildDetailsTable() + " ON " + getDemographicTable() + ".object_id = " + getChildDetailsTable() + ".id " +
-                "LEFT JOIN " + CommonFtsObject.searchTableName(getChildDetailsTable()) + " ON " + getDemographicTable() + ".object_id = " + CommonFtsObject.searchTableName(getChildDetailsTable()) + ".object_id " +
+                "LEFT JOIN " + "ec_client_fields_search" + " ON " + getDemographicTable() + ".object_id = " + "ec_client_fields_search" + ".object_id " +
                 strMainCondition + strFilters;
     }
 
     public String mainRegisterQuery() {
         return "SELECT " + StringUtils.join(mainColumns(), ",") + " " +
                 "FROM " + getChildDetailsTable() + " " +
-                "JOIN " + getDemographicTable() + " ON " + getDemographicTable() + "." + AppConstants.KeyConstants.BASE_ENTITY_ID + " = " + getChildDetailsTable() + "." + AppConstants.KeyConstants.BASE_ENTITY_ID + " ";
+                "JOIN " + getDemographicTable() + " ON " + getDemographicTable() + "." + AppConstants.KeyConstants.BASE_ENTITY_ID;
     }
 
     public String mainRegisterQuery(String select) {
@@ -66,7 +66,7 @@ public class ChildRegisterQueryProvider {
         }
         return "SELECT " + select + " " +
                 "FROM " + getChildDetailsTable() + " " +
-                "JOIN " + getDemographicTable() + " ON " + getDemographicTable() + "." + AppConstants.KeyConstants.BASE_ENTITY_ID + " = " + getChildDetailsTable() + "." + AppConstants.KeyConstants.BASE_ENTITY_ID;
+                "JOIN " + getDemographicTable() + " ON " + getDemographicTable() + "." + AppConstants.KeyConstants.BASE_ENTITY_ID;
     }
 
 
@@ -74,19 +74,21 @@ public class ChildRegisterQueryProvider {
 
     public String[] mainColumns() {
         return new String[]{
-//                getDemographicTable() + "." + AppConstants.KeyConstants.ID + " as _id",
-////                getDemographicTable() + "." + AppConstants.KeyConstants.COUNTY_ID,
-////                getDemographicTable() + "." + AppConstants.KeyConstants.ZEIR_ID,
-//                getChildDetailsTable() + "." + AppConstants.KeyConstants.ZEIR_ID,
-//                getDemographicTable() + "." + AppConstants.KeyConstants.GENDER,
-//                getDemographicTable() + "." + AppConstants.KeyConstants.FIRST_NAME,
-//                getDemographicTable() + "." + AppConstants.KeyConstants.LAST_NAME,
-//                getDemographicTable() + "." + AppConstants.KeyConstants.DOB,
+                getDemographicTable() + "." + AppConstants.KeyConstants.ID + " as _id",
+//                getDemographicTable() + "." + AppConstants.KeyConstants.COUNTY_ID,
+//                getDemographicTable() + "." + AppConstants.KeyConstants.ZEIR_ID,
+                AppConstants.KeyConstants.ZEIR_ID,
+                getDemographicTable() + "." + AppConstants.KeyConstants.GENDER,
+                getDemographicTable() + "." + AppConstants.KeyConstants.FIRST_NAME,
+                getDemographicTable() + "." + AppConstants.KeyConstants.LAST_NAME,
+                getDemographicTable() + "." + AppConstants.KeyConstants.DOB,
+//                getDemographicTable() + "." + AppConstants.KeyConstants.RESIDENTIAL_ADDRESS
+
 //                getDemographicTable() + "." + AppConstants.KeyConstants.REGISTRATION_DATE,
-////                getChildDetailsTable() + "." + AppConstants.KeyConstants.PMTCT_STATUS,
+//                getChildDetailsTable() + "." + AppConstants.KeyConstants.PMTCT_STATUS,
 //                getChildDetailsTable() + "." + AppConstants.KeyConstants.INACTIVE,
 //                getChildDetailsTable() + "." + AppConstants.KeyConstants.LOST_TO_FOLLOW_UP,
-//                getDemographicTable() + "." + "address1",
+//                "address1",
         };
     }
 
