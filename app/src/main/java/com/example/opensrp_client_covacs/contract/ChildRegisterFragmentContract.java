@@ -16,25 +16,25 @@ public interface ChildRegisterFragmentContract {
     interface Model {
         RegisterConfiguration defaultRegisterConfiguration();
 
-        ViewConfiguration getViewConfiguration(String var1);
+        ViewConfiguration getViewConfiguration(String viewConfigurationIdentifier);
 
-        Set<org.smartregister.configurableviews.model.View> getRegisterActiveColumns(String var1);
+        Set<org.smartregister.configurableviews.model.View> getRegisterActiveColumns(String viewConfigurationIdentifier);
 
-        String countSelect(String var1);
+        String countSelect(String mainCondition);
 
-        String mainSelect(String var1);
+        String mainSelect(String mainCondition);
 
-        String getFilterText(List<Field> var1, String var2);
+        String getFilterText(List<Field> filterList, String filter);
 
-        String getSortText(Field var1);
+        String getSortText(Field sortField);
 
 //        AdvancedMatrixCursor createMatrixCursor(Response<String> var1);
 
-        JSONArray getJsonArray(Response<String> var1);
+        JSONArray getJsonArray(Response<String> response);
     }
 
     interface Presenter extends org.smartregister.view.contract.BaseRegisterFragmentContract.Presenter {
-        void updateSortAndFilter(List<Field> var1, Field var2);
+        void updateSortAndFilter(List<Field> filterList, Field sortField);
 
         String getMainCondition();
 
@@ -42,7 +42,7 @@ public interface ChildRegisterFragmentContract {
     }
 
     interface View extends BaseRegisterFragmentContract.View {
-        void initializeAdapter(Set<org.smartregister.configurableviews.model.View> var1);
+        void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns);
 
         void recalculatePagination(AdvancedMatrixCursor matrixCursor);
 

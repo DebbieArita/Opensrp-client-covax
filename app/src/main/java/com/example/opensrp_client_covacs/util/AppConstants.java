@@ -34,7 +34,10 @@ public class AppConstants {
         public static final String FEMALE = "female";
         public static final String BASE_ENTITY_ID = "base_entity_id";
         public static final String VALUE = "value";
-//        public static final String RELATIONAL_ID = "relational_id";
+        public static final String DATE_REMOVED = "date_removed";
+        public static final String IS_CLOSED = "is_closed";
+        public static final String LAST_INTERACTED_WITH = "last_interacted_with";
+
 
         public static final String WEIGHT = "weight";
         public static final String COVAX_PROTECTION = "covacs_protection";
@@ -89,6 +92,10 @@ public class AppConstants {
     public static final class EventType {
         public static final String CHILD_REGISTRATION = "Subject Registration";
         public static final String UPDATE_CHILD_REGISTRATION = "Update Subject Registration";
+        public static final String AEFI = "AEFI";
+        public static final String DEATH = "Death";
+        public static final String ARCHIVE_CHILD_RECORD = "archive_child_record";
+        public static final String BOOSTER_VACCINES = "booster_vaccines";
 
     }
 
@@ -110,7 +117,6 @@ public class AppConstants {
         public static final String SUB_TYPE = "sub_type";
         public static final String LOCATION_SUB_TYPE = "location";
         public static final String VALUE_FIELD = "value_field";
-        public static final String RELATIONSHIPS = "relationships";
         public static final String SERVICES = "services";
         public static final String EXCLUSION_KEYS = "exclusion_keys";
     }
@@ -182,5 +188,12 @@ public class AppConstants {
         public static final String LOGIN = "login";
         public static final String CHILD_REGISTER = "family_register";
         public static final String CHILD_MEMBER_REGISTER = "child_member_register";
+    }
+
+    public static final class CHILD_STATUS {
+        public static final String ACTIVE = "active";
+        public static final String INACTIVE = "inactive";
+        public static final String LOST_TO_FOLLOW_UP = "lost_to_follow_up";
+
     }
 }

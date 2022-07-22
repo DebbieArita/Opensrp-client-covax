@@ -11,17 +11,17 @@
           }
         },
         {
-          "column_name": "opensrp_id",
-          "type": "Client",
+          "column_name": "child.zeir_id",
+          "type": "child",
           "json_mapping": {
-            "field": "identifiers.zeir_id"
+            "field": "identifier.zeir_id"
           }
         },
         {
-          "column_name": "opensrp_id",
-          "type": "Client",
+          "column_name": "ZEIR_ID",
+          "type": "child",
           "json_mapping": {
-            "field": "identifiers.ZEIR_ID"
+            "field": "identifier.ZEIR_ID"
           }
         },
         {
@@ -49,14 +49,7 @@
           "column_name": "zeir_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.zeir_id"
-          }
-        },
-        {
-          "column_name": "zeir_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "identifiers.ZEIR_ID"
+            "field": "ZEIR_ID"
           }
         },
         {
@@ -94,77 +87,77 @@
       "columns": [
         {
           "column_name": "base_entity_id",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "baseEntityId"
           }
         },
         {
           "column_name": "first_name",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "first_name"
           }
         },
         {
           "column_name": "last_name",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "last_name"
           }
         },
         {
           "column_name": "dob",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "birth_date"
           }
         },
         {
           "column_name": "zeir_id",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
-            "field": "identifiers.zeir_id"
+            "field": "identifier.zeir_id"
           }
         },
         {
           "column_name": "zeir_id",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
-            "field": "identifiers.ZEIR_ID"
+            "field": "identifier.ZEIR_ID"
           }
         },
         {
           "column_name": "gender",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "gender"
           }
         },
         {
           "column_name": "age",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "age"
           }
         },
         {
           "column_name": "weight",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "weight"
           }
         },
         {
           "column_name": "covax_protection",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "covax_protection"
           }
         },
         {
           "column_name": "phone_number",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "phone_number"
           }
@@ -178,14 +171,14 @@
         },
         {
           "column_name": "home_facility",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "addresses.address4"
           }
         },
         {
           "column_name": "home_facility",
-          "type": "Event",
+          "type": "Child",
           "json_mapping": {
             "field": "obs.fieldCode",
             "formSubmissionField": "Home_Facility"
@@ -193,49 +186,49 @@
         },
         {
           "column_name": "residential_area",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "attributes.residential_area"
           }
         },
         {
           "column_name": "residential_area",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "addresses.address3"
           }
         },
         {
           "column_name": "residential_address",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "attributes.residential_address"
           }
         },
         {
           "column_name": "residential_address",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "addresses.address3"
           }
         },
         {
           "column_name": "residential_area_other",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "addresses.address5"
           }
         },
         {
           "column_name": "inactive",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "attributes.inactive"
           }
         },
         {
           "column_name": "lost_to_follow_up",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "attributes.lost_to_follow_up"
           }
@@ -256,7 +249,7 @@
         },
         {
           "column_name": "date_removed",
-          "type": "Client",
+          "type": "Child",
           "json_mapping": {
             "field": "attributes.dateRemoved"
           }

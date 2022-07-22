@@ -19,12 +19,14 @@ import com.example.opensrp_client_covacs.domain.RepositoryHolder;
 import com.example.opensrp_client_covacs.model.ChildRegisterFragmentModel;
 import com.example.opensrp_client_covacs.presenter.ChildRegisterFragmentPresenter;
 import com.example.opensrp_client_covacs.provider.ChildRegisterProvider;
+import com.example.opensrp_client_covacs.util.DBQueryHelper;
 import com.example.opensrp_client_covacs.util.Utils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.immunization.ImmunizationLibrary;
+import org.smartregister.util.AppExecutors;
 import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -36,6 +38,8 @@ import java.util.Set;
 import timber.log.Timber;
 
 public class ChildRegisterFragment extends BaseRegisterFragment implements ChildRegisterFragmentContract.View, View.OnClickListener, LocationPickerView.OnLocationChangeListener {
+
+    private int overDueCount = 0;
 
     @Nullable
     @Override
@@ -157,15 +161,51 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
     //TODO make use of AppExecutors...
     @Override
     public void countExecute() {
-        String sql = Utils.metadata().getRegisterQueryProvider().getCountExecuteQuery(mainCondition, filters);
-        Timber.i(sql);
-        int totalCount = commonRepository().countSearchIds(sql);
+        AppExecutors executors = new AppExecutors();
+        executors.diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String sql = Utils.metadata().getRegisterQueryProvider().getCountExecuteQuery(mainCondition, filters);
+                    Timber.i(sql);
+                    int totalCount = commonRepository().countSearchIds(sql);
 
-        clientAdapter.setTotalcount(totalCount);
-        Timber.i("Total Register Count %d", clientAdapter.getTotalcount());
-        clientAdapter.setCurrentlimit(20);
-        clientAdapter.setCurrentoffset(0);
+                    // For overdue count
+                    // FIXME: Count generated on first sync is not correct
+                    String sqlOverdueCount = Utils.metadata().getRegisterQueryProvider()
+                            .getCountExecuteQuery(filterSelectionCondition(true), "");
+                    Timber.i(sqlOverdueCount);
+                    overDueCount = commonRepository().countSearchIds(sqlOverdueCount);
+                    Timber.i("Total Overdue Count %d ", overDueCount);
+                    executors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            clientAdapter.setTotalcount(totalCount);
+                            Timber.i("Total Register Count %d", clientAdapter.getTotalcount());
+                            clientAdapter.setCurrentlimit(20);
+                            clientAdapter.setCurrentoffset(0);
+                        }
+                    });
+                } catch (Exception e) {
+                    Timber.e(e);
+                }
+            }
+        });
+    }
 
+//        String sql = Utils.metadata().getRegisterQueryProvider().getCountExecuteQuery(mainCondition, filters);
+//        Timber.i(sql);
+//        int totalCount = commonRepository().countSearchIds(sql);
+//
+//        clientAdapter.setTotalcount(totalCount);
+//        Timber.i("Total Register Count %d", clientAdapter.getTotalcount());
+//        clientAdapter.setCurrentlimit(20);
+//        clientAdapter.setCurrentoffset(0);
+//    }
+
+
+    protected String filterSelectionCondition(boolean urgentOnly) {
+        return DBQueryHelper.getFilterSelectionCondition(urgentOnly);
     }
 
     @Override

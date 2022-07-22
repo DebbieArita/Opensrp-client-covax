@@ -5,6 +5,8 @@ import com.example.opensrp_client_covacs.contract.ChildRegisterFragmentContract;
 import com.example.opensrp_client_covacs.cursor.AdvancedMatrixCursor;
 import com.example.opensrp_client_covacs.fragment.ChildRegisterFragment;
 import com.example.opensrp_client_covacs.model.ChildRegisterFragmentModel;
+import com.example.opensrp_client_covacs.util.AppConstants;
+import com.example.opensrp_client_covacs.util.DBQueryHelper;
 import com.example.opensrp_client_covacs.util.Utils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -49,12 +51,14 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
 
     @Override
     public String getMainCondition() {
-        return null;
+        return String.format(" %s is null AND %s == 0 ",
+                Utils.metadata().getRegisterQueryProvider().getDemographicTable() + "." + AppConstants.KeyConstants.DATE_REMOVED,
+                Utils.metadata().getRegisterQueryProvider().getDemographicTable() + "." + AppConstants.KeyConstants.IS_CLOSED);
     }
 
     @Override
     public String getDefaultSortQuery() {
-        return null;
+        return DBQueryHelper.getSortQuery();
     }
 
     @Override
@@ -77,6 +81,11 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
 
     @Override
     public void initializeQueries(String mainCondition) {
+        getView().initializeQueryParams(AppConstants.TableNameConstants.ALL_CLIENTS, null, null);
+        getView().initializeAdapter(visibleColumns);
+        getView().countExecute();
+        getView().filterandSortInInitializeQueries();
+
 
 //        String tableName = Utils.metadata().getRegisterQueryProvider().getDemographicTable();
 //
@@ -88,7 +97,6 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
 //
 //        getView().countExecute();
 //        getView().filterandSortInInitializeQueries();
-
     }
 
     private void setVisibleColumns(Set<View> visibleColumns) {
